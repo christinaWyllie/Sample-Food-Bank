@@ -6,7 +6,7 @@ public class DataBase{
   private ResultSet results;
   private
   
-  public Food(){
+  public DataBase(){
     initializeConnection();
     getCalorieInfo();
   }
