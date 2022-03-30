@@ -262,9 +262,38 @@ public class FinalProjectTest {
    public void testRemoveInventory() {
         //testing the removal of items from food, parallel to the database
 	   
-	('Wheat bread, loaf', 96, 0, 4, 0, 2192), 
-	('Wheat bread, loaf', 96, 0, 4, 0, 2192), 
-	('Wheat bread, loaf', 96, 0, 4, 0, 2192), 
+	   String name1= "Wheat bread, loaf";
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   Food food1 = Food(name1, g1, f1, p1, o1, c1);
+	   
+	   String name2 = "Wheat bread, loaf";
+	   int g2 = 96;
+	   int f2 = 0;
+	   int p2 = 4;
+	   int o2 = 0;
+	   int c2 = 2192;
+	   Food food1 = Food(name2, g2, f2, p2 o2, c2);
+	   
+	   String name3= "Wheat bread, loaf";
+	   int g3 = 96;
+	   int f3 = 0;
+	   int p3 = 4;
+	   int o3 = 0;
+	   int c3 = 2192;
+	   Food food1 = Food(name3, g3, f3, p3, o3, c3);
+
+	   String name4= "Orange, dozen";
+	   int g1 = 0;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   Food food1 = Food(name1, g1, f1, p1, o1, c1);
+	   
 	('Orange, dozen', 0, 100, 0, 0, 864), 
 	('Orange, dozen', 0, 100, 0, 0, 864), 
 	('Eggs, dozen', 0, 0, 9, 91, 864), 
