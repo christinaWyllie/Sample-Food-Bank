@@ -25,20 +25,24 @@ public class Family implements Calculate{
     int totalFV = 0;
     int totalOther = 0;
     int totalCalories = 0;
-    
-    for (int i = 0; i < this.ID.length; i++){
-      double c = (double)calsData.getCalories(this.ID[i]);
-      double g = (double)calsData.getGrainPercent(this.ID[i]);
-      double p = (double)calsData.getProteinPercent(this.ID[i]);
-      double f = (double)calsData.getFVPercent(this.ID[i]);
-      double o = (double)calsData.getOtherPercent(this.ID[i]);
+    int i = 1;
+    int index = 0;
+    while (i != 5){
+      if (this.ID[index] != 0){
+        
+        double c = (double)calsData.getCalories(i);
+        double g = (double)calsData.getGrainPercent(i);
+        double p = (double)calsData.getProteinPercent(i);
+        double f = (double)calsData.getFVPercent(i);
+        double o = (double)calsData.getOtherPercent(i);
       
       
-      totalGrain += ((g/100)*c);
-      totalProtein += ((p/100)*c);
-      totalFV += ((f/100)*c);
-      totalOther += ((o/100)*c);
-      totalCalories += c;
+        totalGrain += ((g/100)*c * this.ID[i]);
+        totalProtein += ((p/100)*c * this.ID[i]);
+        totalFV += ((f/100)*c * this.ID[i]);
+        totalOther += ((o/100)*c * this.ID[i]);
+        totalCalories += (c* this.ID[i]);
+      }
     }
     
     this.TOTAL = new Nutrition(totalGrain, totalProtein, totalFV, totalOther, totalCalories);
