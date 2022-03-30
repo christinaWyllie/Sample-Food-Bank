@@ -4,7 +4,7 @@ package edu.ucalgary.ensf409;
 public class OrderForm implements FormatOutput{
   private Application app;
   
-  public OrderFrom(){
+  public OrderFrom()throws IOException{
     
   }
   
