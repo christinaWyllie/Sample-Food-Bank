@@ -1,7 +1,7 @@
 
 package edu.ucalgary.ensf409;
 
-public class OrderForm{
+public class OrderForm implements FormatOutput{
   private Application app;
   
   public OrderFrom(){
@@ -11,4 +11,14 @@ public class OrderForm{
   public void removeInventory(){
     
   } 
-
+  
+  public void print(){
+    
+  } 
+  
+  @Override
+  public void formatString(){
+    
+  }
+  
+}
