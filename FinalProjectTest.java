@@ -96,10 +96,10 @@ public class FinalProjectTest {
 	
 	//END OF APPLICATION TESTS 
 	
-	//TEST CLIENT
+	//TEST FAMILY
 	
 	@Test
-    public void testClientConstructor() {
+    public void testFamilyConstructor() {
         
         // Test data - these values may be changed in actual tests 
         String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
@@ -114,7 +114,7 @@ public class FinalProjectTest {
     }
 	
 	@Test
-    public void testGetClientDefaultValues() {
+    public void testGetFamilyDefaultValues() {
         
         // Test data - these values may be changed in actual tests 
         String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
@@ -131,7 +131,7 @@ public class FinalProjectTest {
 	
 	
 	@Test
-    public void testGetClientID() {
+    public void testGetFamilyID() {
         
         // Test data - these values may be changed in actual tests 
         String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
@@ -161,11 +161,85 @@ public class FinalProjectTest {
     }
 
 	
-	//END OF CLIENT TESTS 
+	//END OF Family TESTS 
 	
 	//NUTRITION TESTS
 	@Test
     public void testGetNutrition() {
+        //Individual nutitrion values returned for each available index for family array list
+		
+		
+        // Test data - these values may be changed in actual tests 
+        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
+        
+        // Create object, parse data
+        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
+        pattern.setPattern(givenData);
+        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
+        String actualContents = convertToString(actualPattern);
+
+        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+    }
+	
+	
+	
+	//EXCEPTION TESTS
+	@Test
+   public void testNotEnoughInventoryException() {
+        //Individual nutitrion values returned for each available index for family array list
+		
+		
+        // Test data - these values may be changed in actual tests 
+        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
+        
+        // Create object, parse data
+        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
+        pattern.setPattern(givenData);
+        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
+        String actualContents = convertToString(actualPattern);
+
+        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+    }
+	
+	
+	@Test
+   public void testIllegalArugementException() {
+        //Individual nutitrion values returned for each available index for family array list
+		
+		
+        // Test data - these values may be changed in actual tests 
+        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
+        
+        // Create object, parse data
+        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
+        pattern.setPattern(givenData);
+        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
+        String actualContents = convertToString(actualPattern);
+
+        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+    }
+	
+		@Test
+   public void testIOException() {
+        //Individual nutitrion values returned for each available index for family array list
+		
+		
+        // Test data - these values may be changed in actual tests 
+        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
+        
+        // Create object, parse data
+        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
+        pattern.setPattern(givenData);
+        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
+        String actualContents = convertToString(actualPattern);
+
+        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+    }
+	
+	//HAMPER NUTRITION TESTS
+	
+		@Test
+   public void test() {
         //Individual nutitrion values returned for each available index for family array list
 		
 		
