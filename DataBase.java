@@ -47,7 +47,15 @@ public class DataBase{
         }
     }
     
-    public void 
+    public void getInventoryInfo(){
+      try{
+      Statement myStmt = this.dbConnect.createStatement();
+      String query = "SELECT * AVAILABLE_FOOD";
+      this.results = myStmt.executeQuery(query);
+      while(this.results.next()){
+      }
+      }
+      
     
     public int getCalories(int id){
       return this.caloriesTable[id - 1][5];
