@@ -32,7 +32,7 @@ public class Family implements Calculate{
       double p = (double)calsData.getProteinPercent(this.ID[i]);
       double f = (double)calsData.getFVPercent(this.ID[i]);
       double o = (double)calsData.getOtherPercent(this.ID[i]);
-      double c = (double)calsData.getCalories(this.ID[i]);
+      
       
       totalGrain += ((g/100)*c);
       totalProtein += ((p/100)*c);
