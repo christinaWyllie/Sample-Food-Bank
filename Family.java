@@ -3,6 +3,7 @@
 public class Family implements Calculate{
   private final Nutrition TOTAL;
   private int[] ID;
+  private Food calsData = new Food(); 
   
   public Family(int[] ID){
     this.ID = ID;
@@ -26,12 +27,12 @@ public class Family implements Calculate{
     int totalCalories = 0;
     
     for (int i = 0; i < this.ID.length; i++){
-      double c = (double)getCalories(this.ID[i]);
-      double g = (double)getGrainPercent(this.ID[i]);
-      double p = (double)getProteinPercent(this.ID[i]);
-      double f = (double)getFVPercent(this.ID[i]);
-      double o = (double)getOtherPercent(this.ID[i]);
-      double c = (double)getCalories(this.ID[i]);
+      double c = (double)calsData.getCalories(this.ID[i]);
+      double g = (double)calsData.getGrainPercent(this.ID[i]);
+      double p = (double)calsData.getProteinPercent(this.ID[i]);
+      double f = (double)calsData.getFVPercent(this.ID[i]);
+      double o = (double)calsData.getOtherPercent(this.ID[i]);
+      double c = (double)calsData.getCalories(this.ID[i]);
       
       totalGrain += ((g/100)*c);
       totalProtein += ((p/100)*c);
