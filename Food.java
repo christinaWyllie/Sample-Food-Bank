@@ -13,7 +13,7 @@ public class Food{
   
   public void initializeConnection(){
     try{
-      this.dBConnect = DriverManager.getConnection(databaseURL, "student", "ensf409");
+      this.dBConnect = DriverManager.getConnection(databaseURL, "student", "ensf409"); //dont actually know database url so fix
     }
     catch(SQLException e){
       e.printStackTrace(); //may need to be changed 
