@@ -1,10 +1,12 @@
 //food
 import java.sql.*;
+import java.util.*;
 
 public class DataBase{
   private Connection dbConnect;
   private ResultSet results;
   private int[][] calorieTable = new int[4][6];
+  private LinkedList<Food> inventory = new LinkedList<Food>(); //where we will pass this info 
   
   public DataBase(){
     initializeConnection();
@@ -60,9 +62,13 @@ public class DataBase{
         int f = results.getInt("FVContent");
         int o = results.getInt("Other");
         int c = results.getInt("Calories");
-        Food f = new Food(
-      }
-      }
+        Food foodItem = new Food(id, name, g, f, p, o, c);
+        this.inventory.add(foodItem)
+        }
+      }catch (SQLException ex) {
+          ex.printStackTrace();
+       }
+    }
       
     
     public int getCalories(int id){
