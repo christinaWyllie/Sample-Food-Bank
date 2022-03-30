@@ -28,11 +28,11 @@ public class DataBase{
       int i = 0; 
       
       while(this.results.next()){
-        int g = result.getInt("WholeGrains");
-        int p = result.getInt("Protein");
-        int f = result.getInt("FruitVeggies");
-        int o = result.getInt("Other");
-        int c = result.getInt("Calories");
+        int g = results.getInt("WholeGrains");
+        int p = results.getInt("Protein");
+        int f = results.getInt("FruitVeggies");
+        int o = results.getInt("Other");
+        int c = results.getInt("Calories");
         
         this.calorieTable[i][0] = i + 1;
         this.calorieTable[i][1] = g;
@@ -53,6 +53,14 @@ public class DataBase{
       String query = "SELECT * AVAILABLE_FOOD";
       this.results = myStmt.executeQuery(query);
       while(this.results.next()){
+        int id = results.getInt("ItemID");
+        String name = results.getString("Name");
+        int g = results.getInt("GrainContent");
+        int p = results.getInt("ProContent");
+        int f = results.getInt("FVContent");
+        int o = results.getInt("Other");
+        int c = results.getInt("Calories");
+        Food f = new Food(
       }
       }
       
