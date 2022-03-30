@@ -1,5 +1,5 @@
 //Nutrition
-
+package edu.ucalgary.ensf409;
 
 public class Nutrition{
   private final int GRAIN;
