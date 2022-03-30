@@ -3,10 +3,11 @@
 public class Family implements Calculate{
   private final Nutrition TOTAL;
   private int[] ID;
-  private Food calsData = new Food(); 
+  private dataAccess d; 
   
-  public Family(int[] ID){
+  public Family(int[] ID, DataBase d){
     this.ID = ID;
+    this.dataAccess  = d; 
     calculateCalories();
   }
   
@@ -30,19 +31,22 @@ public class Family implements Calculate{
     while (i != 5){
       if (this.ID[index] != 0){
         
-        double c = (double)calsData.getCalories(i);
-        double g = (double)calsData.getGrainPercent(i);
-        double p = (double)calsData.getProteinPercent(i);
-        double f = (double)calsData.getFVPercent(i);
-        double o = (double)calsData.getOtherPercent(i);
+        double c = (double)dataAccess.getCalories(i);
+        double g = (double)dataAccess.getGrainPercent(i);
+        double p = (double)dataAccess.getProteinPercent(i);
+        double f = (double)dataAccess.getFVPercent(i);
+        double o = (double)dataAccess.getOtherPercent(i);
       
       
-        totalGrain += ((g/100)*c * this.ID[i]);
-        totalProtein += ((p/100)*c * this.ID[i]);
-        totalFV += ((f/100)*c * this.ID[i]);
-        totalOther += ((o/100)*c * this.ID[i]);
-        totalCalories += (c* this.ID[i]);
+        totalGrain += ((g/100)*c * this.ID[index]);
+        totalProtein += ((p/100)*c * this.ID[index]);
+        totalFV += ((f/100)*c * this.ID[index]);
+        totalOther += ((o/100)*c * this.ID[index]);
+        totalCalories += (c* this.ID[index]);
+       
       }
+      i++;
+      index++;
     }
     
     this.TOTAL = new Nutrition(totalGrain, totalProtein, totalFV, totalOther, totalCalories);
