@@ -4,7 +4,7 @@ import java.sql.*;
 public class DataBase{
   private Connection dbConnect;
   private ResultSet results;
-  private
+  private int[][] calorieTable = new int[4][6];
   
   public DataBase(){
     initializeConnection();
@@ -26,7 +26,7 @@ public class DataBase{
       String query = "SELECT * FROM DAILY_CLIENT_NEEDS";
       this.results = myStmt.executeQuery(query);
       int i = 0; 
-      int[][] calorieTable = new int[4][6];
+      
       while(this.results.next()){
         int g = result.getInt("WholeGrains");
         int p = result.getInt("Protein");
@@ -34,20 +34,20 @@ public class DataBase{
         int o = result.getInt("Other");
         int c = result.getInt("Calories");
         
-        calorieTable[i][0] = i + 1;
-        calorieTable[i][1] = g;
-        calorieTable[i][2] = p;
-        calorieTable[i][3] = f;
-        calorieTable[i][4] = o;
-        calorieTable[i][5] = c;
+        this.calorieTable[i][0] = i + 1;
+        this.calorieTable[i][1] = g;
+        this.calorieTable[i][2] = p;
+        this.calorieTable[i][3] = f;
+        this.calorieTable[i][4] = o;
+        this.calorieTable[i][5] = c;
         
         i++
         }catch (SQLException ex) {
             ex.printStackTrace();
         }
-      
-      CaloricInfo cals = new CaloricInfo(calorieTable);
     }
+    
+    public void 
     
     public int getCalories(int id){
       return this.caloriesTable[id - 1][5];
