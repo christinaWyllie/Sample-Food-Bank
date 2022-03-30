@@ -236,7 +236,7 @@ public class FinalProjectTest {
         assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
     }
 	
-	//HAMPER NUTRITION TESTS
+	//HAMPERNUTRITION TESTS
 	
 		@Test
    public void test() {
@@ -254,6 +254,26 @@ public class FinalProjectTest {
 
         assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
     }
+	
+	//ORDERFORM TESTS
+	
+	
+		@Test
+   public void testRemoveInventory() {
+        //testing the removal of items from food, parallel to the database
+	   
+	('Wheat bread, loaf', 96, 0, 4, 0, 2192), 
+	('Wheat bread, loaf', 96, 0, 4, 0, 2192), 
+	('Wheat bread, loaf', 96, 0, 4, 0, 2192), 
+	('Orange, dozen', 0, 100, 0, 0, 864), 
+	('Orange, dozen', 0, 100, 0, 0, 864), 
+	('Eggs, dozen', 0, 0, 9, 91, 864), 
+		
+		
+
+        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+    }
+	
 	
 	
 }
