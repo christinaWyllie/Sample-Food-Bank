@@ -8,9 +8,11 @@ public class DataBase{
   private int[][] calorieTable = new int[4][6];
   private LinkedList<Food> inventory = new LinkedList<Food>(); //where we will pass this info 
   
+  
   public DataBase(){
     initializeConnection();
-    getCalorieInfo();
+    getCalorieData();
+    getInventoryData();
   }
   
   public void initializeConnection(){
@@ -22,7 +24,7 @@ public class DataBase{
     }
   }
   
-  public void getCalorieInfo(){
+  public void getCalorieData(){
     try{
       Statement myStmt = this.dbConnect.createStatement();
       String query = "SELECT * FROM DAILY_CLIENT_NEEDS";
@@ -49,7 +51,7 @@ public class DataBase{
         }
     }
     
-    public void getInventoryInfo(){
+    public void getInventoryData(){
       try{
       Statement myStmt = this.dbConnect.createStatement();
       String query = "SELECT * AVAILABLE_FOOD";
@@ -69,27 +71,16 @@ public class DataBase{
           ex.printStackTrace();
        }
     }
-      
     
-    public int getCalories(int id){
-      return this.caloriesTable[id - 1][5];
+    public int[][] getCalorieInfo()
+    {
+      return this.calorieTable;
+    }
+    public LinkedList<Food> getInventoryInfo(){
+      return this.inventory;
     }
     
-    public int getGrainPercent(int id){
-      return this.caloriesTable[id - 1][1];
-    }
     
-    public int getProteinPercent(int id){
-      return this.caloriesTable[id - 1][2];
-    }
-    
-    public int getFVPercent(int id){
-      return this.caloriesTable[id - 1][3];
-    }
-    
-    public int getOtherPercent(int id){
-      return this.caloriesTable[id - 1][4];
-    }
   }
     
         
