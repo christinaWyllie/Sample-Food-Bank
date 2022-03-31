@@ -8,12 +8,21 @@ public class Inventory{
   
   public Inventory(){
     this.dataAccess = new DataBase();
-    this.inventory = this.dataAccess.getInventoryInfo();
+    this.inventory = setInventory(this.dataAccess.getInventoryInfo());
     this.calorieTable = this.dataAccess.getCalorieInfo();
   }
   //removes from inventory linkedlist and puts into removed invernotry linkedlist
   public void removeFromInventory(LinkedList<Food> toBeRemoved);
-    
+  
+  public void setInventory(LinkedList<Food> inv)
+  {
+    this.inventory = inv;
+  }
+  
+  public void setCalories(int[][] calorieInfo)
+  {
+    this.calorieTable = calorieInfo;
+  }
   //removes from database through dataAccess object
   public boolean removeDataBase();
    
