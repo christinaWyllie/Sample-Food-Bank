@@ -8,7 +8,6 @@ import java.util.*;
 
 public class FinalProjectTest {
 	
-	
 	//TEST APPLICATION
 	@Test
     public void testApplicationConstructor() {
@@ -324,7 +323,6 @@ public class FinalProjectTest {
 
         assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
     }
-	
 	
 	
 }
