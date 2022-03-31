@@ -361,6 +361,7 @@ public class FinalProjectTest {
 	   foodList.add(food5);
 	   foodList.add(food6);
 	   
+		
 		Inventory inventory = new Inventory();
 		inventory.setInventory(foodList);
 		
@@ -378,6 +379,10 @@ public class FinalProjectTest {
 		
 		ArrayList familyList = new ArrayList<Family>();
 		familyList.add(family);
+		
+		
+		
+		
       	
     }
 	
