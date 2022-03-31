@@ -8,130 +8,69 @@ import java.util.*;
 
 public class FinalProjectTest {
 	
-	//TEST APPLICATION
+//TEST APPLICATION
 	@Test
     public void testApplicationConstructor() {
         //Num hampers create default values
-		//client object created 
-        
+		//family object created and returns array list 
+        //Array reads in as [Adult male, adult female, child under 8, child over 8]
 		
 		// Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
-
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+        int givenData = [0,1,0,0];
+		int expectedNumHamper = 1;
+        Application application1 = new Application(givenData);
+		
+		int actualContentHamper = application1.getNumHampers();
+		ArrayList<Family> expectedArray = new ArrayList<Family>();
+		expectedArray.add(new Family(givenData)); 
+		ArrayList<Family> actualContentArray = application1.getFamilies();
+		
+        assertEquals("Value of contents did not match what was expected: ", expectedNumHamper, actualContentHamper);
+		assertEquals("Value of contents did not match what was expected: ", expectedArray, actualContent);
     }
-	
-	@Test
-    public void testTerminateApplication() {
-        
-        // Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
 
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
-    }
-	
 	@Test
-    public void testSetGetNumHampers() {
+    public void testGetAddHamper() {
         //Adding a family to the arraylist which creates a new family object within the same application 
-        
-		
-		// Test data - these values may be changed in actual tests 
-        int givenData = 2;
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        application1.setHamper(givenData);
-         = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
+		int array1 = [0,1,2,0]
+        int array = [2,4,0,0];
+        int expectedNumHamper = 2
+		Application application2 = new Application(array1);
+        application2.addHamper(array);
+		int actualContentNumHamper = application2.getNumHampers();
 
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
-    }
-	
-	@Test
-    public void testSetGetNumHampers() {
-        //Adding a family to the arraylist which creates a new family object within the same application 
-        
-		
-		// Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
-
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+        assertEquals("Value of NumHamper did not match what was expected: ", expectedNumHamper, actualContentNumHampers);
     }
 	
 	@Test
     public void testGetUserInput() {
         //Successfully reads user input and arraylist adds that input to next index available
+       
+	    int givenData = [2,1,0,1];
+        String expected = "Your family unit contains: 2 Adult Male, Adult Female, 0 Child under 8, 1 Child Over 8";
         
-		// Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
+        Application application3 = new Application(array);
+		int actualContents = application3.getUserInput();
 
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+        assertEquals("String did not match what was expected: ", expected, actualContents);
     }
-	
-	
-	//END OF APPLICATION TESTS 
 	
 	//TEST FAMILY
 	
 	@Test
-    public void testFamilyConstructor() {
-        
-        // Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
+    public void testFamilyConstructorDefault() {
+        int array = [1,0,1,0];
+     
+        String expected = "0230";
+        Family family1 = new Family(array);
+		String actualContent = family1.getID();
 
         assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
     }
 	
 	@Test
-    public void testGetFamilyDefaultValues() {
-        
-        // Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
-
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
-    }
-	
-	
-	
-	@Test
-    public void testGetFamilyID() {
-        
+    public void testMultipleFamily() {
+        //Arraylist
         // Test data - these values may be changed in actual tests 
         String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
         
@@ -158,27 +97,62 @@ public class FinalProjectTest {
 
         assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
     }
-
-	
-	//END OF Family TESTS 
 	
 	//NUTRITION TESTS
 	@Test
-    public void testGetNutrition() {
-        //Individual nutitrion values returned for each available index for family array list
+    public void testGetNutritionSinglePerson() {
+        //tests getters when only one person is given to the application 
+		//NO addition required for total grains 
+        int givenDataGrain = 400;
+        int givenDataFV = 700;
+		int givenDataProtein = 650;
+		int givenDataOther = 750;
+		int givenDataCalories = 2500;
 		
+		int[] array = [1,0,0,0];
+		Application application2 = new Application(array);
 		
-        // Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
+		int actualContentGrain = application2.getGrain();
+        int actualContentProtein = application2.getProtein();
+		int actualContentFV = application2.getFV();
+		int actualContentOther = application2.getOther();
+		int actualContentCalories = application2.getCalories();
         
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
 
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+        assertEquals("Value of grains did not match what was expected: ", givenData, actualContents);
+		assertEquals("Value of protien did not match what was expected: ", givenData, actualContents);
+		assertEquals("Value of FV content did not match what was expected: ", givenData, actualContents);
+		assertEquals("Value of other nutrition did not match what was expected: ", givenData, actualContents);
+		assertEquals("Value of calories did not match what was expected: ", givenData, actualContents);
     }
+	
+	//NUTRITION TESTS
+	@Test
+    public void testNutritionCalculate() {
+        //Nutrition when given a full family (checks total caloric requirements)
+        int givenDataGrain = 400 + 320 + ;
+        int givenDataFV = 700 + 560;
+		int givenDataProtein = 650 + 520;
+		int givenDataOther = 750 + 600 ;
+		int givenDataCalories = 8100;
+		
+		int[] array = [1,1,1,1];
+		Application application2 = new Application(array);
+		
+		int actualContentGrain = application2.getGrain();
+        int actualContentProtein = application2.getProtein();
+		int actualContentFV = application2.getFV();
+		int actualContentOther = application2.getOther();
+		int actualContentCalories = application2.getCalories();
+        
+
+        assertEquals("Value of grains did not match what was expected: ", givenDataGrain, actualContentGrain);
+		assertEquals("Value of protien did not match what was expected: ", givenDataProtien, actualContentProtien);
+		assertEquals("Value of FV content did not match what was expected: ", givenDataFV, actualContentFV);
+		assertEquals("Value of other nutrition did not match what was expected: ", givenDataOther, actualContentOther);
+		assertEquals("Value of calories did not match what was expected: ", givenDataCalories, actualContentCalories);
+    }
+	
 	
 	
 	
