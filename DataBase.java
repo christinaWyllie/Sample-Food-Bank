@@ -15,7 +15,7 @@ public class DataBase{
     getInventoryData();
   }
   
-  public void initializeConnection(){
+  private void initializeConnection(){
     try{
       this.dBConnect = DriverManager.getConnection(databaseURL, "student", "ensf409"); //dont actually know database url so fix
     }
@@ -24,7 +24,7 @@ public class DataBase{
     }
   }
   
-  public void getCalorieData(){
+  private void getCalorieData(){
     try{
       Statement myStmt = this.dbConnect.createStatement();
       String query = "SELECT * FROM DAILY_CLIENT_NEEDS";
@@ -77,8 +77,10 @@ public class DataBase{
       return this.calorieTable;
     }
     public LinkedList<Food> getInventoryInfo(){
-      return this.inventory;
+      return this.inventory; //make sure that 
     }
+    
+    public boolean updateDataBase(LinkedList<Food> toBeRemoved);
     
     
   }
