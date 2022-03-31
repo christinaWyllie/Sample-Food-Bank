@@ -379,47 +379,85 @@ public class FinalProjectTest {
 		
 		ArrayList familyList = new ArrayList<Family>();
 		familyList.add(family);
-		
-		
-		
-		
-      	
-    }
-	
-	
-}
+	}
 
-	//FOOD CLASS TEST CONSTRUCTOR
+//FOOD CLASS TEST CONSTRUCTOR
 	@Test
 	public void testFoodConstructorandGetter(){
+		
 	   String name1= "Wheat bread, loaf";
+	   int id = 1;
 	   int g1 = 96;
 	   int f1 = 0;
 	   int p1 = 4;
 	   int o1 = 0;
 	   int c1 = 2192;
-	   Food food1 = Food(name1, g1, f1, p1, o1, c1);
+	   Food food1 = Food(id, name1, g1, f1, p1, o1, c1);
 	   assertNotNull("Food did not create a valid object.", food1);
+   }
+   
+   //TEST FOOD CONSTRUCTOR WITH VALID INPUT
+   public void testFoodConstructorWithValidInput(){
+	   boolean exceptionThrown = false;
+	   String name1= "Wheat bread, loaf";
+	   int id = 12;
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   try{
+		Food food1 = Food(name1, g1, f1, p1, o1, c1);
+		}
+		catch(IllegalArgumentException e){
+			exceptionThrown = true;
+		}
+	   assertFalse("Illegal Argument Exception thrown with valid constructor input.", exceptionThrown);
+   }
+	   
+   
+   //TEST FOOD CONSTRUCTOR WITH INVALID INPUT
+   public void testFoodConstructorWithInvalidInput(){
+	   boolean exceptionThrown = false;
+	   String name1= "Wheat bread, loaf";
+	   //id not provided
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   try{
+		Food food1 = Food(name1, g1, f1, p1, o1, c1);
+		}
+		catch(IllegalArgumentException e){
+			exceptionThrown = true;
+		}
+	   assertTrue("Illegal Argument not thrown with invalid constructor input.", exceptionThrown);
+   }
 	   
    }
    //test food and nutrition 
    @Test
-   public void testFoodGetter(){
+   public void testFoodGetters(){
 	   String name1= "Granola Bar, 1 box";
+	   int expectedid  2;
 	   int g1 = 12;
 	   int f1 = 12;
 	   int p1 = 56;
 	   int o1 = 20;
 	   int c1 = 1000;
-	   Food food1 = Food(name1, g1, f1, p1, o1, c1);
+	   Food food1 = Food(expectedid, name1, g1, f1, p1, o1, c1);
 	   int gval = (int)((double)(g1/100) * c1));
 	   int fval = (int)((double)(f1/100) * c1));
 	   int pval = (int)((double)(p1/100) * c1));
 	   int oval = (int)((double)(o1/100) * c1));
 	   Nutrition expected = Nutrition(gval, pval, fval, oval, c1);
 	   Nutrition actual = food1.getNutritionValue();
+	   int actualID = food1.getFoodID();
 	   assertEquals("Food's getNutritionValue did not return the expected nutrition object.", expected, actual); 
+	   assertEquals("Food ID does not match expected.", actualID, expectedid) 
    }
+   
    //DATABASE CONSTRUCTOR
    //testing with invalid data, no database
    @Test
@@ -453,6 +491,101 @@ public class FinalProjectTest {
 	   Inventory inv = new Inventory();
 	   
 		assertNull("Inventory object with invalid database connection was not null", inv);
-	}	
+	}
+	//TESTING INVENTORY SETTERS
+	@Test
+	public void testInventorySetters(){
+		Inventory inventory = new Inventory();
+		int[][] array = new int[4][6];
+		array[0][0] = 1;
+		array[0][1] = 16;
+		array[0][2] = 28;
+		array[0][3] = 30;
+		array[0][4] = 26;
+		array[0][5] = 2500;
+		
+		array[1][0] = 2;
+		array[1][1] = 16;
+		array[1][2] = 28;
+		array[1][3] = 26;
+		array[1][4] = 30;
+		array[1][5] = 2500;
+		inventory.setCalories(array);
+		
+		Food food10 = new Food(10, "Eggs, dozen", 0, 0, 50, 50, 1000);
+		Food food11 = new Food(11, "Oranges, dozen", 0, 0, 9, 91, 100);
+		Food food12 = new Food(12, "Granola Bars", 8, 0, 2, 90, 500);
+		Food food13 = new Food(13, "Carrots", 10, 30, 40, 20, 200);
+		
+		LinkedList<Food> list= new LinkedList<Food>();
+		list.add(food10);
+		list.add(food11);
+		list.add(food12);
+		list.add(food13);
+		inventory.setInventory(list);
+		assertEquals("Inventory inventory list does not match expected.", inventory.getInventory(), list);
+		assertEquals("Inventory calorie table does not match expected.", inventory.getCalorieTable(), array);
+	}
+	//TESTING INVENTORY TO BE REMOVED
+	//tests removeFromInventory
+	@Test
+	public void testInventoryRemoval(){
+		Inventory inventory = new Inventory();
+		int[][] array = new int[4][6];
+		array[0][0] = 1;
+		array[0][1] = 16;
+		array[0][2] = 28;
+		array[0][3] = 30;
+		array[0][4] = 26;
+		array[0][5] = 2500;
+		
+		array[1][0] = 2;
+		array[1][1] = 16;
+		array[1][2] = 28;
+		array[1][3] = 26;
+		array[1][4] = 30;
+		array[1][5] = 2500;
+		inventory.setCalories(array);
+		
+		Food food10 = new Food(10, "Eggs, dozen", 0, 0, 50, 50, 1000);
+		Food food11 = new Food(11, "Oranges, dozen", 0, 0, 9, 91, 100);
+		Food food12 = new Food(12, "Granola Bars", 8, 0, 2, 90, 500);
+		Food food13 = new Food(13, "Carrots", 10, 30, 40, 20, 200);
+		
+		LinkedList<Food> list= new LinkedList<Food>();
+		list.add(food10);
+		list.add(food11);
+		list.add(food12);
+		list.add(food13);
+		inventory.setInventory(list);
+		
+		LinkedList<Food> remove= new LinkedList<Food>();
+		remove.add(food10);
+		remove.add(food11);
+		list.remove(0);
+		list.remove(1);
+		inventory.removeFromInventory(remove);
+		
+		LinkedList<Food> actualRemoved = inventory.getRemovedInventory();
+		LinkedList<Food> actualInv = inventory.getInventory();
+		assertEquals("Inventory removed inventory list does not match expected.", actualRemoved, remove);
+		assertEquals("Inventory inventory list does not match expected.", actualInv, list);
+	}
+	//TESTING REMOVE FROM THE DATABASE
+	//assuming valid database
+	@Test
+	public void testRemoveDataBase(){
+		Inventory inventory = new Inventory();
+		String name1= "Wheat bread, loaf";
+		int id = 1;
+	    int g1 = 96;
+	    int f1 = 0;
+	    int p1 = 4;
+	    int o1 = 0;
+	    int c1 = 2192;
+	    Food food1 = Food(id, name1, g1, f1, p1, o1, c1); //assuming this a valid entry in database
+		assertEquals("Inventory removed inventory list does not match expected.", actualRemoved, remove);
+		assertEquals("Inventory inventory list does not match expected.", actualInv, list);
+	}
 	
 }
