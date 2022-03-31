@@ -37,11 +37,11 @@ public class Family implements Calculate{
     while (i != 5){
       if (this.ID[index] != 0){
         
-        double c = (double)dataAccess.getCalories(i);
-        double g = (double)dataAccess.getGrainPercent(i);
-        double p = (double)dataAccess.getProteinPercent(i);
-        double f = (double)dataAccess.getFVPercent(i);
-        double o = (double)dataAccess.getOtherPercent(i);
+        double c = (double)this.calorieData[i-1][5];
+        double g = (double)this.calorieData[i-1][1];
+        double p = (double)this.calorieData[i-1][2];
+        double f = (double)this.calorieData[i-1][3];
+        double o = (double)this.calorieData[i-1][4];
       
       
         totalGrain += ((g/100)*c * this.ID[index]);
@@ -54,27 +54,7 @@ public class Family implements Calculate{
       i++;
       index++;
     }
-    
     this.TOTAL = new Nutrition(totalGrain, totalProtein, totalFV, totalOther, totalCalories);
   }
-  public int getCalories(int id){
-      return this.caloriesTable[id - 1][5];
-    }
-    
-    public int getGrainPercent(int id){
-      return this.caloriesTable[id - 1][1];
-    }
-    
-    public int getProteinPercent(int id){
-      return this.caloriesTable[id - 1][2];
-    }
-    
-    public int getFVPercent(int id){
-      return this.caloriesTable[id - 1][3];
-    }
-    
-    public int getOtherPercent(int id){
-      return this.caloriesTable[id - 1][4];
-    }
   
 }
