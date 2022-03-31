@@ -3,11 +3,11 @@
 public class Family implements Calculate{
   private final Nutrition TOTAL;
   private int[] ID;
-  private dataAccess d; 
+  private int[][] calorieData; 
   
-  public Family(int[] ID, DataBase d){
+  public Family(int[] ID, int[][] caloricInfo){
     this.ID = ID;
-    this.dataAccess  = d; 
+    this.calorieData = caloricInfo; 
     calculateCalories();
   }
   
@@ -57,4 +57,24 @@ public class Family implements Calculate{
     
     this.TOTAL = new Nutrition(totalGrain, totalProtein, totalFV, totalOther, totalCalories);
   }
+  public int getCalories(int id){
+      return this.caloriesTable[id - 1][5];
+    }
+    
+    public int getGrainPercent(int id){
+      return this.caloriesTable[id - 1][1];
+    }
+    
+    public int getProteinPercent(int id){
+      return this.caloriesTable[id - 1][2];
+    }
+    
+    public int getFVPercent(int id){
+      return this.caloriesTable[id - 1][3];
+    }
+    
+    public int getOtherPercent(int id){
+      return this.caloriesTable[id - 1][4];
+    }
+  
 }
