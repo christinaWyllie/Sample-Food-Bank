@@ -13,6 +13,12 @@ public class Family implements Calculate{
   
   public String getID(){
     //returns either ID numbers or the actual names(ex.adult male) as string
+    for (int i = 0; i < 4; i++){
+      if (this.ID[i] != 0)
+      {
+        //not done
+      }
+    }
   }
   public Nutrition getTotal(){
     return this.TOTAL;
