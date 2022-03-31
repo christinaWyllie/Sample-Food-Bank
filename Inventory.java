@@ -11,5 +11,10 @@ public class Inventory{
     this.inventory = this.dataAccess.getInventoryInfo();
     this.calorieTable = this.dataAccess.getCalorieInfo();
   }
-   //needs more methods 
+  //removes from inventory linkedlist and puts into removed invernotry linkedlist
+  public void removeFromInventory(LinkedList<Food> toBeRemoved);
+    
+  //removes from database through dataAccess object
+  public boolean removeDataBase();
+   
 }
