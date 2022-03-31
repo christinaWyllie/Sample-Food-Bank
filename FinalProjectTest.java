@@ -7,7 +7,7 @@ import java.util.*;
 
 
 public class FinalProjectTest {
-	
+	 
 //TEST APPLICATION
 	@Test
     public void testApplicationConstructor() {
@@ -327,6 +327,70 @@ public class FinalProjectTest {
 		family.add()
       	
     }
-	
+	//FOOD CLASS TEST CONSTRUCTOR
+	@Test
+	public void testFoodConstructorandGetter(){
+	   String name1= "Wheat bread, loaf";
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   Food food1 = Food(name1, g1, f1, p1, o1, c1);
+	   assertNotNull("Food did not create a valid object.", food1);
+	   
+   }
+   //test food and nutrition 
+   @Test
+   public void testFoodGetter(){
+	   String name1= "Granola Bar, 1 box";
+	   int g1 = 12;
+	   int f1 = 12;
+	   int p1 = 56;
+	   int o1 = 20;
+	   int c1 = 1000;
+	   Food food1 = Food(name1, g1, f1, p1, o1, c1);
+	   int gval = (int)((double)(g1/100) * c1));
+	   int fval = (int)((double)(f1/100) * c1));
+	   int pval = (int)((double)(p1/100) * c1));
+	   int oval = (int)((double)(o1/100) * c1));
+	   Nutrition expected = Nutrition(gval, pval, fval, oval, c1);
+	   Nutrition actual = food1.getNutritionValue();
+	   assertEquals("Food's getNutritionValue did not return the expected nutrition object.", expected, actual); 
+   }
+   //DATABASE CONSTRUCTOR
+   //testing with invalid data, no database
+   @Test
+   public void testDataBaseConstructorWithInvalidDataBase(){
+	   boolean exceptionThrown = false;
+	   try{
+			DataBase data = new DataBase();
+		}
+		catch(Exception e){
+			exceptionThrown = true;
+		}
+		assertFalse("DataBase threw an exception when it should not have.", exceptionThrown);
+	}
+	//DATABASE CONSTRUCTOR
+	//testing with valid data, database is valid
+   @Test
+   public void testDataBaseConstructorWithValidDataBase(){
+	   boolean exceptionThrown = false;
+	   try{
+			DataBase data = new DataBase();
+		}
+		catch(Exception e){
+			exceptionThrown = true;
+		}
+		assertFalse("DataBase threw an exception even when valid database was provided.", exceptionThrown);
+	}
+	//TESTING INVENTORY 
+	//testing inventory with no database
+   @Test
+   public void testInventoryConstructorWithInvalidDataBase(){
+	   Inventory inv = new Inventory();
+	   
+		assertNull("Inventory object with invalid database connection was not null", inv);
+	}	
 	
 }
