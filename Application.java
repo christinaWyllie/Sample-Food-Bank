@@ -3,8 +3,25 @@ package edu.ucalgary.ensf409;
 
 public class Application{
   
-  int numHamper;
+  private int numHamper = 1;
+  private Iventory inventory;
+  private ArrayList<Family> families;
+  private Data
   
-  ArrayList<HamperNutrition> hamper = new ArrayList<HamperNutrition>(numHamper);
+  ArrayList<HamperNutrition> hamper;
+  
+  public Application(){
+    this.numHamper = ;
+    
+    hamper = new ArrayList(numHamper);
+  
+  }
+  
+  public void addHamper(){
+    
+  }
+  
+  
+  public 
   
 }
