@@ -14,4 +14,7 @@ public class Food{
     this.nutritionValue = new Nutrition(grain, protein, fv, other, c);
     this.itemID = itemID;
   }
+  public Nutrition getNutritionValue(){
+    return this.nutritionValue;
+  }
 }
