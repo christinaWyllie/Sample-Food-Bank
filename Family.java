@@ -26,7 +26,7 @@ public class Family implements Calculate{
   
   @Override
   public calculateCalories(){
-    //some sort of access to data base, using conventions g, p, f, o, c 
+    //using conventions g, p, f, o, c 
     int totalGrain = 0; 
     int totalProtein = 0;
     int totalFV = 0;
