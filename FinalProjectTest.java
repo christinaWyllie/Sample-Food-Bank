@@ -675,11 +675,11 @@ private int[][] calorieTable = {{1,40,100,200,60,400},
 }
 
 
-//Tests for Hamper Nutrition
 @Test
 public void HamperNutritionImplementsCalculate() 
 { 
-	HamperNutrition hamp = new HamperNutrition();
+	Nutrition n = new Nutrition(1, 2, 3, 94, 7);
+	HamperNutrition hamp = new HamperNutrition(n);
 	assertTrue("HamperNutrition does not implement Calculate", (Calculate.class.isAssignableFrom(hamp.getClass())));
 }
 	
@@ -688,10 +688,10 @@ public void testCheckInventoryNotEnoughInventory
 {
 	try
 	{
-		int g = 12;
-		int p = 13;
-		int f = 14;
-		int o = 7;
+		int g = 10;
+		int p = 20;
+		int f = 30;
+		int o = 40;
 		int c = 340;
 		
 		Nutrition n = new Nutrition(g, p, f, o, c);
@@ -707,10 +707,10 @@ public void testCheckInventoryNotEnoughInventory
 @Test
 public void testHamperNutritionConstructor() 
 {      
-	int g = 12;
-	int p = 13;
-	int f = 14;
-	int o = 7;
+	int g = 10;
+	int p = 20;
+	int f = 30;
+	int o = 40;
 	int c = 340;
 		
 	Nutrition n = new Nutrition(g, p, f, o, c);
@@ -727,24 +727,24 @@ public void testHamperGetterAndSetters()
 	//Tests getHamper, addToHamper with one food item
 	
 	LinkedList<Food> expectedHamper = new LinkedList<Food>();
-	Food f = new Food(10, 10, 10, 10, 10, 87, "Broccoli");
+	Food f = new Food(20, 30, 40, 10, 90, 87, "Broccoli");
 	expectedHamper.add(f);
 	
-	int g = 12;
-	int p = 13;
-	int f = 14;
-	int o = 7;
+	int g = 10;
+	int p = 20;
+	int f = 30;
+	int o = 40;
 	int c = 340;
 		
 	Nutrition n = new Nutrition(g, p, f, o, c);
 	HamperNutrition hamp = new HamperNutrition(n);
 	hamp.addToHamper(f);
 	LinkedList<Food> hamper = hamp.getHamper();
-	assertEquals("Method getHamper did not return the expected hamper: ", expectedHamper, hamp)
+	assertEquals("Method getHamper did not return the expected hamper: ", expectedHamper, hamper)
 }
 
 @Test
-public void testBestHamperCreated()
+public void testBestHamperCreatedExactHamper()
 {
 	//Test createBestHamper(), getHamper()
 	
@@ -755,8 +755,44 @@ public void testBestHamperCreated()
 	LinkedList<Food> expectedBestHamper = new LinkedList<Food>();
 	expectedBestHamper.add(food1);
 	
-	Nutrition n = new Nutrition(9, 8, 1, 50, 87)
+	LinkedList<Food> inventory = newLinkedList<Food>();
+	inventory.add(food1);
+	inventory.add(food2);
+	inventory.add(food3);
 	
+	Nutrition n = new Nutrition(20, 30, 40, 10, 90);	//Mathces broccoli exactly, should choose broccoli
+	HamperNutrition hamp = new Hamper Nutrition(n);
+	hamp.setInventory().setInventory(inventory);
+	hamp.createBestHamper();
+	
+	LinkedList<Food> hamper = hamp.getHamper();
+	assertEquals("Method getHamper did not return the expected hamper: ", expectedBestHamper, hamper);
+}
+
+@Test
+public void testBestHamperCreatedApproxHamper()
+{
+	//Test createBestHamper(), getHamper()
+	
+	Food food1 = new Food(20, 30, 40, 10, 90, 87, "Broccoli");
+	Food food2 = new Food(90, 10 , 0 , 0 , 100, 70, "Chocolate");
+	Food food2 = new Food(0, 0, 13, 87, 130, 10, "Masala");
+	
+	LinkedList<Food> expectedBestHamper = new LinkedList<Food>();
+	expectedBestHamper.add(food1);
+	
+	LinkedList<Food> inventory = newLinkedList<Food>();
+	inventory.add(food1);
+	inventory.add(food2);
+	inventory.add(food3);
+	
+	Nutrition n = new Nutrition(15, 25, 45, 15, 60);	//Best match for caloric intake is broccoli, should choose broccoli
+	HamperNutrition hamp = new Hamper Nutrition(n);
+	hamp.setInventory().setInventory(inventory);
+	hamp.createBestHamper();
+	
+	LinkedList<Food> hamper = hamp.getHamper();
+	assertEquals("Method getHamper did not return the expected hamper: ", expectedBestHamper, hamper);
 }
 
 @Test
@@ -773,21 +809,18 @@ public void testInventoryRemoved()
 	expectedInventory.add(food2);
 	expectedInventory.add(food3);
 	
-	//How do we do this????
+	LinkedList<Food> inventory = newLinkedList<Food>();
+	inventory.add(food1);
+	inventory.add(food2);
+	inventory.add(food3);
 	
-	assertEquals("Method getInventory did not return the expected Inventory: ", expectedInventory, found Inventory);
+	Nutrition n = new Nutrition(15, 25, 45, 15, 60);	//Should create a hmaper with broccoli and remove broccoli from inventory linked list
+	HamperNutrition hamp = new Hamper Nutrition(n);
+	hamp.setInventory().setInventory(inventory);
+	hamp.createBestHamper();
+	hamp.removeInventory();
+	LinkedList<Food> foundInventory = hamp.getInventory().getInventory();
 	
-}
-
-@Test
-public void testHamperHasProperNutrition()
-{
-	//Test that the created hamper has all the needed nutritional content for the family
-}
-
-@Test
-public void testCheckInventoryEnoughInventory()
-{
-	//Test that checkInventory does not throw exception when there is enough inventory
+	assertEquals("Method getInventory did not return the expected Inventory: ", expectedInventory, foundInventory);
 	
 }
