@@ -300,108 +300,85 @@ private int[][] calorieTable = {{1,40,100,200,60,400},
         assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
     }
 	
-	//HAMPERNUTRITION TESTS
+	//OrderForm TESTS
 	
-		@Test
-   public void test() {
-        //Individual nutitrion values returned for each available index for family array list
-		
-		
-        // Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
-
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
-    }
-	
-	//ORDERFORM TESTS
-	
-	
-		@Test
-   public void testRemoveInventory() {
-        //testing the removal of items from food, parallel to the database
-	   
-	   //create food objects
-	   
-	   String name1= "Wheat bread, loaf";
-	   int id1 = 1;
-	   int g1 = 96;
-	   int f1 = 0;
-	   int p1 = 4;
-	   int o1 = 0;
-	   int c1 = 2192;
-	   Food food1 = Food(id1, name1, g1, f1, p1, o1, c1);
-	   
-	   String name2 = "Wheat bread, loaf";
-	   int id2 = 2;
-	   int g2 = 96;
-	   int f2 = 0;
-	   int p2 = 4;
-	   int o2 = 0;
-	   int c2 = 2192;
-	   Food food1 = new Food(id2, name2, g2, f2, p2 o2, c2);
-	   
-	   String name3= "Wheat bread, loaf";
-	   int id3 = 3;
-	   int g3 = 96;
-	   int f3 = 0;
-	   int p3 = 4;
-	   int o3 = 0;
-	   int c3 = 2192;
-	   Food food2 = new Food(id3, name3, g3, f3, p3, o3, c3);
-
-	   String name4= "Orange, dozen";
-	   int id4 = 4;
-	   int g4 = 0;
-	   int f4 = 100;
-	   int p4 = 0;
-	   int o4 = 0;
-	   int c4 = 864;
-	   Food food4 = new Food(id4, name4, g4, f4, p4, o4, c4);
-	   
-	   String name5= "Orange, dozen";
-	   int id5 = 5;
-	   int g5 = 0;
-	   int f5 = 100;
-	   int p5 = 0;
-	   int o5 = 0;
-	   int c5 = 864;
-	   Food food5 = new Food(id5, name5, g5, f5, p5, o5, c5);
-	   
-	   String name6 = "Eggs, dozen";
-	   int id6 = 6;
-	   int g6 = 0;
-	   int f6 = 0;
-	   int p6 = 9;
-	   int o6 = 91;
-	   int c6 = 864;
-	   Food food6 = new Food(id6, name6, g6, f6, p6, o6, c6);
-	   
-	   LinkedList<Food> foodList = new LinkedList<Food>(); 
-	   foodList.add(food1);
-	   foodList.add(food2);
-	   foodList.add(food3);
-	   foodList.add(food4);
-	   foodList.add(food5);
-	   foodList.add(food6);
-	   
-	   
-
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
-    }
-	
-
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
-    }
-	//test OrderForm constructor which uses 
+     
+    //test OrderForm constructor which uses HamperNutrition, Food and Family
+	@Test
 	public void testOrderFormConstructor() {
 		
-	//create food objects 
+		createFoodHamperFamilyObjects();
+		
+		OrderForm form = new OrderForm(family, inventory, hamper);
+		
+		assertNotNull("Order form did not create a valid object", form);
+		
+	}
+	 
+	
+	
+	// testing that print() method in OrderForm throws an exception when it cannot write to the txt file.
+	@Test
+	public void testIOException(){
+		OrderForm order = new OrderForm();
+	 
+        try {
+            print();
+        }
+        catch (Exception e) {
+            exceptionThrown = true;
+        }
+
+        assertFalse("Error thrown from print", exceptionThrown);
+    }
+	// test the printing of an order form to an output txt file.
+	@Test
+	public void testPrint(){
+		createFoodHamperFamilyObjects();
+		
+		String expectedOutput = "Name:" +
+					"Date:" +
+
+					"Original Request" +
+					"Hamper 1: 1 Adult Female"+
+
+					"Hamper 1 Items: " +
+					"1		Wheat Bread, loaf" +
+					"5		Orange, dozen" +
+					"6		Eggs, dozen";
+		try{
+			File file = new File("somefile.txt");	
+			FileWriter writer = new FileWriter(file)
+			writer.append(expectedOutput);
+		}catch(IOException e){
+			System.out.println("Test failed, could not create file");
+		}
+		print();
+		
+		boolean equal = isEqual(file,"OrderForm.txt"); //the file will be created in order form with the name OrderForm
+		assertTrue("Error, unexpected output writen to the file", equal)
+		
+		
+	}
+	
+	public void testOrderFormImplementsFormatString(){
+		createFoodHamperFamilyObjects();
+		
+		OrderForm order = new OrderForm();
+		
+		assertTrue("Order Form does not implement FormatOutput", (FormatOutput.class.isAssignableFrom(order.getClass()));
+	}
+	
+}
+
+
+ /* ******************* HELPER METHODS ***************** */
+
+    /*
+    * Create a test file to read in (in working directory)
+    */
+    private void createFoodHamperFamilyObjects() {
+       //create food objects 
 	   	   
 	   String name1= "Wheat bread, loaf";
 	   int id1 = 1;
@@ -483,7 +460,11 @@ private int[][] calorieTable = {{1,40,100,200,60,400},
 		
 		ArrayList familyList = new ArrayList<Family>();
 		familyList.add(family);
-	}
+		
+		Nutrition nutrition = new Nutrition(g6, p6, f6, o6, c6);
+		
+		HamperNutrition hamper = new HamperNutrition(nutrition);
+    }
 
 //FOOD CLASS TEST CONSTRUCTOR
 	@Test
