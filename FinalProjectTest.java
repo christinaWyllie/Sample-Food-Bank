@@ -320,7 +320,7 @@ private int[][] calorieTable = {{1,40,100,200,60,400},
 	// testing that print() method in OrderForm throws an exception when it cannot write to the txt file.
 	@Test
 	public void testIOException(){
-		OrderForm order = new OrderForm();
+		OrderForm order = new OrderForm(family, inventory, hamper);
 	 
         try {
             print();
@@ -337,15 +337,15 @@ private int[][] calorieTable = {{1,40,100,200,60,400},
 		createFoodHamperFamilyObjects();
 		
 		String expectedOutput = "Name:" +
-					"Date:" +
+								"Date:" +
 
-					"Original Request" +
-					"Hamper 1: 1 Adult Female"+
+								"Original Request" +
+								"Hamper 1: 1 Adult Female"+
 
-					"Hamper 1 Items: " +
-					"1		Wheat Bread, loaf" +
-					"5		Orange, dozen" +
-					"6		Eggs, dozen";
+								"Hamper 1 Items: " +
+								"1		Wheat Bread, loaf" +
+								"5		Orange, dozen" +
+								"6		Eggs, dozen";
 		try{
 			File file = new File("somefile.txt");	
 			FileWriter writer = new FileWriter(file)
@@ -364,13 +364,12 @@ private int[][] calorieTable = {{1,40,100,200,60,400},
 	public void testOrderFormImplementsFormatString(){
 		createFoodHamperFamilyObjects();
 		
-		OrderForm order = new OrderForm();
+		OrderForm order = new OrderForm(family, inventory, hamper);
 		
 		assertTrue("Order Form does not implement FormatOutput", (FormatOutput.class.isAssignableFrom(order.getClass()));
 	}
 	
 }
-
 
  /* ******************* HELPER METHODS ***************** */
 
