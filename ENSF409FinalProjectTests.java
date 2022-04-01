@@ -47,18 +47,18 @@ public class ENSF409FinalProjectTests{
     public void testHamperNutritionMultiple() {
     //Multiple hampers are added from GUI input through addHamper method in application which adds to ArrayList<HamperNutrition> in application class
 		//testing size of ArrayList<HamperNutrition>
-    int[] array = {0,1,0,0};
-		int[] array1 = {0,1,2,0};
+   	int[] array = {0,1,0,0};
+	int[] array1 = {0,1,2,0};
    	int[] array2 = {2,4,0,0};
- 	  int expectedNumHamper = 3;
-		Application application2 = new Application(array);
+ 	int expectedNumHamper = 3;
+	Application application2 = new Application(array);
   	application2.addHamper(array1);
-		application2.addHamper(array2);
-		int actualContentHampersSize = application2.getHampers().size();
-		LinkedList[] actualContentHamper = application2.getHamper(2); //Returns second hamper stored in arraylist
+	application2.addHamper(array2);
+	int actualContentHampersSize = application2.getHampers().size();
+	LinkedList[] actualContentHamper = application2.getHamper(2); //Returns second hamper stored in arraylist
 	
-    assertEquals("Value of contents did not match what was expected: ", expectedNumHamper, actualContentHampersSize);
-		assertNotNull("Index 2 of HamperNutrition object in constructor not initialized properly. ", actualContentHamper);
+   	 assertEquals("Value of contents did not match what was expected: ", expectedNumHamper, actualContentHampersSize);
+	assertNotNull("Index 2 of HamperNutrition object in constructor not initialized properly. ", actualContentHamper);
     }
 	
 	//APPLICATION TEST 
@@ -74,8 +74,8 @@ public class ENSF409FinalProjectTests{
 		Application application2 = new Application(array);
     application2.addHamper(array1);
 		application2.addHamper(array2);
-		int actualFamilyListSize = application2.getHampers().size();
-		Family actualContentFamily = application2.getfamily(2); //Returns second hamper stored in arraylist to make sure all three were added
+    int actualFamilyListSize = application2.getHampers().size();
+    Family actualContentFamily = application2.getfamily(2); //Returns second hamper stored in arraylist to make sure all three were added
 			
     assertEquals("Value of contents did not match what was expected: ", expected, actualFamilyListSize);
 		assertNotNull("Index 3 of Families object in constructor not initialized properly. ", actualContentFamily);
@@ -531,6 +531,8 @@ public class ENSF409FinalProjectTests{
 	//Initialize hamper linked list in constructor and should be null;
 	assertNull("Hamper LinkedList was not null: ", hamp.getHamper());
 	}
+			   
+	//HAMPERNUTRITION TEST
 	@Test
 	public void testHamperGetterAndSetters()
 	{
