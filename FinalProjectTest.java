@@ -8,36 +8,111 @@ import java.util.*;
 
 public class FinalProjectTest {
 	 
+private int[][] calorieTable = {{1,40,100,200,60,400}, 
+				{2, 20, 60, 700, 100, 880}, 
+				{3, 7, 10, 3, 15, 35}, 
+				{4, 200, 13, 17, 70, 300}};
+		
+		
 //TEST APPLICATION
 	@Test
     public void testApplicationConstructor() {
         //Num hampers create default values
-		//family object created and returns array list 
+		//family object created and returns array list with one index inside
+		//HamperNutrition object created and returns array list with one index 
+		//Inventory object expected to contain all inventory
         //Array reads in as [Adult male, adult female, child under 8, child over 8]
 		
 		// Test data - these values may be changed in actual tests 
-        int givenData = [0,1,0,0];
+        int[] givenData = {0,1,0,0};
 		int expectedNumHamper = 1;
         Application application1 = new Application(givenData);
 		
-		int actualContentHamper = application1.getNumHampers();
-		ArrayList<Family> expectedArray = new ArrayList<Family>();
-		expectedArray.add(new Family(givenData)); 
-		ArrayList<Family> actualContentArray = application1.getFamilies();
+	int actualContentHamper = application1.getNumHampers();
+		//ArrayList<Family> expectedArray = new ArrayList<Family>();
+		//ArrayList<HamperNutrition> expectedArray2 = new ArrayList<HamperNutrition>();
+		//expectedArray.add(new Family(givenData, calorieTable)); 
+		//expectedArray.add(new HamperNutrition(expectedArray.get(0).getTotal());
+		   
+	ArrayList<Family> actualContentArray = application1.getFamilies();
+	ArrayList<HamperNutrition> actualContentArrayHamper = application1.getHampers();
+	LinkedList<Food> actualContentInventory = application1.getInventory();
 		
         assertEquals("Value of contents did not match what was expected: ", expectedNumHamper, actualContentHamper);
-		assertEquals("Value of contents did not match what was expected: ", expectedArray, actualContent);
+	assertNotNull("Application constructor did not create Family object when given a valid array people. ", actualContentArray);
+	assertNotNull("Application constructor did not create HamperNutrition object when given a valid array people. ". actualContentArrayHamper);
+	assertNotNull("Application constructor did not create Inventory object when given a valid array people. ", actualContentInventory);
     }
-
+	
+	@Test
+    public void testHamperNutritionMultiple() {
+        //Multiple hampers sent to application constructor which should create an array list that holds 3 hamperNutrition objects
+        int[] array = {0,1,0,0};
+		int[] array1 = {0,1,2,0};
+        int[] array2 = {2,4,0,0};
+        int expectedNumHamper = 3
+	Application application2 = new Application(array);
+        application2.addHamper(array1);
+	application2.addHamper(array2)
+	int actualContentHampersSize = application2.getHampers().size();
+	LinkedList[] actualContentHamper = application2.getHamper(2); //Returns second hamper stored in arraylist
+	
+        assertEquals("Value of contents did not match what was expected: ", expectedNumHamper, actualContentHampersSize);
+	assertNotNull("Index 2 of HamperNutrition object in constructor not initialized properly. ", actualContentHamper);
+    }
+	
+	@Test
+    public void testFamiliesArrayMultiple() {
+        //Multiple hampers sent to application constructor which should create an array list that holds 3 hamperNutrition objects
+        int[] array = {0,1,0,0};
+	int[] array1 = {0,1,2,0};
+        int[] array2 = {2,4,0,0};
+	int expected = 3
+       
+	Application application2 = new Application(array);
+        application2.addHamper(array1);
+	application2.addHamper(array2)
+	int actualFamilyListSize = application2.getHampers().size();
+	Family actualContentFamily = application2.getfamily(3); //Returns second hamper stored in arraylist
+	
+        assertEquals("Value of contents did not match what was expected: ", expected, actualFamilyListSize);
+	assertNotNull("Index 3 of Families object in constructor not initialized properly. ", actualContentFamily);
+    }
+	
+	@Test
+    public void testgetFamilyHamper() {
+        //get valid family with corresponding hamper
+		
+		// Test data - these values may be changed in actual tests 
+        int[] givenData = {0,1,0,0};
+	int expectedNumHamper = 1;
+        Application application1 = new Application(givenData);
+		
+	int actualContentHamper = application1.getNumHampers();
+	//ArrayList<Family> expectedArray = new ArrayList<Family>();
+	//ArrayList<HamperNutrition> expectedArray2 = new ArrayList<HamperNutrition>();
+	//expectedArray.add(new Family(givenData, calorieTable)); 
+	//expectedArray.add(new HamperNutrition(expectedArray.get(0).getTotal());
+		   
+	ArrayList<Family> actualContentArray = application1.getFamilies();
+	ArrayList<HamperNutrition> actualContentArrayHamper = application1.getHamper();
+	LinkedList<Food> actualContentInventory = application1.getInventory();
+		
+        assertEquals("Value of contents did not match what was expected: ", expectedNumHamper, actualContentHamper);
+	assertNotNull("Application constructor did not create Family object when given a valid array people. ", actualContentArray);
+	assertNotNull("Application constructor did not create HamperNutrition object when given a valid array people. ". actualContentArrayHamper);
+	assertNotNull("Application constructor did not create Inventory object when given a valid array people. ", actualContentInventory);
+    }
+	
 	@Test
     public void testGetAddHamper() {
         //Adding a family to the arraylist which creates a new family object within the same application 
-		int array1 = [0,1,2,0]
-        int array = [2,4,0,0];
+		int[] array1 = {0,1,2,0};
+        int[] array = {2,4,0,0};
         int expectedNumHamper = 2
-		Application application2 = new Application(array1);
+	Application application2 = new Application(array1);
         application2.addHamper(array);
-		int actualContentNumHamper = application2.getNumHampers();
+	int actualContentNumHamper = application2.getNumHampers();
 
         assertEquals("Value of NumHamper did not match what was expected: ", expectedNumHamper, actualContentNumHampers);
     }
@@ -45,58 +120,77 @@ public class FinalProjectTest {
 	@Test
     public void testGetUserInput() {
         //Successfully reads user input and arraylist adds that input to next index available
-       
-	    int givenData = [2,1,0,1];
-        String expected = "Your family unit contains: 2 Adult Male, Adult Female, 0 Child under 8, 1 Child Over 8";
-        
+	int[] givenExpectedData = {2,1,0,1};    
         Application application3 = new Application(array);
-		int actualContents = application3.getUserInput();
-
-        assertEquals("String did not match what was expected: ", expected, actualContents);
+	int[] actualContents = application3.getUserInput();
+		
+        assertEquals("String did not match what was expected: ", givenExpectedData, actualContents);
     }
 	
 	//TEST FAMILY
 	
 	@Test
     public void testFamilyConstructorDefault() {
-        int array = [1,0,1,0];
+        int[] array = {1,0,0,0};
      
-        String expected = "0230";
-        Family family1 = new Family(array);
-		String actualContent = family1.getID();
+        String expectedString = "Your family unit contains: 1 Adult Male, 0 Adult Female, 0 Child under 8, 0 Child Over 8";
+        Nutrition expectedNutrition = new Nutrition(40,100,200,60,400);
+	Family family1 = new Family(array, calorieTable);
+	String actualContentString = family1.getFamilyMembers();
+	Nutrition actualContentNutrition = family1.getTotal();
+
+        assertEquals("Value of contents did not match what was expected: ", expectedString, actualContentString);
+	assertEquals("Value of contents did not match what was expected: ", expectedNutrition, actualContentNutrition);
+    }
+	
+	@Test
+    public void testMultipleFamilyNutritionTotal() {
+        //Tests the calculate method for when multiple family members are calculated
+        int[] array = {3,2,2,4};
+	int[] expected = {974, 492, 2074, 690, 4320};
+	Family family2 = new Family(array, calorieTable);
+	//Nutrition nutrition = new Nutrition(974, 492, 2074, 690, 4320);
+	Nutrition actualNutrition = family2.getTotal();
+	int[] actualContent = {actualNutrition.getGrain(), actualNutrition.getFV(), 
+			       actualNutrition.getProtien(), actualNutrition.getOther(), actualNutrition.getCalories()};
+	
+		assertNotNull("Family constructor did not create Nutrition object when given a valid nutrition data. ", actualNutrition);
+		assertEquals("Value of contents did not match what was expected: ", expected, actualContent);
+    }
+	
+	@Test
+    public void testGetTotalNutritionSingle() {
+        int[] array = {1,0,0,0};
+     
+        Nutrition expected = new Nutrition(40,100,200,60,400);
+        Family family1 = new Family(array, calorieTable);
+	String actualContent = family1.getFamilyMembers();
+	Nutrition actualNutrition = family2.getTotal();
+	int[] actualContent = {actualNutrition.getGrain(), actualNutrition.getFV(), 
+			       actualNutrition.getProtien(), actualNutrition.getOther(), actualNutrition.getCalories()};
+
 
         assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
     }
 	
 	@Test
-    public void testMultipleFamily() {
-        //Arraylist
-        // Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
+    public void FamilyIllegalArgumentException() {
+		//when given invalid user data (negative family member)
+       
+	boolean correctException = false;
+	int[] array = {6,0,-5,0};
+	try {
+		Family family1 = new Family(array, calorieTable);
+	}
+		
+	catch(IllegalArgumentException e){
+            correctException = true;
+        }
 
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
+	assertEquals("Family constructor did not throw an IllegalArgumentException when given an invalid log string: ", true, correctException);        
     }
 	
-	@Test
-    public void testGetTotalNutrition() {
-        
-        // Test data - these values may be changed in actual tests 
-        String givenData = "Y.y.R\nb.e.E\nP.m.c\n";
-        
-        // Create object, parse data
-        StitchPattern pattern = new StitchPattern(new File("some_file_name.txt"));
-        pattern.setPattern(givenData);
-        ArrayList<ArrayList<Character>> actualPattern = pattern.getPattern();
-        String actualContents = convertToString(actualPattern);
-
-        assertEquals("Value of contents did not match what was expected: ", givenData, actualContents);
-    }
+  
 	
 	//NUTRITION TESTS
 	@Test
@@ -105,55 +199,52 @@ public class FinalProjectTest {
 		//NO addition required for total grains 
         int givenDataGrain = 400;
         int givenDataFV = 700;
-		int givenDataProtein = 650;
-		int givenDataOther = 750;
-		int givenDataCalories = 2500;
+	int givenDataProtein = 650;
+	int givenDataOther = 750;
+	int givenDataCalories = 2500;
 		
-		int[] array = [1,0,0,0];
-		Application application2 = new Application(array);
+	int[] array = [1,0,0,0];
+	Application application2 = new Application(array);
 		
-		int actualContentGrain = application2.getGrain();
+	int actualContentGrain = application2.getGrain();
         int actualContentProtein = application2.getProtein();
-		int actualContentFV = application2.getFV();
-		int actualContentOther = application2.getOther();
-		int actualContentCalories = application2.getCalories();
+	int actualContentFV = application2.getFV();
+	int actualContentOther = application2.getOther();
+	int actualContentCalories = application2.getCalories();
         
 
         assertEquals("Value of grains did not match what was expected: ", givenData, actualContents);
-		assertEquals("Value of protien did not match what was expected: ", givenData, actualContents);
-		assertEquals("Value of FV content did not match what was expected: ", givenData, actualContents);
-		assertEquals("Value of other nutrition did not match what was expected: ", givenData, actualContents);
-		assertEquals("Value of calories did not match what was expected: ", givenData, actualContents);
+	assertEquals("Value of protien did not match what was expected: ", givenData, actualContents);
+	assertEquals("Value of FV content did not match what was expected: ", givenData, actualContents);
+	assertEquals("Value of other nutrition did not match what was expected: ", givenData, actualContents);
+	assertEquals("Value of calories did not match what was expected: ", givenData, actualContents);
     }
 	
 	//NUTRITION TESTS
 	@Test
     public void testNutritionCalculate() {
         //Nutrition when given a full family (checks total caloric requirements)
-        int givenDataGrain = 400 + 320 + ;
-        int givenDataFV = 700 + 560;
-		int givenDataProtein = 650 + 520;
-		int givenDataOther = 750 + 600 ;
-		int givenDataCalories = 8100;
+        int givenDataGrain = 267;
+        int givenDataFV = 183;
+	int givenDataProtein = 820;
+	int givenDataOther = 245 ;
+	int givenDataCalories = 1615;
 		
-		int[] array = [1,1,1,1];
-		Application application2 = new Application(array);
+	int[] array = [1,1,1,1];
+	Application application2 = new Application(array);
 		
-		int actualContentGrain = application2.getGrain();
+	int actualContentGrain = application2.getGrain();
         int actualContentProtein = application2.getProtein();
-		int actualContentFV = application2.getFV();
-		int actualContentOther = application2.getOther();
-		int actualContentCalories = application2.getCalories();
+	int actualContentFV = application2.getFV();
+	int actualContentOther = application2.getOther();
+	int actualContentCalories = application2.getCalories();
         
-
         assertEquals("Value of grains did not match what was expected: ", givenDataGrain, actualContentGrain);
-		assertEquals("Value of protien did not match what was expected: ", givenDataProtien, actualContentProtien);
-		assertEquals("Value of FV content did not match what was expected: ", givenDataFV, actualContentFV);
-		assertEquals("Value of other nutrition did not match what was expected: ", givenDataOther, actualContentOther);
-		assertEquals("Value of calories did not match what was expected: ", givenDataCalories, actualContentCalories);
+	assertEquals("Value of protien did not match what was expected: ", givenDataProtien, actualContentProtien);
+	assertEquals("Value of FV content did not match what was expected: ", givenDataFV, actualContentFV);
+	assertEquals("Value of other nutrition did not match what was expected: ", givenDataOther, actualContentOther);
+	assertEquals("Value of calories did not match what was expected: ", givenDataCalories, actualContentCalories);
     }
-	
-	
 	
 	
 	//EXCEPTION TESTS
