@@ -755,14 +755,17 @@ public void testBestHamperCreatedExactHamper()
 	LinkedList<Food> expectedBestHamper = new LinkedList<Food>();
 	expectedBestHamper.add(food1);
 	
+	/*
 	LinkedList<Food> inventory = newLinkedList<Food>();
 	inventory.add(food1);
 	inventory.add(food2);
-	inventory.add(food3);
+	inventory.add(food3);*/
+	
+	createFoodHamperFamilyObjects();
 	
 	Nutrition n = new Nutrition(20, 30, 40, 10, 90);	//Mathces broccoli exactly, should choose broccoli
 	HamperNutrition hamp = new Hamper Nutrition(n);
-	hamp.setInventory().setInventory(inventory);
+	hamp.setInventory(this.inventory);
 	hamp.createBestHamper();
 	
 	LinkedList<Food> hamper = hamp.getHamper();
@@ -781,14 +784,18 @@ public void testBestHamperCreatedApproxHamper()
 	LinkedList<Food> expectedBestHamper = new LinkedList<Food>();
 	expectedBestHamper.add(food1);
 	
+	/*
 	LinkedList<Food> inventory = newLinkedList<Food>();
 	inventory.add(food1);
 	inventory.add(food2);
 	inventory.add(food3);
+	*/
+	
+	createFoodHamperFamilyObjects();
 	
 	Nutrition n = new Nutrition(15, 25, 45, 15, 60);	//Best match for caloric intake is broccoli, should choose broccoli
 	HamperNutrition hamp = new Hamper Nutrition(n);
-	hamp.setInventory().setInventory(inventory);
+	hamp.setInventory(this.inventory);
 	hamp.createBestHamper();
 	
 	LinkedList<Food> hamper = hamp.getHamper();
@@ -808,15 +815,16 @@ public void testInventoryRemoved()
 	LinkedList<Food> expectedInventory = new LinkedList<Food>();
 	expectedInventory.add(food2);
 	expectedInventory.add(food3);
-	
+	/*
 	LinkedList<Food> inventory = newLinkedList<Food>();
 	inventory.add(food1);
 	inventory.add(food2);
 	inventory.add(food3);
+	*/
 	
 	Nutrition n = new Nutrition(15, 25, 45, 15, 60);	//Should create a hmaper with broccoli and remove broccoli from inventory linked list
 	HamperNutrition hamp = new Hamper Nutrition(n);
-	hamp.setInventory().setInventory(inventory);
+	hamp.setInventory(this.inventory)
 	hamp.createBestHamper();
 	hamp.removeInventory();
 	LinkedList<Food> foundInventory = hamp.getInventory().getInventory();
