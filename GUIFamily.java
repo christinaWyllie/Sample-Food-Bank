@@ -7,8 +7,10 @@ public class GUIFamily extends JFrame implements ActionListener, MouseListener{
   private int numFemales;
   private int numChildU8;
   private int numChildO8; //might have to be strings then use Integer.parseInt()?
+  private int numHampers;
   
    private JLabel instructions;
+   private JLabel hampersLabel;
    private JLabel mLabel;
    private JLabel fLabel;
    private JLabel U8Label;
@@ -18,7 +20,7 @@ public class GUIFamily extends JFrame implements ActionListener, MouseListener{
    private JTextField fInput;
    private JTextField U8Input;
    private JTextField O8Input;
-
+   private JTextField hamperInput;
 
     
   public GUIPetID(){
@@ -30,7 +32,34 @@ public class GUIFamily extends JFrame implements ActionListener, MouseListener{
   }
   
   public void setupGUI(){
+    
+ 
         instructions = new JLabel("Please enter your information to generate an identifier.");
+        hampersLabel = new JLabel("Amount of hampers needed:");
+        
+        hamperInput = new JTextField("e.g. 1", 2);
+        hamperInput.addMouseListener(this);
+    
+        JButton submitHampers = new JButton("Confirm number of hampers");
+        submitHampers.addActionListener(this);
+    
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new FlowLayout());
+        
+        JPanel clientPanel = new JPanel();
+        clientPanel.setLayout(new FlowLayout());
+
+        JPanel submitPanel = new JPanel();
+        submitPanel.setLayout(new FlowLayout());
+    
+        headerPanel.add(instructions);
+        clienPanel.add(hampersLabel);
+        submitPanel.add(submitHampers);
+    
+        this.add(headerPanel, BorderLayout.NORTH);
+        this.add(clientPanel, BorderLayout.CENTER);
+        this.add(submitPanel, BorderLayout.PAGE_END);
+        
         mLabel = new JLabel("Amount of adult males:");
         fLabel = new JLabel("Amount of adult females:");
         U8Label = new JLabel("Amount of children under 8:");
@@ -51,29 +80,29 @@ public class GUIFamily extends JFrame implements ActionListener, MouseListener{
         JButton submitInfo = new JButton("Create Hamper");
         submitInfo.addActionListener(this);
         
-        JPanel headerPanel = new JPanel();
+        JPanel headerPanel2 = new JPanel();
         headerPanel.setLayout(new FlowLayout());
         
-        JPanel clientPanel = new JPanel();
+        JPanel clientPanel2 = new JPanel();
         clientPanel.setLayout(new FlowLayout());
 
-        JPanel submitPanel = new JPanel();
+        JPanel submitPanel2 = new JPanel();
         submitPanel.setLayout(new FlowLayout());
     
-        headerPanel.add(instructions);
-        clientPanel.add(mLabel);
-        clientPanel.add(mInput);
-        clientPanel.add(fLabel);
-        clientPanel.add(fInput);
-        clientPanel.add(U8Label);
-        clientPanel.add(U8Input);
-        clientPanel.add(O8Label);
-        clientPanel.add(O8Input);
-        submitPanel.add(submitInfo);
+        headerPanel2.add(instructions);
+        clientPanel2.add(mLabel);
+        clientPanel2.add(mInput);
+        clientPanel2.add(fLabel);
+        clientPanel2.add(fInput);
+        clientPanel2.add(U8Label);
+        clientPanel2.add(U8Input);
+        clientPanel2.add(O8Label);
+        clientPanel2.add(O8Input);
+        submitPanel2.add(submitInfo);
     
-        this.add(headerPanel, BorderLayout.NORTH);
-        this.add(clientPanel, BorderLayout.CENTER);
-        this.add(submitPanel, BorderLayout.PAGE_END);
+        this.add(headerPanel2, BorderLayout.NORTH);
+        this.add(clientPanel2, BorderLayout.CENTER);
+        this.add(submitPanel2, BorderLayout.PAGE_END);
   }
   
   public void actionPerformed(ActionEvent event){
