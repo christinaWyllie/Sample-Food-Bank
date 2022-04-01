@@ -271,7 +271,287 @@ public class ENSF409FinalProjectTests{
 	assertNotNull("Order form did not create a valid object", form);
 	}
 	
-	 
+	
+	@Test
+	public void testIOException(){
+	// testing that print() method in OrderForm throws an exception when it cannot write to the txt file.
+	OrderForm order = new OrderForm(family, inventory, hamper);
+	boolean exceptionThrown = false;
+        try {
+            order.print();
+        }
+        catch (Exception e) {
+            exceptionThrown = true;
+        }
+
+        assertFalse("Error thrown from print", exceptionThrown);
+    }
+	
+	
+	@Test
+	public void testPrint(){
+	// test the printing of an order form to an output txt file.
+	createFoodHamperFamilyObjects();
+	OrderForm order = new OrderForm(family, inventory, hamper);
+		
+	String expectedOutput = "Name:" +
+				"Date:" +
+		
+				"Original Request" +
+				"Hamper 1: 1 Adult Female"+
+
+				"Hamper 1 Items: " +
+				"1		Wheat Bread, loaf" +
+				"5		Orange, dozen" +
+				"6		Eggs, dozen";
+		
+	try{
+		File file = new File("somefile.txt");	
+		FileWriter writer = new FileWriter(file)
+		writer.append(expectedOutput);
+	}
+	catch(IOException e){
+		System.out.println("Test failed, could not create file");
+	}
+		order.print();
+		
+	boolean equal = isEqual(file,"OrderForm.txt"); //the file will be created in order form with the name OrderForm
+	assertTrue("Error, unexpected output writen to the file", equal)
+	}
+	
+	 public void testOrderFormImplementsFormatString(){
+	//tests that the OrderForm class implements the FormatString interface
+		createFoodHamperFamilyObjects();
+		OrderForm order = new OrderForm(family, inventory, hamper);
+		assertTrue("Order Form does not implement FormatOutput", (FormatOutput.class.isAssignableFrom(order.getClass()));
+	}
+			   		   
+	//FOOD TEST
+	@Test
+	public void testFoodConstructorandGetter(){
+	//tests that the food constructor creates a valid object
+	   String name1= "Wheat bread, loaf";
+	   int id = 1;
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   Food food1 = Food(id, name1, g1, f1, p1, o1, c1);
+	   assertNotNull("Food did not create a valid object.", food1);
+   	}
+			   
+	//FOOD TEST 
+  	 @Test
+   	public void testFoodGetters(){
+	//tests that the getters in food returns the expected nutrition object
+	   String name1= "Granola Bar, 1 box";
+	   int expectedid  2;
+	   int g1 = 12;
+	   int f1 = 12;
+	   int p1 = 56;
+	   int o1 = 20;
+	   int c1 = 1000;
+	   Food food1 = Food(expectedid, name1, g1, f1, p1, o1, c1);
+	   int gval = (int)((double)(g1/100) * c1));
+	   int fval = (int)((double)(f1/100) * c1));
+	   int pval = (int)((double)(p1/100) * c1));
+	   int oval = (int)((double)(o1/100) * c1));
+	   Nutrition expected = Nutrition(gval, pval, fval, oval, c1);
+	   Nutrition actual = food1.getNutritionValue();
+	   int actualID = food1.getFoodID();
+	   assertEquals("Food's getNutritionValue did not return the expected nutrition object.", expected, actual); 
+	   assertEquals("Food ID does not match expected.", actualID, expectedid) 
+   }
+	//INVENTORY TEST 
+  	 @Test
+  	 public void testInventoryConstructorWithInvalidDataBase(){
+	//testing inventory with no database
+	   Inventory inv = new Inventory();
+	   assertNull("Inventory object with invalid database connection was not null", inv);
+	}
+	
+	//INVENTORY TEST
+	@Test
+	public void testInventorySetters(){
+	//tests the set methods for inventory, setCalories and setInventory
+		Inventory inventory = new Inventory();
+		int[][] array = new int[4][6];
+		array[0][0] = 1;
+		array[0][1] = 16;
+		array[0][2] = 28;
+		array[0][3] = 30;
+		array[0][4] = 26;
+		array[0][5] = 2500;
+		
+		array[1][0] = 2;
+		array[1][1] = 16;
+		array[1][2] = 28;
+		array[1][3] = 26;
+		array[1][4] = 30;
+		array[1][5] = 2500;
+		inventory.setCalories(array);
+		
+		Food food10 = new Food(10, "Eggs, dozen", 0, 0, 50, 50, 1000);
+		Food food11 = new Food(11, "Oranges, dozen", 0, 0, 9, 91, 100);
+		Food food12 = new Food(12, "Granola Bars", 8, 0, 2, 90, 500);
+		Food food13 = new Food(13, "Carrots", 10, 30, 40, 20, 200);
+		
+		LinkedList<Food> list= new LinkedList<Food>();
+		list.add(food10);
+		list.add(food11);
+		list.add(food12);
+		list.add(food13);
+		inventory.setInventory(list);
+		
+		LinkedList<Food> removallist= new LinkedList<Food>();
+		removallist.add(food10);
+		removallist.add(food11);
+		inventory.setRemoveInventory(removallist);
+		
+		assertEquals("Inventory inventory list does not match expected.", inventory.getInventory(), list);
+		assertEquals("Inventory calorie table does not match expected.", inventory.getCalorieTable(), array);
+		assertEquals("Inventory removed inventory list does not match expected.", inventory.getRemovedInventory(), removallist);
+	}
+	//INVENTORY TEST 
+	@Test
+	public void testInventoryRemoval(){
+	//tests that the removemethod from invenotry correctly removes from the main inventory linked list
+		Inventory inventory = new Inventory();
+		int[][] array = new int[4][6];
+		array[0][0] = 1;
+		array[0][1] = 16;
+		array[0][2] = 28;
+		array[0][3] = 30;
+		array[0][4] = 26;
+		array[0][5] = 2500;
+		
+		array[1][0] = 2;
+		array[1][1] = 16;
+		array[1][2] = 28;
+		array[1][3] = 26;
+		array[1][4] = 30;
+		array[1][5] = 2500;
+		inventory.setCalories(array);
+		
+		Food food10 = new Food(10, "Eggs, dozen", 0, 0, 50, 50, 1000);
+		Food food11 = new Food(11, "Oranges, dozen", 0, 0, 9, 91, 100);
+		Food food12 = new Food(12, "Granola Bars", 8, 0, 2, 90, 500);
+		Food food13 = new Food(13, "Carrots", 10, 30, 40, 20, 200);
+		
+		LinkedList<Food> list= new LinkedList<Food>();
+		list.add(food10);
+		list.add(food11);
+		list.add(food12);
+		list.add(food13);
+		inventory.setInventory(list);
+		
+		LinkedList<Food> remove= new LinkedList<Food>();
+		remove.add(food10);
+		remove.add(food11);
+		list.remove(0);
+		list.remove(1);
+		inventory.setRemoveInventory(remove);
+		inventory.removeInventory();
+		
+		LinkedList<Food> actualRemoved = inventory.getRemovedInventory();
+		LinkedList<Food> actualInv = inventory.getInventory();
+		assertEquals("Inventory removed inventory list does not match expected.", actualRemoved, remove);
+		assertEquals("Inventory inventory list does not match expected.", actualInv, list);
+	}
+			   
+	//INVENTORY TEST
+	@Test
+	public void testRemoveDataBase(){
+	//testing remove from datatbase method assuming valid database
+	Inventory inventory = new Inventory();
+	String name1= "Wheat bread, loaf";
+	int id = 1;
+	int g1 = 96;
+	int f1 = 0;
+	int p1 = 4;
+	int o1 = 0;
+	int c1 = 2192;
+	Food food1 = Food(id, name1, g1, f1, p1, o1, c1); //assuming this a valid entry in database
+	LinkedList<Food> remove= new LinkedList<Food>();
+	remove.add(food1);
+	inventory.setRemoveInventory(remove);
+	inventory.removeInventory();
+		
+	boolean status = inventory.removeDataBase();
+	assertTrue("Inventory item was not removed from database.", status);
+	}
+	
+	//HAMPERNUTRITION TEST 
+	@Test
+	public void HamperNutritionImplementsCalculate(){
+	//Tests for Hamper Nutrition
+	HamperNutrition hamp = new HamperNutrition();
+	assertTrue("HamperNutrition does not implement Calculate", (Calculate.class.isAssignableFrom(hamp.getClass())));
+	}
+			   
+	//HAMPERNUTRITION TEST 
+	@Test
+	public void testCheckInventoryNotEnoughInventory()
+	//tests that the NotEnoughInventoryExcpetion was thrown when there has not enough/any inventory avialable
+	{
+	boolean correctException = false;
+	 try
+	   {
+		int g = 12;
+		int p = 13;
+		int f = 14;
+		int o = 7;
+		int c = 340;
+		
+		Nutrition n = new Nutrition(g, p, f, o, c);
+		HamperNutrition hamp = new HamperNutrition(n);
+		hamp.checkInventory();
+		}
+	catch(NotEnoughInventoryException e)
+	{
+		correctException = true;
+	}
+	assertTrue("NotEnoughInventory excpetion was not thrown when there is not enough inventory to create a hamper.", correctException);
+}
+	//HAMPERNUTRION TEST 
+	@Test //FIX 
+	public void testHamperNutritionConstructor() 
+	{      
+	int g = 12;
+	int p = 13;
+	int f = 14;
+	int o = 7;
+	int c = 340;
+		
+	Nutrition n = new Nutrition(g, p, f, o, c);
+	HamperNutrition hamp = new HamperNutrition(n);
+	
+    	assertNotNull("HamperNutrition constructor did not create an object when given a nutrition object", hamp);
+	//Initialize hamper linked list in constructor and should be null;
+	assertNull("Hamper LinkedList was not null: ", hamp.getHamper());
+	}
+	@Test
+	public void testHamperGetterAndSetters()
+	{
+	//Tests getHamper, addToHamper with one food item
+	
+	LinkedList<Food> expectedHamper = new LinkedList<Food>();
+	Food f = new Food(10, 10, 10, 10, 10, 87, "Broccoli");
+	expectedHamper.add(f);
+	
+	int g = 12;
+	int p = 13;
+	int f = 14;
+	int o = 7;
+	int c = 340;
+		
+	Nutrition n = new Nutrition(g, p, f, o, c);
+	HamperNutrition hamp = new HamperNutrition(n);
+	hamp.addToHamper(f);
+	LinkedList<Food> hamper = hamp.getHamper();
+	assertEquals("Method getHamper did not return the expected hamper: ", expectedHamper, hamp)
+}
 		
 	 /* ******************* HELPER METHODS ***************** */
 
@@ -367,4 +647,10 @@ public class ENSF409FinalProjectTests{
 		
 	   HamperNutrition hamper = new HamperNutrition(nutrition);
     }
+			   
+			   
+			   
+			   
+			   
+			   
 }
