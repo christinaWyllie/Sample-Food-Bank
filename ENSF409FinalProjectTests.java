@@ -7,10 +7,14 @@ import java.util.*;
 
 
 public class ENSF409FinalProjectTests{
-	private int[][] calorieTable = {{1,0,50,0,50,2000}, 
-																{2, 20, 30, 40, 10, 1000}, 
-																{3, 50, 0, 10, 40, 500}, 
-																{4, 30, 30, 30, 10, 100}};
+	private int[][] calorieTable = {{1,0,50,0,50,2000},
+					{2, 20, 30, 40, 10, 1000}, 
+					{3, 50, 0, 10, 40, 500}, 
+					{4, 30, 30, 30, 10, 100}};
+	private Family family;
+	private Hamper hamper;
+	private Nutrition nutrition;
+	private Inventory inventory;
 	
 	//APPLICATION TEST 
 	@Test
@@ -164,8 +168,8 @@ public class ENSF409FinalProjectTests{
 	}
 	
 	//FAMILY TEST
-	public void testGetTotalNutritionFromFamily(){
-		//test that gettotal nuttrition object returns the expected values for total number of calories 
+	public void testGetTotalNutritionFromFamilyMultipleMembers(){
+		//test that gettotal nuttrition object returns the expected values for total number of calories for multiple people
 		int[][] array = new int[4][6];
 		array[0][0] = 1;
 		array[0][1] = 30;
@@ -197,7 +201,77 @@ public class ENSF409FinalProjectTests{
 		assertEquals("Nutrition object total did not match the expected object.", expected, actual);
 	}
 	
+	//FAMILY TEST
+	public void testGetTotalNutritionFromFamilySingleMember(){
+		//test that gettotal nuttrition object returns the expected values for total number of calories for 1 family member
+		int[][] array = new int[4][6];
+		array[0][0] = 1;
+		array[0][1] = 30;
+		array[0][2] = 20;
+		array[0][3] = 40;
+		array[0][4] = 10;
+		array[0][5] = 2500;
+		
+		array[1][0] = 2;
+		array[1][1] = 20;
+		array[1][2] = 40;
+		array[1][3] = 10;
+		array[1][4] = 30;
+		array[1][5] = 2500;
+		
+		int expectedGrain = (0.3*2500);
+		int expectedProtein = (0.2*2500);
+		int expectedFV = (0.4*2500);
+		int expectedOther = (0.1*2500);
+		int expectedTotalCals = 2500;
+		
+		int idQuantityArray = [1,0,0,0];
+		Family family1 = new Family(array, idQuantityArray);
+		
+		Nutrition expected = new Nutrition(expectedGrain, expectedProtein, expectedFV, expectedOther, expectedTotalCals);
+		Nutrition actual = family1.getTotal();
+		
+		assertNotNull("Total nutrition object was null.", actual);
+		assertEquals("Nutrition object total did not match the expected object.", expected, actual);
+	}
 	
+	//NUTRITION TESTS
+	@Test
+    public void testGetNutritionSinglePerson() {
+        //tests getters when only one person is given to the application 
+	//NO addition required for total grains 
+        int givenDataGrain = 400;
+        int givenDataFV = 700;
+	int givenDataProtein = 650;
+	int givenDataOther = 750;
+	int givenDataCalories = 2500;
+		
+	int[] array = [1,0,0,0];
+	Nutrition nutrition = new Nutrition(givenDataGrain, givenDataProtein, givenDataFV, givenDatOther, givenDataCalories);
+		
+	int actualContentGrain = nutrition.getGrain();
+        int actualContentProtein = nutrition.getProtein();
+	int actualContentFV = nutrition.getFV();
+	int actualContentOther = nutrition.getOther();
+	int actualContentCalories = nutrition.getCalories();
+        
+
+        assertEquals("Value of grains did not match what was expected: ", givenDataGrain, actualContentGrain);
+	assertEquals("Value of protien did not match what was expected: ", givenDataFV, actualContentFV);
+	assertEquals("Value of FV content did not match what was expected: ", givenDataProtein, actualContentProtien);
+	assertEquals("Value of other nutrition did not match what was expected: ", givenDataOther, actualContentOther);
+	assertEquals("Value of calories did not match what was expected: ", givenDataCalories, actualContentCalories);
+    }
+	//ORDERFORM TEST 
+	@Test
+	public void testOrderFormConstructor() {
+		
+	createFoodHamperFamilyObjects();
+	OrderForm form = new OrderForm(family, inventory, hamper);
+	assertNotNull("Order form did not create a valid object", form);
+	}
+	
+	 
 		
 	 /* ******************* HELPER METHODS ***************** */
 
@@ -269,28 +343,28 @@ public class ENSF409FinalProjectTests{
 	   foodList.add(food5);
 	   foodList.add(food6);
 	   
-			int[][] array = new int[4][6];
+	   int[][] array = new int[4][6];
 		
-			array[1][0] = 2;
-			array[1][1] = 16;
-			array[1][2] = 28;
-			array[1][3] = 26;
-			array[1][4] = 30;
-			array[1][5] = 2500;
+	   array[1][0] = 2;
+	   array[1][1] = 16;
+	   array[1][2] = 28;
+	   array[1][3] = 26;
+	   array[1][4] = 30;
+	   array[1][5] = 2500;
 		
-			Inventory inventory = new Inventory();
-			inventory.setInventory(foodList);
-			inventory.setCalories(array);
+	   Inventory inventory = new Inventory();
+	   inventory.setInventory(foodList);
+      	   inventory.setCalories(array);
 		
-			int[] id = {0,1,0,0};
+	   int[] id = {0,1,0,0};
 		
-			Family family = new Family(id, array);
+	   Family family = new Family(id, array);
 		
-			ArrayList familyList = new ArrayList<Family>();
-			familyList.add(family);
+	   ArrayList familyList = new ArrayList<Family>();
+	   familyList.add(family);
 		
-			Nutrition nutrition = new Nutrition(g6, p6, f6, o6, c6);
+	   Nutrition nutrition = new Nutrition(g6, p6, f6, o6, c6);
 		
-			HamperNutrition hamper = new HamperNutrition(nutrition);
+	   HamperNutrition hamper = new HamperNutrition(nutrition);
     }
 }
