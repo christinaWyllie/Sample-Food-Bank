@@ -2,7 +2,7 @@
 
 public class Food implements Calculate{
   private final String NAME;
-  private final FOODID;
+  private final int FOODID;
   private final Nutrition NUTRITIONALVALUE;
   
   public Food(int itemID, String n, int g, int f, int p, int o, int c){
@@ -13,6 +13,10 @@ public class Food implements Calculate{
   
   public Nutrition getNutritionalValue(){
     return this.NUTRITIONALVALUE;
+  }
+  
+  public int getFoodID(){
+    return this.FOODID;
   }
   
   @Override
