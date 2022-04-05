@@ -1,15 +1,16 @@
 //Inventory
+import java.util.*;
 
 public class Inventory{
   private DataBase dataAccess;
   private static LinkedList<Food> inventory;
-  private static LinkedList<Food> removeInventory;
+  private static LinkedList<Food> removeInventory = new LinkedList<Food>();
   private static int[][] calorieTable; 
   
   public Inventory(){
     this.dataAccess = new DataBase();
-    this.inventory = setInventory(this.dataAccess.getInventoryInfo());
-    this.calorieTable = this.dataAccess.getCalorieInfo();
+    setInventory(this.dataAccess.getInventoryInfo());
+    setCalorieTable(this.dataAccess.getCalorieInfo());
   }
   
   public void setInventory(LinkedList<Food> i){
@@ -33,13 +34,21 @@ public class Inventory{
   }
   
   public void removeInventory(){
-    for (int k = 0; k < this.removeInventory.size(); k++){
-      Food toBeRemoved = this.removeInventory.get(k);
-      this.inventory.remove(toBeRemoved);
-    }
+    for (int k = 0; k < this.removeInventory.size(); k++)
+    {
+		  int tbr = removeInventory.get(k).getFoodID();
+		
+		  for (int p = 0; p < this.inventory.size(); p++)
+		  {
+			  if (this.inventory.get(p).getFoodID() == tbr)
+			  {
+				  inventory.remove(p);
+			  }
+		  }
+	  }
   }
   
-  public boolean removeDataBase(){
+  public boolean removeDataBase(){ //only function not tested yet bc no database
     boolean success = this.dataAccess.updateDataBase(this.removeInventory);
     if (success == true)
     {
