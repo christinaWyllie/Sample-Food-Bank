@@ -8,7 +8,7 @@ public class Family implements Calculate{
   public Family(int[] ID, int[][] caloricInfo){
     this.ID = ID;
     this.calorieData = caloricInfo; 
-    calculateCalories();
+    this.TOTAL = calculateContent(); //same inconsistnecy as below, sorry Tina
   }
   
   public String getID(){
@@ -25,7 +25,7 @@ public class Family implements Calculate{
   }
   
   @Override
-  public void calculateContent(){
+  public Nutrition calculateContent(){ //need to fix with UML, but maybe could just send 0's in to make it work with food(check food class for context)
     //using conventions g, p, f, o, c 
     int totalGrain = 0; 
     int totalProtein = 0;
@@ -54,7 +54,8 @@ public class Family implements Calculate{
       i++;
       index++;
     }
-    this.TOTAL = new Nutrition(totalGrain, totalProtein, totalFV, totalOther, totalCalories);
+    Nutrition n = new Nutrition(totalGrain, totalProtein, totalFV, totalOther, totalCalories);
+    return n;
   }
   
 }
