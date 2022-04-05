@@ -3,7 +3,7 @@
 public class Inventory{
   private DataBase dataAccess;
   private static LinkedList<Food> inventory;
-  private static LinkedList<Food> removedInventory;
+  private static LinkedList<Food> removeInventory;
   private static int[][] calorieTable; 
   
   public Inventory(){
@@ -11,19 +11,49 @@ public class Inventory{
     this.inventory = setInventory(this.dataAccess.getInventoryInfo());
     this.calorieTable = this.dataAccess.getCalorieInfo();
   }
-  //removes from inventory linkedlist and puts into removed invernotry linkedlist
-  public void removeFromInventory(LinkedList<Food> toBeRemoved);
   
-  public void setInventory(LinkedList<Food> inv)
-  {
-    this.inventory = inv;
+  public void setInventory(LinkedList<Food> i){
+    this.inventory = i;
   }
   
-  public void setCalories(int[][] calorieInfo)
-  {
-    this.calorieTable = calorieInfo;
+  public LinkedList<Food> getInventory(){
+    return this.inventory;
   }
-  //removes from database through dataAccess object
-  public boolean removeDataBase();
-   
+  
+  public LinkedList<Food> getRemoveInventory(){
+    return this.removeInventory;
+  }
+  
+  public void setRemoveInventory(LinkedList<Food> r)
+  { 
+    for (int k = 0; k < r.size(); k++)
+    {
+      this.removeInventory.add(r.get(k));
+    }
+  }
+  
+  public void removeInventory(){
+    for (int k = 0; k < this.removeInventory.size(); k++){
+      Food toBeRemoved = this.removeInventory.get(k);
+      this.inventory.remove(toBeRemoved);
+    }
+  }
+  
+  public boolean removeDataBase(){
+    boolean success = this.dataAccess.updateDataBase(this.removeInventory);
+    if (success == true)
+    {
+      this.removeInventory.clear();
+    }
+    return success;
+  }
+  
+  public int[][] getCalorieTable(){
+    return this.calorieTable;
+  }
+  
+  public void setCalorieTable(int[][] s)
+  {
+    this.calorieTable = s;
+  }
 }
