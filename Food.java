@@ -1,20 +1,27 @@
 //food
 
-public class Food{
-  private final String name;
-  private final itemID;
-  private final Nutrition nutritionValue;
+public class Food implements Calculate{
+  private final String NAME;
+  private final FOODID;
+  private final Nutrition NUTRITIONALVALUE;
   
   public Food(int itemID, String n, int g, int f, int p, int o, int c){
-    this.name = n;
+    this.NAME = n;
+    calculateContent(g,f,p,o,c);
+    this.FOODID =itemID;
+  }
+  
+  public Nutrition getNutritionalValue(){
+    return this.NUTRITIONALVALUE;
+  }
+  
+  @Override
+  public void calculateContent(int g, int f, int p, int o, int c){ //problem because method takes no args, so need to change interface or set local g,p,f,o,c. but UML changes either way
     int grain = (int)((double)(g/100) * c));
     int fv = (int)((double)(f/100) * c));
     int protein = (int)((double)(p/100) * c));
     int other = (int)((double)(o/100) * c));
-    this.nutritionValue = new Nutrition(grain, protein, fv, other, c);
-    this.itemID = itemID;
+    this.NUTRITIONALVALUE = new Nutrition(grain, protein, fv, other, c);
   }
-  public Nutrition getNutritionValue(){
-    return this.nutritionValue;
-  }
+    
 }
