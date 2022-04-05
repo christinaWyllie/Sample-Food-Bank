@@ -25,7 +25,7 @@ public class Family implements Calculate{
   }
   
   @Override
-  public void calculateCalories(){
+  public void calculateContent(){
     //using conventions g, p, f, o, c 
     int totalGrain = 0; 
     int totalProtein = 0;
