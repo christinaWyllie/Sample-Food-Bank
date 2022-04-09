@@ -23,11 +23,11 @@ public class Application{
      this.hamper.add(new HamperNutrition(this.families.get(numHampers-1).getTotal())); //Still dont know what nutriton object im sending 
   }
   
-  public int[] getUserInput(int index) {return this.families.get(index).getFamilyMembers();};
-  public int getNumHamper() {return this.numHamper;};
-  public ArrayList<Family> getFamiles() {return this.familes;};
-  public Arraylist<HamperNutrition> getHampers() {return this.hamper;};
-  public Family getFamily(int index) {return this.familes.get(index);};
-  public LinkedList<Food> getHamper(int index) {return this.hamper.get(index).getHamper();};
-  public Inventory getInventory() {return this.inventory;};
+  public int[] getUserInput(int index) {return this.families.get(index).getFamilyMembers();}
+  public int getNumHamper() {return this.numHamper;}
+  public ArrayList<Family> getFamiles() {return this.familes;}
+  public Arraylist<HamperNutrition> getHampers() {return this.hamper;}
+  public Family getFamily(int index) {return this.familes.get(index);}
+  public LinkedList<Food> getHamper(int index) {return this.hamper.get(index).getHamper();}
+  public Inventory getInventory() {return this.inventory;}
 }
