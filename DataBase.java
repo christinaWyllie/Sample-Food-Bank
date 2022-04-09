@@ -1,5 +1,4 @@
 //database
-
 package edu.ucalgary.ensf409;
 
 import java.sql.*;
@@ -20,7 +19,7 @@ public class DataBase{
   
   private void initializeConnection(){
     try{
-      this.dBConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "student", "ensf409"); //dont actually know database url so fix
+      this.dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/food_inventory", "student", "ensf409"); //dont actually know database url so fix
     }
     catch(SQLException e){
       System.out.println("Error connecting to database.");
@@ -49,9 +48,9 @@ public class DataBase{
         this.calorieTable[i][4] = o;
         this.calorieTable[i][5] = c;
         
-        i++
+        i++;
         }
-        }catch (SQLException ex) {
+     }catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -59,7 +58,7 @@ public class DataBase{
     public void getInventoryData(){
       try{
       Statement myStmt = this.dbConnect.createStatement();
-      String query = "SELECT * AVAILABLE_FOOD";
+      String query = "SELECT * FROM AVAILABLE_FOOD";
       this.results = myStmt.executeQuery(query);
       while(this.results.next()){
         int id = results.getInt("ItemID");
@@ -70,7 +69,7 @@ public class DataBase{
         int o = results.getInt("Other");
         int c = results.getInt("Calories");
         Food foodItem = new Food(id, name, g, f, p, o, c);
-        this.inventory.add(foodItem)
+        this.inventory.add(foodItem);
         }
       }catch (SQLException ex) {
           ex.printStackTrace();
@@ -103,7 +102,7 @@ public class DataBase{
          String query = "DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
-            myStmt.setString(1, toBeRemoved.get(k).getFoodID());
+            myStmt.setString(1, Integer.toString(toBeRemoved.get(k).getFoodID()));
                         
             int rowCount = myStmt.executeUpdate();
             //System.out.println("Rows affected: " + rowCount);
@@ -142,9 +141,6 @@ public class DataBase{
         }
      }
   }
-    
-        
-        
 
         
         
