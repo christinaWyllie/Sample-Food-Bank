@@ -10,9 +10,35 @@ public class HamperNutrition implements Calculate{
     this.nutrition = nutrition;
   } 
   
-  public void calculateContent()
+  public int[] calculateContent()
   {
- 
+    int grain = 0;
+    int protien = 0;
+    int fAndV = 0;
+    int other = 0;
+    int calories = 0;
+    
+    Iterator<Food> it = hamper.iterator();
+    
+    while (it.hasNext())
+    {
+      Nutrition food = it.next().getNutritionalValue();
+      grain += food.getGrain();
+      protien += food.getProtien();
+      fAndV += food.getFV();
+      other += food.getOther();
+      calories += food.getCalories();
+    }
+    
+    int[] contents = new int[5];
+    contents[0] = grain - nutrition.getGrain();
+    contents[1] = protien - nutrition.getProtien();
+    contents[2] = fAndV - nutrition.getFV();
+    contents[3] = other - nutrition.getOther();
+    contents[4] = calories - nutrition.getCalories();
+    
+    return contents;
+    
   }
   
   public void addToHamper(Food food)
@@ -27,20 +53,31 @@ public class HamperNutrition implements Calculate{
   
   public void checkInventory() throws NotEnoughInventoryException
   {
-    if(nutrition.getGrain() > )
-      throw new NotEnoughInventoryException();
-    if(nutrition.getProtien() > )
-      throw new NotEnoughInventoryException();
     
   } 
   
   public void createBestHamper()
   {
-    //Outside ArrayList is the number of possible hampers 
+    /*//Outside ArrayList is the number of possible hampers 
     //Inside ArrayList is the hamper with the food 
+    */
+    helpCreateBestHamper();
+    
     ArrayList<ArrayList<Food>> = new ArrayList<ArrayList<Food>>();
     
-    for()
+  }
+  
+  private ArrayList<ArrayList<Food>> helpCreateBestHamper(LinkedList<Food> food)
+  {
+    int[] content = calculateContent(); 
+    if(content[0] >= 0 && content[1] >= 0 && content[2] >= 0 && content[3] >= 0 && content[4] >= 0) //Add buffer
+      return;
+    else 
+    {
+      
+      removeFromInventory(f); //remove whatever food goes into the hamper from the inventory linked list
+      helpCreateBestHamper(inventory.getInventory());
+    }
     
   }
   
