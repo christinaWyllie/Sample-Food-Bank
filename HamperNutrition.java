@@ -108,17 +108,17 @@ public class HamperNutrition implements Calculate{
   
   public void removeFromInventory()
   {
-     inventory.removeInventory();
+	inventory.removeInventory();
   }
 
   public Inventory getInventory()
   {
-    return this.inventory;
+	return this.inventory;
   }
   
   public void setInventory(Inventory i)
   {
-    this.inventory = i;
+	this.inventory = i;
   }
   
 }
