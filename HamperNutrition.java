@@ -58,7 +58,7 @@ public class HamperNutrition implements Calculate{
   
   public void createBestHamper()
   {
-	LinkedList<Food> food = inventory.getInventory()
+	LinkedList<Food> food = inventory.getInventory();
 	int[] content = calculateContent();
 	Food best = new Food(0, 0, 0, 0, 0, 0, "nothing");
 	int b = 0;
@@ -93,22 +93,17 @@ public class HamperNutrition implements Calculate{
 		
 		try
 		{
-			food.remove(best);
+			food.remove(best);	//Each food has unique item ID
 			hamper.add(best);
 			content = calculateContent();
 			b = 0;
 			best = new Food(0, 0, 0, 0, 0, 0, "nothing");
-			
 		}
 		catch(Exception e)
 		{
-			break;
+			break;		//Maybe call different method if break doesn't work - could throw NotEnoughInvetoryException
 		}
 	}
-	  
-	
-	  
-	
   }
   
   public void removeFromInventory()
