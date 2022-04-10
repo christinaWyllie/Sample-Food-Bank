@@ -31,11 +31,11 @@ public class HamperNutrition implements Calculate{
     }
     
     int[] contents = new int[5];
-    contents[0] = grain - nutrition.getGrain();
-    contents[1] = protien - nutrition.getProtien();
-    contents[2] = fAndV - nutrition.getFV();
-    contents[3] = other - nutrition.getOther();
-    contents[4] = calories - nutrition.getCalories();
+    contents[0] = nutrition.getGrain() - grain;
+    contents[1] = nutrition.getProtien() - protien;
+    contents[2] = nutrition.getFV() - fAndV;
+    contents[3] = nutrition.getOther() - other;
+    contents[4] = nutrition.getCalories() - calories;
     
     return contents;
     
@@ -58,25 +58,75 @@ public class HamperNutrition implements Calculate{
   
   public void createBestHamper()
   {
-    /*//Outside ArrayList is the number of possible hampers 
-    //Inside ArrayList is the hamper with the food 
-    */
-    helpCreateBestHamper();
+		LinkedList<Food> food = inventory.getInventory();
+		Iterator<Food> it = food.iterator();
+		Food first = new Food(0, 0, 0, 0, 0, 0, "nothing");
+		
+		Food bestGrain = first;
+		Food bestProtien = first;
+		Food bestFruitAndVeg = first;
+		Food bestOther = first;
+		
+		while(it.hasNext())
+		{
+			Iterator<Food> iter = food.iterator();
+			int[] con = calculateContents();
+				
+			while(iter.hasNext())
+			{
+					Food f = iter.next();
+					if(f.getNutritionalValue().getGrain() > bestGrain.getNutritionalValue().getGrain())
+						bestGrain =  f;
+					if(f.getNutritionalValue().getProtien() > bestProtien.getNutritionalValue().getProtien())
+						bestProtien =  f;
+					if(f.getNutritionalValue().getFV() > bestFruitAndVeg.getNutritionalValue().getFV())
+						bestFruitAndVeg =  f;
+					if(f.getNutritionalValue().getOther() > bestOther.getNutritionalValue().getOther())
+						bestOther =  f;
+			}
+			
+			if(bestGrain.getNutritionalValue().getGrain() <= con[0])
+			{
+				hamper.add(bestGrain);
+				food.remove(bestGrain);
+				con = calculateContents();	//Won't work change
+			}
+			
+			
+			if(bestGrain != bestProtien && bestProtien.getNutritionalValue().getProtien() <= con[1])
+				hamper.add(bestProtien);
+			con = calculateContents();
+			
+			if
+			
+		}
+		
+		/*
+		int i = 0;
+		
+    helpCreateBestHamper(i, food);
     
-    ArrayList<ArrayList<Food>> = new ArrayList<ArrayList<Food>>();
+    ArrayList<ArrayList<Food>> = new ArrayList<ArrayList<Food>>();*/
     
   }
   
-  private ArrayList<ArrayList<Food>> helpCreateBestHamper(LinkedList<Food> food)
+  private void helpCreateBestHamper(int i, LinkedList<Food> food)
   {
     int[] content = calculateContent(); 
+		
     if(content[0] >= 0 && content[1] >= 0 && content[2] >= 0 && content[3] >= 0 && content[4] >= 0) //Add buffer
       return;
     else 
     {
-      
-      removeFromInventory(f); //remove whatever food goes into the hamper from the inventory linked list
-      helpCreateBestHamper(inventory.getInventory());
+      if(content[0] >= 0 || content[1] >= 0 || content[2] >= 0 || content[3] >= 0)
+			{
+				Iterator<Food> it = food.iterator();
+				
+			}
+			
+			hamper.add(food.get(i));
+			i++;
+      helpCreateBestHamper(i, food);
     }
     
   }
