@@ -18,6 +18,7 @@ Date Submitted: April 18th, 2022
 @since 1.0
  */
 
+package edu.ucalgary.ensf409;
 
 public class RemoveFromDataBaseFailedException extends Exception{
 	public RemoveFromDataBaseFailedException(){
