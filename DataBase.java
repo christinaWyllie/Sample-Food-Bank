@@ -62,8 +62,8 @@ public class DataBase{
         
         this.calorieTable[i][0] = i + 1;
         this.calorieTable[i][1] = g;
-        this.calorieTable[i][2] = p;
-        this.calorieTable[i][3] = f;
+        this.calorieTable[i][2] = f;
+        this.calorieTable[i][3] = p;
         this.calorieTable[i][4] = o;
         this.calorieTable[i][5] = c;
         
