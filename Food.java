@@ -67,7 +67,7 @@ public class Food implements Calculate{
     int fv = (int)((f/100.0) * c);
     int protein = (int)((p/100.0) * c);
     int other = (int)((o/100.0) * c);
-    Nutrition toBeSet = new Nutrition(grain, protein, fv, other, c);
+    Nutrition toBeSet = new Nutrition(grain, fv, protein, other, c);
     return toBeSet;
   }
   
