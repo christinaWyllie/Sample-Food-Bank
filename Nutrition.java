@@ -27,7 +27,7 @@ public class Nutrition{
   private final int OTHER;
   private final int CALORIES;
   
-  public Nutrition(int g, int p, int f, int o, int c)
+  public Nutrition(int g, int f, int p, int o, int c)
   {
     this.GRAIN = g;
     this.PROTEIN = p;
