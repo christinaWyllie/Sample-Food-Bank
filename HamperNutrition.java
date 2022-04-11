@@ -104,6 +104,17 @@ public class HamperNutrition implements Calculate{
 			break;		//Maybe call different method if break doesn't work - could throw NotEnoughInvetoryException
 		}
 	}
+	
+	content = calculateContent();  
+	if(content[0] > 0 && content[1] > 0 && content[2] > 0 && content[3] > 0)
+		return
+	
+	Iterator<Food> it = food.iterator();
+	
+	while(it.hasNext())
+	{
+		//Find the smallest food that still exceeds the nutrients required
+	}
   }
   
   public void removeFromInventory()
