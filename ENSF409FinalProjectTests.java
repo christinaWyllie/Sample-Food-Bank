@@ -685,7 +685,7 @@ public class ENSF409FinalProjectTests{
 	   int p1 = 4;
 	   int o1 = 0;
 	   int c1 = 2192;
-	   Food food1 = Food(id1, name1, g1, f1, p1, o1, c1);
+	   Food food1 = new Food(id1, name1, g1, f1, p1, o1, c1);
 	   
 	   String name2 = "Wheat bread, loaf";
 	   int id2 = 2;
