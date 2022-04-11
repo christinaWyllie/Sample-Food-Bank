@@ -22,6 +22,6 @@ package edu.ucalgary.ensf409;
 
 public class NotEnoughInventoryException extends Exception{
 	public NotEnoughInventoryException(){
-		super("Not Enough Intentory Found To Fullfil Hamper.");
+		super("Not enough inventory found to fulfill hamper.");
 	}
 }
