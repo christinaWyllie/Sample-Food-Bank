@@ -82,8 +82,8 @@ public class Family implements Calculate{
         
         int c = this.calorieData[i-1][5];
         int g = this.calorieData[i-1][1];
-        int p = this.calorieData[i-1][2];
-        int f = this.calorieData[i-1][3];
+	int f = this.calorieData[i-1][2];
+        int p = this.calorieData[i-1][3];
         int o = this.calorieData[i-1][4];
       
       // to calculate the total contents. 
@@ -101,7 +101,7 @@ public class Family implements Calculate{
       i++;
       index++;
     }
-    Nutrition n = new Nutrition(totalGrain*7, totalProtein*7, totalFV*7, totalOther*7, totalCalories*7);
+    Nutrition n = new Nutrition(totalGrain*7, totalFV*7, totalProtein*7, totalOther*7, totalCalories*7);
 	// send the values to nutrition and multiply by 7 to get the total nutrition for a week.
     return n;
   }
