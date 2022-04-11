@@ -18,6 +18,8 @@ Date Submitted: April 18th, 2022
 @since 1.0
  */
 
+package edu.ucalgary.ensf409;
+
 public class NotEnoughInventoryException extends Exception{
 	public NotEnoughInventoryException(){
 		super("Not Enough Intentory Found To Fullfil Hamper.");
