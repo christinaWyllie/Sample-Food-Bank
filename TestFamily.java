@@ -89,6 +89,7 @@ public class TestFamily{
 	}
 	
 	//FAMILY TEST
+	@Test 
 	public void testGetTotalNutritionFromFamilyMultipleMembers(){
 		//test that gettotal nuttrition object returns the expected values for total number of calories for multiple people
 		int[][] array = new int[4][6];
@@ -123,6 +124,7 @@ public class TestFamily{
 	}
 	
 	//FAMILY TEST
+	@Test 
 	public void testGetTotalNutritionFromFamilySingleMember(){
 		//test that gettotal nuttrition object returns the expected values for total number of calories for 1 family member
 		int[][] array = new int[4][6];
@@ -148,6 +150,77 @@ public class TestFamily{
 		
 		int idQuantityArray = [1,0,0,0];
 		Family family1 = new Family(array, idQuantityArray);
+		
+		Nutrition expected = new Nutrition(expectedGrain, expectedProtein, expectedFV, expectedOther, expectedTotalCals);
+		Nutrition actual = family1.getTotal();
+		
+		assertNotNull("Total nutrition object was null.", actual);
+		assertEquals("Nutrition object total did not match the expected object.", expected, actual);
+	}
+		
+	//FAMILY TEST calculateCalories()
+	//test that calculate calories returns correct values 
+	@Test 
+	public void testCalculateCaloriesMethodInFamily(){
+		int[][] array = new int[4][6];
+		array[0][0] = 1;
+		array[0][1] = 30;
+		array[0][2] = 20;
+		array[0][3] = 40;
+		array[0][4] = 10;
+		array[0][5] = 2500;
+		
+		array[1][0] = 2;
+		array[1][1] = 20;
+		array[1][2] = 40;
+		array[1][3] = 10;
+		array[1][4] = 30;
+		array[1][5] = 2500;
+		
+		int idQuantityArray = [1,1,0,0];
+		
+		int expectedGrain = (0.3*2500) + (0.2*2500);
+		int expectedFV = (0.2*2500) + (0.4*2500);
+		int expectedProtein = (0.4*2500) + (0.1*2500);
+		int expectedOther = (0.1*2500) + (0.3*2500);
+		int expectedTotalCals = 5000;
+		
+		Family family1 = new Family(idQuantityArray, array);
+		Nutrition f1n = family1.getTotal();
+		assertEquals("Expected grain value did not match actual value.", expectedGrain, f1n.getGrain());
+		assertEquals("Expected protein value did not match actual value.", expectedProtein, f1n.getProtein());
+		assertEquals("Expected fruit and veggies value did not match actual value.", expectedFV, f1n.getFV());
+		assertEquals("Expected other category value did not match actual value.", expectedOther, f1n.getOther());
+		assertEquals("Expected total calorie value did not match actual value.", expectedTotalCals, f1n.getCalories());
+	}
+		
+	//FAMILY TEST getTotal()
+	//test that gettotal nuttrition object works
+	@Test 
+	public void testGetTotalNutritionFromFamily(){
+		int[][] array = new int[4][6];
+		array[0][0] = 1;
+		array[0][1] = 30;
+		array[0][2] = 20;
+		array[0][3] = 40;
+		array[0][4] = 10;
+		array[0][5] = 2500;
+		
+		array[1][0] = 2;
+		array[1][1] = 20;
+		array[1][2] = 40;
+		array[1][3] = 10;
+		array[1][4] = 30;
+		array[1][5] = 2500;
+		
+		int expectedGrain = (0.3*2500) + (0.2*2500);
+		int expectedProtein = (0.2*2500) + (0.4*2500);
+		int expectedFV = (0.4*2500) + (0.1*2500);
+		int expectedOther = (0.1*2500) + (0.3*2500);
+		int expectedTotalCals = 5000;
+		
+		int idQuantityArray = [1,1,0,0];
+		Family family1 = new Family(idQuantityArray, array);
 		
 		Nutrition expected = new Nutrition(expectedGrain, expectedProtein, expectedFV, expectedOther, expectedTotalCals);
 		Nutrition actual = family1.getTotal();
