@@ -99,7 +99,7 @@ public class TestNutritionAndFood{
    @Test
    public void testFoodImplementsCalculate(){
 	//tests that the OrderForm class implements the FormatString interface
-		String name1= "Wheat bread, loaf";
+	   String name1= "Wheat bread, loaf";
 	   int id = 1;
 	   int g1 = 96;
 	   int f1 = 0;
@@ -107,6 +107,6 @@ public class TestNutritionAndFood{
 	   int o1 = 0;
 	   int c1 = 2192;
 	   Food food1 = new Food(id, name1, g1, f1, p1, o1, c1);
-		assertTrue("Order Form does not implement FormatOutput", (Calculate.class.isAssignableFrom(food1.getClass())));
+	   assertTrue("Food does not implement Calculate", (Calculate.class.isAssignableFrom(food1.getClass())));
 	}
 }
