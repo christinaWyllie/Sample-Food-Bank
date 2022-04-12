@@ -18,6 +18,7 @@ Date Submitted: April 18th, 2022
 @since 1.0
  */
 
+package edu.ucalgary.ensf409;
 
 //public class famile which uses the interface Calculate
 public class Family implements Calculate{
