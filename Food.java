@@ -1,3 +1,5 @@
+
+   
 /* 
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
@@ -25,6 +27,11 @@ public class Food implements Calculate{
   private final String NAME;
   private final int FOODID;
   private final Nutrition NUTRITIONALVALUE;
+  private final int GRAIN;
+  private final int FV;
+  private final int PROTEIN;
+  private final int OTHER;
+  private final int CALORIES;
   
 //Food constructor
 /*
@@ -38,7 +45,13 @@ public class Food implements Calculate{
 */
   public Food(int itemID, String n, int g, int f, int p, int o, int c){
     this.NAME = n;
-    this.NUTRITIONALVALUE = calculateContent(g,f,p,o,c);
+    this.GRAIN = g;
+    this.FV = f;
+    this.PROTEIN = p;
+    this.OTHER = o; 
+    this.CALORIES = c;
+    
+    this.NUTRITIONALVALUE = calculateContent();
     this.FOODID =itemID;
   }
   
@@ -60,16 +73,15 @@ public class Food implements Calculate{
   
 // public method for the Calculate interface
   @Override //changed to return nutrition object, UML is fine for that part
-  public Nutrition calculateContent(int g, int f, int p, int o, int c){ 
+  public Nutrition calculateContent(){ 
 	 // calculates the total for each category by taking the percentage, dividing by 100 to get the decimal value and then multiply 
 	  // by the total amount of calories for the food.
-    int grain = (int)((g/100.0) * c);
-    int fv = (int)((f/100.0) * c);
-    int protein = (int)((p/100.0) * c);
-    int other = (int)((o/100.0) * c);
-    Nutrition toBeSet = new Nutrition(grain, fv, protein, other, c);
+    int grain = (int)((this.GRAIN/100.0) * this.CALORIES);
+    int fv = (int)((this.FV/100.0) * this.CALORIES);
+    int protein = (int)((this.PROTEIN/100.0) * this.CALORIES);
+    int other = (int)((this.OTHER/100.0) * this.CALORIES);
+    Nutrition toBeSet = new Nutrition(grain, fv, protein, other, this.CALORIES);
     return toBeSet;
   }
   
-    
 }
