@@ -4,11 +4,13 @@ public class HamperNutrition implements Calculate{
   private LinkedList<Food> hamper = new LinkedList<Food>();
   private Inventory inventory;
   private Nutrition nutrition;	//This is total nutrition from family
+  private LinkedList<Food> food;
   
   public HamperNutrition(Nutrition nutrition, Inventory inventory)	//Constructor
   {
 	this.nutrition = nutrition;
 	this.inventory = inventory;
+	this.food = this.inventory.getInventory();
   } 
   
   public int[] calculateContent()	//Of Hamper
@@ -63,7 +65,7 @@ public class HamperNutrition implements Calculate{
   
   public void createBestHamper()
   {
-	LinkedList<Food> food = inventory.getInventory();
+	//LinkedList<Food> food = inventory.getInventory();
 	int[] content = calculateContent();
 	Food nothing = new Food(0, "nothing", 0, 0, 0, 0, 0);
 	Food best = nothing;
@@ -212,7 +214,7 @@ public class HamperNutrition implements Calculate{
 	}
   }
   
-  private LinkedList<Food> copyHamper()
+  public LinkedList<Food> copyHamper()	//Creates deep copy of hamper
   {
 	Iterator<Food> it = hamper.iterator();
 	LinkedList<Food> hamperCopy = new LinkedList<Food>();
