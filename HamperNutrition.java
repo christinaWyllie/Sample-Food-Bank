@@ -14,7 +14,7 @@ public class HamperNutrition implements Calculate{
   public int[] calculateContent()	//Of Hamper
   {
     	int grain = 0;
-   	int protien = 0;
+   	int protein = 0;
     	int fAndV = 0;
     	int other = 0;
     	int calories = 0;
@@ -25,7 +25,7 @@ public class HamperNutrition implements Calculate{
     	{
       		Nutrition food = it.next().getNutritionalValue();
       		grain += food.getGrain();
-      		protien += food.getProtien();
+      		protein += food.getProtein();
       		fAndV += food.getFV();
       		other += food.getOther();
       		calories += food.getCalories();
@@ -33,7 +33,7 @@ public class HamperNutrition implements Calculate{
     
     	int[] contents = new int[5];
    	contents[0] = nutrition.getGrain() - grain;
-    	contents[1] = nutrition.getProtien() - protien;
+    	contents[1] = nutrition.getProtein() - protein;
     	contents[2] = nutrition.getFV() - fAndV;
     	contents[3] = nutrition.getOther() - other;
     	contents[4] = nutrition.getCalories() - calories;
@@ -51,58 +51,61 @@ public class HamperNutrition implements Calculate{
     	return this.hamper;
   }
   
-  public void checkInventory() throws NotEnoughInventoryException	//May not need this
+  public void checkInventory() throws NotEnoughInventoryException
   {
-    
+    	int[] content = calculateContent();
+	
+	if(content[0] > 0 || content[1] > 0 || content[2] > 0 || content[3] > 0 || content[4] > 0)
+		throw new NotEnoughInventoryException();
+	
+	removeFromInventory();
+	return;
   } 
   
   public void createBestHamper()
   {
 	LinkedList<Food> food = inventory.getInventory();
 	int[] content = calculateContent();
-	Food best = new Food(0, 0, 0, 0, 0, 0, "nothing");
+	Food nothing = new Food(0, "nothing", 0, 0, 0, 0, 0);
+	Food best = nothing;
 	int b = 0;
 	
-	while(content[0] > 0 && content[1] > 0 && content[2] > 0 && content[3] > 0)	//0 - Grains, 1 - Protien, 2 - Fruits and Veg, 3 - Other
+	while(content[0] > 0 || content[1] > 0 || content[2] > 0 || content[3] > 0)	//0 - Grains, 1 - Protien, 2 - Fruits and Veg, 3 - Other
 	{										//4 - Calories - not needed becuase if other categories are satisfied calories should be satisfied	
 		Iterator<Food> it = food.iterator();
 		while(it.hasNext())
 		{
 			Food f = it.next();
-			if(f.getNutritionalValue().getGrain() > b && f.getNutritionalValue().getGrain() <= content[0])
+			if(f.getNutritionalValue().getGrain() >= b && f.getNutritionalValue().getGrain() <= content[0])
 			{
 				b = f.getNutritionalValue().getGrain();
 				best =  f;
 			}
-			if(f.getNutritionalValue().getProtien() > b && f.getNutritionalValue().getProtien() <= content[1])
+			if(f.getNutritionalValue().getProtien() >= b && f.getNutritionalValue().getProtien() <= content[1])
 			{
 				b = f.getNutritionalValue().getProtien();
 				best =  f;
 			}
-			if(f.getNutritionalValue().getFV() > b && f.getNutritionalValue().getFV() <= content[2])
+			if(f.getNutritionalValue().getFV() >= b && f.getNutritionalValue().getFV() <= content[2])
 			{
 				b = f.getNutritionalValue().getFV();
 				best =  f;
 			}
-			if(f.getNutritionalValue().getOther() > b && f.getNutritionalValue().getOther() <= content[3])
+			if(f.getNutritionalValue().getOther() >= b && f.getNutritionalValue().getOther() <= content[3])
 			{
 				b = f.getNutritionalValue().getOther();
 				best =  f;
 			}
 		}
 		
-		try
-		{
-			food.remove(best);	//Each food has unique item ID
-			hamper.add(best);
-			content = calculateContent();
-			b = 0;
-			best = new Food(0, 0, 0, 0, 0, 0, "nothing");
-		}
-		catch(Exception e)
-		{
-			break;		//Maybe call different method if break doesn't work - could throw NotEnoughInvetoryException
-		}
+		if(best == nothing)
+			break;
+		
+		food.remove(best);	//Each food has unique item ID - so food will only be removed once
+		hamper.add(best);
+		content = calculateContent();
+		b = 0;
+		best = nothing;
 	}
 	
 	content = calculateContent();  
@@ -117,6 +120,37 @@ public class HamperNutrition implements Calculate{
 	}
   }
   
+  public void removeExtraFromHamper()
+  {
+	LinkedList<Food> betterHamper = copyHamper();
+	Iterator<Food> it = betterHamper.iterator();
+
+	while(it.hasNext())
+	{
+		Food f = it.next();
+		hamper.remove(f);
+		int[] content = calculateContent();
+		if(content[0] > 0 || content[1] > 0 || content[2] > 0 || content[3] > 0)
+			hamper.add(f);
+		else 
+			food.add(f);
+	}
+  }
+  
+  public LinkedList<Food> copyHamper()
+  {
+	Iterator<Food> it = hamper.iterator();
+	LinkedList<Food> hamperCopy = new LinkedList<Food>();
+		
+	while(it.hasNext())
+	{
+		hamperCopy.add(it.next());
+	}
+		
+	return hamperCopy;
+  }	
+
+ 	
   public void removeFromInventory()
   {
 	inventory.removeInventory();
