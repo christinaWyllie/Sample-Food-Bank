@@ -20,6 +20,8 @@ Date Submitted: April 18th, 2022
 
 package edu.ucalgary.ensf409;
 
+import java.util.*;
+
 public class Application{
   
   private int numHamper = 1;
@@ -27,26 +29,24 @@ public class Application{
   private ArrayList<Family> families;
   private ArrayList<HamperNutrition> hamper;
   
-  public Application(int[] var){
+  public Application() {}
+  public Application(ArrayList<int[]> var){
     this.inventory = new Inventory();
     int[][] calorieTable = inventory.getCalorieTable();
     this.families = new ArrayList<Family>();
-    this.families.add(new Family(var, calorieTable));
+	for (int[] array : var) {
+		this.families.add(new Family(array, calorieTable));
+	}
     this.hamper = new ArrayList<HamperNutrition>();
-    this.hamper.add(new HamperNutrition(this.families.get(numHampers-1).getTotal())); //What nutriton object do I send in?
-  }
- 
-  public void addHamper(int[] var) {
-     this.numHampers++;
-     this.families.add(new Family(var, this.inventory.calorieTable()));
-     this.hamper.add(new HamperNutrition(this.families.get(numHampers-1).getTotal())); //Still dont know what nutriton object im sending 
+    this.hamper.add(new HamperNutrition(this.families.get(numHampers-1).getTotal()));
   }
   
   public int[] getUserInput(int index) {return this.families.get(index).getFamilyMembers();}
   public int getNumHamper() {return this.numHamper;}
-  public ArrayList<Family> getFamiles() {return this.familes;}
+  public ArrayList<int[]> getFamilies() {return this.families;}
   public Arraylist<HamperNutrition> getHampers() {return this.hamper;}
-  public Family getFamily(int index) {return this.familes.get(index);}
+  public int[] getFamily(int index) {return this.families.get(index);}
   public LinkedList<Food> getHamper(int index) {return this.hamper.get(index).getHamper();}
   public Inventory getInventory() {return this.inventory;}
+  
 }
