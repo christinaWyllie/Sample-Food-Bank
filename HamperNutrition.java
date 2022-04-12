@@ -58,7 +58,6 @@ public class HamperNutrition implements Calculate{
 	if(content[0] > 0 || content[1] > 0 || content[2] > 0 || content[3] > 0 || content[4] > 0)
 		throw new NotEnoughInventoryException();
 	
-	removeFromInventory();
 	return;
   } 
   
@@ -109,18 +108,94 @@ public class HamperNutrition implements Calculate{
 	}
 	
 	content = calculateContent();  
-	if(content[0] > 0 && content[1] > 0 && content[2] > 0 && content[3] > 0)
-		return
+	if(content[0] <= 0 && content[1] <= 0 && content[2] <= 0 && content[3] <= 0)
+		return;
 	
 	Iterator<Food> it = food.iterator();
-	
+	b = 100000000;
+	Food bestGrain = nothing;
+	Food bestProtein = nothing;
+	Food bestFV = nothing;
+	Food bestOther = nothing;
+	  
 	while(it.hasNext())
 	{
 		//Find the smallest food that still exceeds the nutrients required
+		Food f = it.next();
+	
+		if(content[0] > 0)
+		{	
+			if(f.getNutritionalValue().getGrain() < b && f.getNutritionalValue().getGrain() >= content[0])
+			{
+				b = f.getNutritionalValue().getGrain();
+				bestGrain =  f;
+			}
+		}
+		
+		if(content[1] > 0)
+		{
+			if(f.getNutritionalValue().getProtein() < b && f.getNutritionalValue().getProtein() >= content[1])
+			{
+				b = f.getNutritionalValue().getProtein();
+				bestProtein =  f;
+			}
+		}
+		
+		if(content[2] > 0)
+		{
+			if(f.getNutritionalValue().getFV() < b && f.getNutritionalValue().getFV() >= content[2])
+			{
+				b = f.getNutritionalValue().getFV();
+				bestFV =  f;
+			}
+		}
+		
+		if(content[3] > 0)
+		{
+			if(f.getNutritionalValue().getOther() < b && f.getNutritionalValue().getOther() >= content[3])
+			{
+				b = f.getNutritionalValue().getOther();
+				bestOther =  f;
+			}
+		}
+	}
+	
+	if(bestGrain != nothing)
+	{
+		hamper.add(bestGrain);
+		food.remove(bestGrain);
+	}
+	if(bestProtein != nothing)
+	{
+		hamper.add(bestProtein);
+		food.remove(bestProtein);
+	}
+	if(bestFV != nothing)
+	{
+		hamper.add(bestFV);
+		food.remove(bestFV);
+	}
+	if(bestOther != nothing)
+	{
+		hamper.add(bestOther);
+		food.remove(bestOther);
+	}
+	
+	try 
+	{
+		checkInventory();
+		removeExtraFromHamper();
+		//removeFromInventory();	//Will this be called in orderform?
+	}
+	
+	catch (NotEnoughInventoryException e) 
+	{
+		e.printStackTrace();
+		System.exit(1);
 	}
   }
   
-  public void removeExtraFromHamper()
+ private void removeExtraFromHamper()
   {
 	LinkedList<Food> betterHamper = copyHamper();
 	Iterator<Food> it = betterHamper.iterator();
@@ -137,7 +212,7 @@ public class HamperNutrition implements Calculate{
 	}
   }
   
-  public LinkedList<Food> copyHamper()
+  private LinkedList<Food> copyHamper()
   {
 	Iterator<Food> it = hamper.iterator();
 	LinkedList<Food> hamperCopy = new LinkedList<Food>();
