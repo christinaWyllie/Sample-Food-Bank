@@ -17,7 +17,6 @@ Date Submitted: April 18th, 2022
 @version 1.12
 @since 1.0
  */
-
 package edu.ucalgary.ensf409;
 
 //public class famile which uses the interface Calculate
@@ -42,8 +41,7 @@ public class Family implements Calculate{
   */
   // public method getID which returns the String for the given index of a person
   public String getID(int index){
-	  StringBuilder build = new StringBuilder();
-    //returns either ID numbers or the actual names(ex.adult male) as string
+	StringBuilder build = new StringBuilder();
 	if(ID[index] != 0){
 		build.append(ID[index]);
 		if(index == 0){
@@ -70,22 +68,22 @@ public class Family implements Calculate{
   
   @Override
   public Nutrition calculateContent(){ //interface method 
-    //using conventions g, p, f, o, c 
+    //using conventions g, f, p, o, c 
     int totalGrain = 0; 
     int totalProtein = 0;
     int totalFV = 0;
     int totalOther = 0;
     int totalCalories = 0;
-    int i = 1;
+    int i = 0;
     int index = 0;
-    while (i != 5){
+    while (i < 4){
       if (this.ID[index] != 0){
         
-        int c = this.calorieData[i-1][5];
-        int g = this.calorieData[i-1][1];
-	int f = this.calorieData[i-1][2];
-        int p = this.calorieData[i-1][3];
-        int o = this.calorieData[i-1][4];
+        int c = this.calorieData[i][5];
+        int g = this.calorieData[i][1];
+        int f = this.calorieData[i][2];
+        int p = this.calorieData[i][3];
+        int o = this.calorieData[i][4];
       
       // to calculate the total contents. 
 	  // the code adds to the existing total contents for each category
