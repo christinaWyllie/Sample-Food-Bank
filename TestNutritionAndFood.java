@@ -109,4 +109,5 @@ public class TestNutritionAndFood{
 	   Food food1 = new Food(id, name1, g1, f1, p1, o1, c1);
 	   assertTrue("Food does not implement Calculate", (Calculate.class.isAssignableFrom(food1.getClass())));
 	}
+	
 }
