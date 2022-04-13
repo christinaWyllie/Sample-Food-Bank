@@ -83,9 +83,9 @@ public class HamperNutrition {
 				b = f.getNutritionalValue().getGrain();
 				best =  f;
 			}
-			if(f.getNutritionalValue().getProtien() >= b && f.getNutritionalValue().getProtien() <= content[1])
+			if(f.getNutritionalValue().getProtein() >= b && f.getNutritionalValue().getProtein() <= content[1])
 			{
-				b = f.getNutritionalValue().getProtien();
+				b = f.getNutritionalValue().getProtein();
 				best =  f;
 			}
 			if(f.getNutritionalValue().getFV() >= b && f.getNutritionalValue().getFV() <= content[2])
