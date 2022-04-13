@@ -25,7 +25,7 @@ import java.util.*;
 public class Application{
   
   private int numHamper = 1;
-  private Iventory inventory;
+  private Inventory inventory;
   private ArrayList<Family> families;
   private ArrayList<HamperNutrition> hamper;
   
