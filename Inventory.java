@@ -1,3 +1,5 @@
+//Inventory
+
 /* 
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
@@ -47,6 +49,11 @@ public class Inventory{
   
   public void setRemoveInventory(LinkedList<Food> r)
   { 
+	  this.removeInventory = r;
+  }
+  
+  public void addRemoveInventory(LinkedList<Food> r)
+  { 
     for (int k = 0; k < r.size(); k++)
     {
       this.removeInventory.add(r.get(k));
@@ -68,7 +75,7 @@ public class Inventory{
 	  }
   }
   
-  public boolean removeDataBase(){ //only function not tested yet bc no database
+  public boolean removeDataBase(){ 
     boolean success = this.dataAccess.updateDataBase(this.removeInventory);
     if (success == true)
     {
@@ -84,5 +91,10 @@ public class Inventory{
   public void setCalorieTable(int[][] s)
   {
     this.calorieTable = s;
+  }
+  
+  public void closeDataBase()
+  {
+	  this.dataAccess.close();
   }
 }
