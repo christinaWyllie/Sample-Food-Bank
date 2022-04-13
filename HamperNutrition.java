@@ -14,6 +14,7 @@ public class HamperNutrition {
 	this.food = this.inventory.getInventory();
   } 
   
+@Override
   public int[] calculateContent()	//Of Hamper
   {
     	int grain = 0;
