@@ -201,7 +201,7 @@ public class TestInventoryAndDataBase{
 	//INVENTORY TEST
 	@Test
 	public void testRemoveDataBaseWithMultipleInvalidEntries(){
-	//testing remove from datatbase method assuming valid database with multiple entries, one being invalid 
+	//testing remove from datatbase method assuming valid database with multiple entries that are invalid
 	Inventory i = new Inventory();
 	
 	Food food1 = new Food(15, "Not a real food", 0, 864, 0, 0, 864); //wrong name
