@@ -1,4 +1,4 @@
-/* 
+/**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
@@ -21,5 +21,5 @@ Date Submitted: April 18th, 2022
 package edu.ucalgary.ensf409;
 
 interface Calculate{
-  Nutrition calculateContent(); //possibly add variable, or modify food to include local vars for g,p,f,o,c
+  Nutrition calculateContent(); 
 }
