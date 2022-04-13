@@ -26,20 +26,21 @@ import static org.junit.Assert.*;
 import java.io.*;
 import java.util.*;
 
-public class TestInventory{
+public class TestInventoryAndDataBase{
+	
 	//INVENTORY TEST 
   	 @Test
-  	 public void testInventoryConstructorWithInvalidDataBase(){
-	//testing inventory with no database
+  	 public void testInventoryConstructorWithValidDataBase(){
+	//testing inventory with database
 	   Inventory inv = new Inventory();
-	   assertNull("Inventory object with invalid database connection was not null", inv);
+	   assertNotNull("Inventory object with invalid database connection was not null", inv);
 	}
 	
 	//INVENTORY TEST
 	@Test
-	public void testInventorySetters(){
+	public void testInventoryGettersandSetters(){
 	//tests the set methods for inventory, setCalories and setInventory
-		Inventory inventory = new Inventory();
+		Inventory i = new Inventory();
 		int[][] array = new int[4][6];
 		array[0][0] = 1;
 		array[0][1] = 16;
@@ -54,7 +55,7 @@ public class TestInventory{
 		array[1][3] = 26;
 		array[1][4] = 30;
 		array[1][5] = 2500;
-		inventory.setCalories(array);
+		i.setCalorieTable(array);
 		
 		Food food10 = new Food(10, "Eggs, dozen", 0, 0, 50, 50, 1000);
 		Food food11 = new Food(11, "Oranges, dozen", 0, 0, 9, 91, 100);
@@ -66,22 +67,44 @@ public class TestInventory{
 		list.add(food11);
 		list.add(food12);
 		list.add(food13);
-		inventory.setInventory(list);
+		i.setInventory(list);
 		
 		LinkedList<Food> removallist= new LinkedList<Food>();
 		removallist.add(food10);
 		removallist.add(food11);
-		inventory.setRemoveInventory(removallist);
+		i.setRemoveInventory(removallist);
 		
-		assertEquals("Inventory inventory list does not match expected.", inventory.getInventory(), list);
-		assertEquals("Inventory calorie table does not match expected.", inventory.getCalorieTable(), array);
-		assertEquals("Inventory removed inventory list does not match expected.", inventory.getRemovedInventory(), removallist);
+		String s = "";
+ 
+        // using iterator for traversing a linkedlist
+ 
+        String expected = String.valueOf(food10.getFoodID());
+        expected += String.valueOf(food11.getFoodID());
+        for (int j = 0; j < i.getRemoveInventory().size(); j++)
+        {
+			s += String.valueOf(i.getRemoveInventory().get(j).getFoodID());
+		}
+        
+        LinkedList<Food> actualInventory = i.getInventory();
+        String expectedCalsTable = Arrays.deepToString(array);
+        String actualCalsTable =Arrays.deepToString(i.getCalorieTable());
+        LinkedList<Food> actualRemovedInventory = i.getRemoveInventory();
+        
+		
+		
+		assertEquals("Inventory inventory list does not match expected.",  list, actualInventory); //tests get inv
+		assertEquals("Inventory calorie table does not match expected.", expectedCalsTable, actualCalsTable);
+		assertEquals("Inventory removed inventory list does not match expected.", removallist, actualRemovedInventory);
+		i.closeDataBase();
 	}
+	
+	
+	
 	//INVENTORY TEST 
 	@Test
 	public void testInventoryRemoval(){
 	//tests that the removemethod from invenotry correctly removes from the main inventory linked list
-		Inventory inventory = new Inventory();
+		Inventory i = new Inventory();
 		int[][] array = new int[4][6];
 		array[0][0] = 1;
 		array[0][1] = 16;
@@ -96,7 +119,7 @@ public class TestInventory{
 		array[1][3] = 26;
 		array[1][4] = 30;
 		array[1][5] = 2500;
-		inventory.setCalories(array);
+		i.setCalorieTable(array);
 		
 		Food food10 = new Food(10, "Eggs, dozen", 0, 0, 50, 50, 1000);
 		Food food11 = new Food(11, "Oranges, dozen", 0, 0, 9, 91, 100);
@@ -108,41 +131,88 @@ public class TestInventory{
 		list.add(food11);
 		list.add(food12);
 		list.add(food13);
-		inventory.setInventory(list);
+		i.setInventory(list);
 		
 		LinkedList<Food> remove= new LinkedList<Food>();
 		remove.add(food10);
 		remove.add(food11);
 		list.remove(0);
 		list.remove(1);
-		inventory.setRemoveInventory(remove);
-		inventory.removeInventory();
+		i.setRemoveInventory(remove);
+		i.removeInventory();
 		
-		LinkedList<Food> actualRemoved = inventory.getRemovedInventory();
-		LinkedList<Food> actualInv = inventory.getInventory();
-		assertEquals("Inventory removed inventory list does not match expected.", actualRemoved, remove);
-		assertEquals("Inventory inventory list does not match expected.", actualInv, list);
+		LinkedList<Food> actualRemoved = i.getRemoveInventory();
+		LinkedList<Food> actualInv = i.getInventory();
+		assertEquals("Inventory removed inventory list does not match expected.", remove, actualRemoved);
+		assertEquals("Inventory inventory list does not match expected.",  list, actualInv);
+		i.closeDataBase();
 	}
 			   
 	//INVENTORY TEST
 	@Test
 	public void testRemoveDataBase(){
 	//testing remove from datatbase method assuming valid database
-	Inventory inventory = new Inventory();
-	String name1= "Wheat bread, loaf";
-	int id = 1;
-	int g1 = 96;
-	int f1 = 0;
-	int p1 = 4;
-	int o1 = 0;
-	int c1 = 2192;
-	Food food1 = Food(id, name1, g1, f1, p1, o1, c1); //assuming this a valid entry in database
+	Inventory i = new Inventory();
+	
+	Food food1 = new Food(1, "Tomato Sauce, jar", 0, 96, 12, 12, 120);
 	LinkedList<Food> remove= new LinkedList<Food>();
 	remove.add(food1);
-	inventory.setRemoveInventory(remove);
-	inventory.removeInventory();
+	i.setRemoveInventory(remove);
 		
-	boolean status = inventory.removeDataBase();
+	boolean status = i.removeDataBase();
 	assertTrue("Inventory item was not removed from database.", status);
+	i.closeDataBase();
+	}
+	
+	//INVENTORY TEST
+	@Test
+	public void testRemoveDataBaseWithInvalidEntry(){
+	//testing remove from datatbase method assuming valid database given an invalid id number for the entry
+	Inventory i = new Inventory();
+	
+	Food food1 = new Food(200, "Tomato Sauce, jar", 0, 96, 12, 12, 120); //invalid id number
+	LinkedList<Food> remove= new LinkedList<Food>();
+	remove.add(food1);
+	i.setRemoveInventory(remove);
+		
+	boolean status = i.removeDataBase();
+	assertFalse("Exception was not thrown when trying to remove an invalid database entry.", status);
+	i.closeDataBase();
+	}
+	
+	//INVENTORY TEST
+	@Test
+	public void testRemoveDataBaseWithMultipleValidEntries(){
+	//testing remove from datatbase method assuming valid database with multiple valid entries
+	Inventory i = new Inventory();
+	
+	Food food1 = new Food(4, "Apple, dozen", 0, 624, 0, 0, 624); 
+	Food food2 = new Food(8, "Baby carrots, pound", 0, 159, 0, 0, 159); 
+	LinkedList<Food> remove= new LinkedList<Food>();
+	remove.add(food1);
+	remove.add(food2);
+	i.setRemoveInventory(remove);
+		
+	boolean status = i.removeDataBase();
+	assertTrue("Inventory items were not removed from database.", status);
+	i.closeDataBase();
+	}
+	
+	//INVENTORY TEST
+	@Test
+	public void testRemoveDataBaseWithMultipleInvalidEntries(){
+	//testing remove from datatbase method assuming valid database with multiple entries, one being invalid 
+	Inventory i = new Inventory();
+	
+	Food food1 = new Food(15, "Not a real food", 0, 864, 0, 0, 864); //wrong name
+	Food food2 = new Food(323, "Baby carrots, pound", 0, 159, 0, 0, 159); //invalid id number
+	LinkedList<Food> remove= new LinkedList<Food>();
+	remove.add(food1);
+	remove.add(food2);
+	i.setRemoveInventory(remove);
+		
+	boolean status = i.removeDataBase();
+	assertFalse("Exception was not thrown when trying to remove an invalid database entry.", status);
+	i.closeDataBase();
 	}
 }
