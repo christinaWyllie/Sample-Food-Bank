@@ -20,6 +20,6 @@ Date Submitted: April 18th, 2022
 
 package edu.ucalgary.ensf409;
 
-interace FormatOutput{
+interface FormatOutput{
   formatString()
 }
