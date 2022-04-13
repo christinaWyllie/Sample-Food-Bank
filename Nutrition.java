@@ -1,4 +1,4 @@
-/* 
+/**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
@@ -27,6 +27,14 @@ public class Nutrition{
   private final int OTHER;
   private final int CALORIES;
   
+/**
+* @param int g
+* @param int f
+* @param int p 
+* @param int o
+* @param int c
+*/
+//class constructor to set all final values
   public Nutrition(int g, int f, int p, int o, int c)
   {
     this.GRAIN = g;
@@ -36,22 +44,25 @@ public class Nutrition{
     this.CALORIES = c;
   }
   
+//method returns grain content
   public int getGrain(){
     return this.GRAIN;
   }
-  
+  //method returns protein content
   public int getProtein(){
     return this.PROTEIN;
   }
-    
+  //method returns fruits and veggie content
   public int getFV(){
     return this.FV;
   }
-  
+	
+  //method returns other content
   public int getOther(){
     return this.OTHER;
   }
-  
+	
+  //method returns total calorie content
   public int getCalories(){
     return this.CALORIES;
   }
