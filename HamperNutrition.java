@@ -1,4 +1,5 @@
 package edu.ucalgary.ensf409;
+import java.util.*;
 
 public class HamperNutrition implements Calculate{
   private LinkedList<Food> hamper = new LinkedList<Food>();
