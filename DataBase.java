@@ -14,7 +14,7 @@ Date Submitted: April 18th, 2022
 	christina.wyllie@ucalgary.ca</a>
 @author Maitry Rohit <a href="mailto:maitry.rohit@ucalgary.ca">
 	maitry.rohitAucalgary.ca</a>
-@version 1.12
+@version 1.19
 @since 1.0
  */
 
@@ -26,7 +26,7 @@ import java.util.*;
 public class DataBase{
   private Connection dbConnect;
   private ResultSet results;
-  private int[][] calorieTable = new int[4][6]; //could maybe make final if we want??
+  private int[][] calorieTable = new int[4][6]; 
   private LinkedList<Food> inventory = new LinkedList<Food>(); //where we will pass this info 
   
   
@@ -38,12 +38,13 @@ public class DataBase{
   
   private void initializeConnection(){
     try{
-      this.dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/food_inventory", "student", "ensf409"); //dont actually know database url so fix
+      this.dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/food_inventory", "student", "ensf"); 
     }
     catch(SQLException e){
       System.out.println("Error connecting to database.");
       e.printStackTrace(); //may need to be changed 
     }
+    
   }
   
   private void getCalorieData(){
@@ -68,10 +69,11 @@ public class DataBase{
         this.calorieTable[i][5] = c;
         
         i++;
-        }
+	}
      }catch (SQLException ex) {
             ex.printStackTrace();
         }
+
     }
     
     public void getInventoryData(){
@@ -91,7 +93,7 @@ public class DataBase{
         this.inventory.add(foodItem);
         }
       }catch (SQLException ex) {
-          ex.printStackTrace();
+          //ex.printStackTrace();
        }
     }
     
@@ -101,15 +103,6 @@ public class DataBase{
     }
     public LinkedList<Food> getInventoryInfo(){
       return this.inventory; //make sure that copy is deep???
-      
-      /* //Alternate implementation if just return doesnt work
-      LinkedList<Food> returnValue = new LinkedList<Food>();
-      for (int j = 0; j < this.inventory.size(); j++)
-      {
-        returnValue.add(this.inventory.get(j));
-      }
-      return returnValue;
-      */
     }
     
     public boolean updateDataBase(LinkedList<Food> toBeRemoved){
@@ -118,34 +111,39 @@ public class DataBase{
       {
          
         try{
-         String query = "DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?";
+         String query = "DELETE FROM AVAILABLE_FOOD WHERE ItemID = ? AND Name = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
             myStmt.setString(1, Integer.toString(toBeRemoved.get(k).getFoodID()));
-                        
+            myStmt.setString(2, toBeRemoved.get(k).getName());
+
             int rowCount = myStmt.executeUpdate();
             //System.out.println("Rows affected: " + rowCount);
-            if(rowCount != 0)
+            if(rowCount == 0)
             {
-              success = true;
+              return false;
             }
+            else{
+				success = true;
+			}
+   
             
             myStmt.close();
           }
           catch (SQLException ex) {
-            success = false;
             ex.printStackTrace();
-            break;
+            return false;
           } 
       }
       if (success == true)
       {
         removeInventory();
       }
+		  
       return success;
     }
   
-    public void removeInventory() //clears inventory we have stored in structure and re reads from database after deletions
+    private void removeInventory() //clears inventory we have stored in structure and re reads from database after deletions
     {
       this.inventory.clear();
       getInventoryData(); //inv stored in this structure now should match whats in inventory class structure
@@ -161,5 +159,4 @@ public class DataBase{
      }
   }
 
-        
-        
+     
