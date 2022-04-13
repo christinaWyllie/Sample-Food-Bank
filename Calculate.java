@@ -19,7 +19,10 @@ Date Submitted: April 18th, 2022
  */
 
 package edu.ucalgary.ensf409;
-
+/*
+this interface is implemented by family and food, and takes local class variables and calculates the contents 
+required to be passed to create a nutrition object. the nutrition object is then returned by the method.
+*/
 interface Calculate{
   Nutrition calculateContent(); 
 }
