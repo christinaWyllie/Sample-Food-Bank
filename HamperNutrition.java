@@ -1,7 +1,7 @@
 package edu.ucalgary.ensf409;
 import java.util.*;
 
-public class HamperNutrition implements Calculate{
+public class HamperNutrition {
   private LinkedList<Food> hamper = new LinkedList<Food>();
   private Inventory inventory;
   private Nutrition nutrition;	//This is total nutrition from family
