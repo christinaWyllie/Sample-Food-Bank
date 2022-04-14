@@ -32,7 +32,7 @@ public class Application{
   //private int[][] calorieInfo = {{1,30,20,40,10,2500}, {2,20,40,10,30,2500}, {3,21,33,31,15,2200}, {4,21,33,21,15,1400}};
   
   public Application() {}
-  public Application(ArrayList<int[]> var) throws NotEnoughInventoryException, RemoveFromDataBaseFailedException{
+  public Application(ArrayList<int[]> var) throws NotEnoughInventoryException, RemoveFromDataBaseFailedException {
     this.inventory = new Inventory();
     int[][] calorieTable = inventory.getCalorieTable();
 	
@@ -44,6 +44,7 @@ public class Application{
 	this.numHamper = families.size();
 	
 	this.hamper = new ArrayList<HamperNutrition>();
+	
 	int i = 0;
 	for (Family family : families) {
 		this.hamper.add(new HamperNutrition(family.getTotal(), inventory));
@@ -51,9 +52,7 @@ public class Application{
 		i++;
 		
 	}
-	
 	OrderForm order = new OrderForm(families, inventory, hamper, numHamper);
-	order.removeFromDataBase();
   }
   
   public int[] getUserInput(int index) {return this.families.get(index).getID();}
