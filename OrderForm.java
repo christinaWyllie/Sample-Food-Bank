@@ -52,7 +52,7 @@ public class OrderForm implements FormatOutput{
 		boolean value = inventory.removeDataBase();
 		try{
 			if(value){
-				File file = new File("orderForm.txt");
+				String file = "orderForm.txt";
 				print(file);
 			}
 			else{
@@ -65,7 +65,7 @@ public class OrderForm implements FormatOutput{
 	} 
   
   //public method to print to an output file, throws IOException
-	public void print(File file)throws IOException{
+	public void print(String file)throws IOException{
 		int n = this.numHampers;
 		FileWriter write = null;
 		try{
