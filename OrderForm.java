@@ -76,10 +76,11 @@ public class OrderForm implements FormatOutput{
 		try{
 			write = new FileWriter(file);
 			write.append("Name:" + "\n" + "Date:" + "\n\n" + "Original Request" + "\n");
-			while(n>-1){
+			int i = 0
+			while(i<n){
 				for(Family fam : family){
-					write.append("Hamper " + n + " items:" + formatString(fam) + "\n");
-					n--;
+					write.append("Hamper " + i + " items:" + formatString(fam) + "\n");
+					i++;
 				}
 			}
 			for(int i = 0; i< hamper.size(); i++){
