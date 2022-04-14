@@ -85,9 +85,9 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
 		submitPanel.add(addHamper);
 		submitPanel.add(terminate);
 		
-		headerPanel.setBackground(new Color(234, 255, 168));
-		clientPanel.setBackground(new Color(234, 255, 168));
-		submitPanel.setBackground(new Color(234, 255, 168));
+		headerPanel.setBackground(new Color(233, 205, 208));
+		clientPanel.setBackground(new Color(233, 205, 208));
+		submitPanel.setBackground(new Color(233, 205, 208));
 		addHamper.setBackground(new Color(164, 215, 211));
 		terminate.setBackground(new Color(164, 215, 211));
         
@@ -131,6 +131,18 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
 				
 				try{
 					Application application1 = new Application(family);
+					/* LinkedList<Food> test = application1.getHamper(1);
+					Nutrition test1 = application1.getFamily(0).getTotal();
+					System.out.println(test1.getGrain());
+					System.out.println(test1.getFV());
+					System.out.println(test1.getProtein());
+					System.out.println(test1.getOther());
+					System.out.println(test1.getCalories());
+					
+					for(Food food : test) {
+						System.out.println(food.getName());
+					}
+					 */
 				}
 
 				catch(NotEnoughInventoryException e){
@@ -142,12 +154,9 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
 					e.printStackTrace();
 					System.exit(1);
 				}
-				/* Nutrition test = application1.getFamily(1).getTotal();
-				System.out.println(test.getGrain());
-				System.out.println(test.getFV());
-				System.out.println(test.getProtein());
-				System.out.println(test.getOther());
-				System.out.println(test.getCalories()); */
+				
+				
+				
 				
 				super.dispose();
 			}
