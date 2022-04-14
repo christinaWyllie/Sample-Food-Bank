@@ -38,7 +38,7 @@ public class OrderForm implements FormatOutput{
   * @param int n
   *
   */
-	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n)throws RemoveFromDataBaseFailedException, IOException{
+	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n)throws RemoveFromDataBaseFailedException{
 		this.family = f;
 		this.inventory = i;
 		this.hamper = h;
@@ -48,14 +48,19 @@ public class OrderForm implements FormatOutput{
   
   // public method to remove from the database which calls the Inventory's remove method
   // calls the print method if the removal was successful, else throws custom exception
-	public void removeFromDataBase()throws RemoveFromDataBaseFailedException, IOException{
+	public void removeFromDataBase()throws RemoveFromDataBaseFailedException{
 		boolean value = inventory.removeDataBase();
-		if(value){
-			File file = new File("orderForm.txt");
-			print(file);
-		}
-		else{
-			throw new RemoveFromDataBaseFailedException();
+		try{
+			if(value){
+				File file = new File("orderForm.txt");
+				print(file);
+			}
+			else{
+				throw new RemoveFromDataBaseFailedException();
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+			System.exit(1);
 		}
 	} 
   
@@ -113,7 +118,5 @@ public class OrderForm implements FormatOutput{
 			return "Child under 8";
 		}
 	} */
-	
-	
-  
+	 
 }
