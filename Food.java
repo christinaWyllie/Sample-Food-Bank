@@ -34,7 +34,7 @@ public class Food implements Calculate{
   private final int CALORIES;
   
 //Food constructor
-/*
+/**
 * @param int itemID
 * @param String n
 * @param int g
