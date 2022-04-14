@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.FlowLayout;
 import java.util.*;
+import java.io.*;
 
 public class GUIFinalProject extends JFrame implements ActionListener, MouseListener {
     private int adultM = 0;
@@ -29,7 +30,6 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
 	
 	private JButton addHamper;
 	private JButton terminate;
-	private Application application1;
 	private boolean applicationExists = false;
 	private ArrayList<int[]> family = new ArrayList<int[]>();
 
@@ -113,7 +113,7 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
 				int[] familyArray = {adultM, adultF, childO8, childU8};
 				family.add(familyArray);
 					
-				String message = "Your family unit is: " + adultM + " Adult Males, " + adultF + " Adult Females, " + childO8 + " Children Over 8, " + childU8 + " Children Under 8.\nSubmission for this family unit was successful.";
+				String message = "Your family unit is: " + adultM + " Adult Males, " + adultF + " Adult Females, " + childO8 + " Children Over 8, " + childU8 + " Children Under 8.\nFamily added to order.";
 				JOptionPane.showMessageDialog(this, message);
 				aMInput.setText("");
 				aFInput.setText("");
@@ -128,7 +128,27 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
 			}
 
 			else {
-				this.application1 = new Application(family);
+				
+				try{
+					Application application1 = new Application(family);
+				}
+
+				catch(NotEnoughInventoryException e){
+					e.printStackTrace();
+					System.exit(1);
+				}
+				
+				catch(RemoveFromDataBaseFailedException e) {
+					e.printStackTrace();
+					System.exit(1);
+				}
+				/* Nutrition test = application1.getFamily(1).getTotal();
+				System.out.println(test.getGrain());
+				System.out.println(test.getFV());
+				System.out.println(test.getProtein());
+				System.out.println(test.getOther());
+				System.out.println(test.getCalories()); */
+				
 				super.dispose();
 			}
 		}
@@ -216,3 +236,4 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
         });
     }
 }
+
