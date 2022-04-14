@@ -38,11 +38,12 @@ public class OrderForm implements FormatOutput{
   * @param int n
   *
   */
-	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n){
+	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n)throws RemoveFromDataBaseFailedException, IOException{
 		this.family = f;
 		this.inventory = i;
 		this.hamper = h;
 		this.numHampers = n;
+		removeFromDataBase();
 	}
   
   // public method to remove from the database which calls the Inventory's remove method
