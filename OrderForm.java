@@ -1,5 +1,4 @@
 
-
 /* 
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
@@ -76,25 +75,27 @@ public class OrderForm implements FormatOutput{
 		FileWriter write = null;
 		try{
 			write = new FileWriter(file);
-			write.append("Example Food Bank\nHamper Order Form\n");
+			write.append("Example Food Bank\nHamper Order Form\n\n");
 			write.append("Name:" + "\n" + "Date:" + "\n\n" + "Original Request" + "\n");
 			int i = 1;
 			while(i<=n){
+				int index = 1;
 				for(Family fam : family){
-					write.append("Hamper " + i + ": " + formatString(fam) + "\n");
-					
+					write.append("Hamper " + index + ": " + formatString(fam) + "\n");
+					index++;
 				}
 				for(int k = 0; k< hamper.size(); k++){
-					write.append("Hamper " + i + " Items:\n");
+					write.append("\nHamper " + i + " Items:\n");
 					LinkedList<Food> food = hamper.get(k).getHamper();
 					for(int j =0; j< food.size(); j++){
 						write.append(food.get(j).getFoodID() + "\t");
 						write.append(food.get(j).getName() + "\n");
 					}
-					write.append("\n\n");
+					i++;
+					write.append("\n");
 				}
 				
-				i++;
+				
 			}
 			
 			write.close();
@@ -118,3 +119,4 @@ public class OrderForm implements FormatOutput{
 		return builder.substring(0, builder.length()-2).toString();
 	}
 }
+
