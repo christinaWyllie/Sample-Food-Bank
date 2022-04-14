@@ -76,20 +76,21 @@ public class OrderForm implements FormatOutput{
 		try{
 			write = new FileWriter(file);
 			write.append("Name:" + "\n" + "Date:" + "\n\n" + "Original Request" + "\n");
-			int i = 0
-			while(i<n){
+			int i = 1;
+			while(i<=n){
 				for(Family fam : family){
-					write.append("Hamper " + i + " items:" + formatString(fam) + "\n");
+					write.append("Hamper " + i + " items: " + formatString(fam) + "\n\n");
 					i++;
 				}
-			}
-			for(int i = 0; i< hamper.size(); i++){
-				LinkedList<Food> food = hamper.get(i).getHamper();
-				for(int j =0; j< food.size(); j++){
-					write.append(food.get(j).getFoodID() + "\t");
-					write.append(food.get(j).getName() + "\n");
+				for(int k = 0; k< hamper.size(); k++){
+					LinkedList<Food> food = hamper.get(k).getHamper();
+					for(int j =0; j< food.size(); j++){
+						write.append(food.get(j).getFoodID() + "\t");
+						write.append(food.get(j).getName() + "\n");
+					}
 				}
 			}
+			
 			write.close();
 			
 		}catch(IOException e){
@@ -108,6 +109,6 @@ public class OrderForm implements FormatOutput{
 				builder.append(fam.getIDAtIndex(i)+ ", ");
 			}
 		}
-		return builder.substring(0, builder.length()-1).toString();
+		return builder.substring(0, builder.length()-2).toString();
 	}
 }
