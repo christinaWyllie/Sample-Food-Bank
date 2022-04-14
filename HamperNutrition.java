@@ -188,7 +188,7 @@ public class HamperNutrition {
 	{
 		checkInventory();
 		removeExtraFromHamper();
-		//removeFromInventory();	//Will this be called in orderform?
+		inventory.addRemoveInventory(hamper);
 	}
 	
 	catch (NotEnoughInventoryException e) 
