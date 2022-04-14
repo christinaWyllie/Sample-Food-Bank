@@ -25,7 +25,7 @@ import java.io.*;
 
 //public class OrderForm, uses the interface FormatOutput
 public class OrderForm implements FormatOutput{
-	private Family family;
+	private ArrayList<Family> family;
 	private Inventory inventory;
 	private ArrayList<HamperNutrition> hamper;
 	private int numHampers;
@@ -38,7 +38,7 @@ public class OrderForm implements FormatOutput{
   * @param int n
   *
   */
-	public OrderForm(Family f, Inventory i, ArrayList<HamperNutrition> h, int n){
+	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n){
 		this.family = f;
 		this.inventory = i;
 		this.hamper = h;
@@ -47,10 +47,11 @@ public class OrderForm implements FormatOutput{
   
   // public method to remove from the database which calls the Inventory's remove method
   // calls the print method if the removal was successful, else throws custom exception
-	public void removeFromDataBase()throws RemoveFromDataBaseFailedException{
+	public void removeFromDataBase()throws RemoveFromDataBaseFailedException, IOException{
 		boolean value = inventory.removeDataBase();
 		if(value){
-			print();
+			File file = new File("orderForm.txt");
+			print(file);
 		}
 		else{
 			throw new RemoveFromDataBaseFailedException();
@@ -58,16 +59,17 @@ public class OrderForm implements FormatOutput{
 	} 
   
   //public method to print to an output file, throws IOException
-	public void print()throws IOException{
+	public void print(File file)throws IOException{
 		int n = this.numHampers;
-		String fileName = "orderForm.txt";
 		FileWriter write = null;
 		try{
-			write = new FileWriter(new File(fileName));
+			write = new FileWriter(file);
 			write.append("Name:" + "\n" + "Date:" + "\n" + "Original Request" + "\n");
 			while(n>-1){
-				write.append("Hamper " + n + ":" + formatString());
-				n--;
+				for(Family fam : family){
+					write.append("Hamper " + n + ":" + formatString(fam));
+					n--;
+				}
 			}
 			for(int i = 0; i< hamper.size(); i++){
 				LinkedList<Food> food = hamper.get(i).getHamper();
@@ -85,12 +87,12 @@ public class OrderForm implements FormatOutput{
 	
   // interface method to format the string to print to the file 
 	@Override
-	public String formatString(){
-		int[] fam = family.getFamilyMembers();
+	public String formatString(Family fam){
+		int[] f = fam.getID();
 		StringBuilder builder = new StringBuilder();
-		for(int i = 0; i<fam.length; i++){
-			if(fam[i] != 0){
-				builder.append(family.getID(i)+ ", ");
+		for(int i = 0; i<f.length; i++){
+			if(f[i] != 0){
+				builder.append(fam.getIDAtIndex(i)+ ", ");
 			}
 		}
 		return builder.substring(0, builder.length()-1).toString();
