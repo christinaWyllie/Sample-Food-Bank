@@ -28,12 +28,13 @@ import java.util.*;
 
 public class TestHamperNutrition{
 	//HAMPERNUTRITION TEST 
-	@Test
+	
+	/*@Test
 	public void HamperNutritionImplementsCalculate(){
 	//Tests for Hamper Nutrition
 	HamperNutrition hamp = new HamperNutrition();
 	assertTrue("HamperNutrition does not implement Calculate", (Calculate.class.isAssignableFrom(hamp.getClass())));
-	}
+	}*/
 			   
 	//HAMPERNUTRITION TEST 
 	@Test
