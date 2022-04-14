@@ -49,9 +49,7 @@ public class Inventory{
   
 //returns available inventory stored in the structure
   public LinkedList<Food> getInventory(){
-    //return this.inventory;
-	  
-	Iterator<Food> it = this.inventory.iterator();
+	Iterator<Food> it = this.inventory.iterator(); //creates deep copy to return to other classes
 	LinkedList<Food> invCopy = new LinkedList<Food>();
 		
 	while(it.hasNext())
@@ -64,8 +62,7 @@ public class Inventory{
   
 //returns items that should be removed from inventory, but have not yet been removed 
   public LinkedList<Food> getRemoveInventory(){
-    //return this.removeInventory;
-	Iterator<Food> it = this.removeInventory.iterator();
+	Iterator<Food> it = this.removeInventory.iterator(); //creates deep copy to return to other classes
 	LinkedList<Food> rCopy = new LinkedList<Food>();
 		
 	while(it.hasNext())
