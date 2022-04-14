@@ -36,11 +36,16 @@ public class Family implements Calculate{
     this.TOTAL = calculateContent(); //same inconsistnecy as below, sorry Tina
   }
   
+   // public method getID which returns the ID array
+  public int[] getID(){
+	  return this.ID;
+  }
+  
   /*
   * @param int index
   */
   // public method getID which returns the String for the given index of a person
-  public String getID(int index){
+  public String getIDAtIndex(int index){
 	StringBuilder build = new StringBuilder();
 	if(ID[index] != 0){
 		build.append(ID[index]);
