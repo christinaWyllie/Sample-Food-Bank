@@ -187,3 +187,98 @@ public class TestOrderForm{
 	   HamperNutrition hamper = new HamperNutrition(nutrition);
     }		   
 }
+			   
+			   
+			   
+//Test for make best hamper 
+		//Nutrition pixie = new Nutrition(5, 2, 5, 0, 10);
+		Food food7 = new Food(7, "Unicorn Tears", 0, 100, 0, 0, 3);
+		Food food8 = new Food(8, "Fae Hearts", 0, 25, 75, 0, 4);
+		Food food9 = new Food(9, "Jack's Magic Beans", 67, 33, 0, 0, 6);
+		Food food10 = new Food(10, "Oatmeal", 100, 0, 0, 0, 1);
+		Food food11 = new Food(11, "Oatmeal", 100, 0, 0, 0, 1);
+		Food food12 = new Food(12, "Oatmeal", 100, 0, 0, 0, 1);
+		Food food13 = new Food(13, "Lentils", 49, 0, 46, 5, 1160);
+		
+		Nutrition pixie = new Nutrition(600, 200, 500, 100, 910);
+		
+		String name1= "Wheat bread, loaf";
+	   int id1 = 1;
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   Food food1 = new Food(id1, name1, g1, f1, p1, o1, c1);
+	   
+	   String name2 = "Wheat bread, loaf";
+	   int id2 = 2;
+	   int g2 = 96;
+	   int f2 = 0;
+	   int p2 = 4;
+	   int o2 = 0;
+	   int c2 = 2192;
+	   Food food2 = new Food(id2, name2, g2, f2, p2, o2, c2);
+	   
+	   String name3= "Wheat bread, loaf";
+	   int id3 = 3;
+	   int g3 = 96;
+	   int f3 = 0;
+	   int p3 = 4;
+	   int o3 = 0;
+	   int c3 = 2192;
+	   Food food3 = new Food(id3, name3, g3, f3, p3, o3, c3);
+
+	   String name4= "Orange, dozen";
+	   int id4 = 4;
+	   int g4 = 0;
+	   int f4 = 100;
+	   int p4 = 0;
+	   int o4 = 0;
+	   int c4 = 864;
+	   Food food4 = new Food(id4, name4, g4, f4, p4, o4, c4);
+	   
+	   String name5= "Orange, dozen";
+	   int id5 = 5;
+	   int g5 = 0;
+	   int f5 = 100;
+	   int p5 = 0;
+	   int o5 = 0;
+	   int c5 = 864;
+	   Food food5 = new Food(id5, name5, g5, f5, p5, o5, c5);
+	   
+		String name6 = "Eggs, dozen";
+		int id6 = 6;
+		int g6 = 0;
+		int f6 = 0;
+		int p6 = 9;
+		int o6 = 91;
+		int c6 = 864;
+		Food food6 = new Food(id6, name6, g6, f6, p6, o6, c6);
+	   
+		LinkedList<Food> foodList = new LinkedList<Food>(); 
+		foodList.add(food1);
+		foodList.add(food2);
+		foodList.add(food3);
+		foodList.add(food4);
+		foodList.add(food5);
+		foodList.add(food6);
+		foodList.add(food7);
+		foodList.add(food8);
+		foodList.add(food9);
+		foodList.add(food10);
+		foodList.add(food11);
+		foodList.add(food12);
+		foodList.add(food13);
+	   
+		HamperNutrition hamper = new HamperNutrition(pixie, foodList);
+		hamper.createBestHamper();
+		LinkedList<Food> h = hamper.getHamper();
+		Iterator<Food> it = h.iterator();
+
+		while(it.hasNext())
+		{
+			System.out.println(it.next().getName());
+		}
+		
+	}
