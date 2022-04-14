@@ -75,6 +75,7 @@ public class OrderForm implements FormatOutput{
 		FileWriter write = null;
 		try{
 			write = new FileWriter(file);
+			write.append("Example Food Bank\nHamper Order Form\n");
 			write.append("Name:" + "\n" + "Date:" + "\n\n" + "Original Request" + "\n");
 			int i = 1;
 			while(i<=n){
