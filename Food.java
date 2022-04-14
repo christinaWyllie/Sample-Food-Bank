@@ -60,8 +60,8 @@ public class Food implements Calculate{
     return this.NUTRITIONALVALUE;
   }
 
-//public method to return the name
-  public String getName() //added, not on UML
+//public method to return the name of the food
+  public String getName() 
   {
 	  return this.NAME;
   }
@@ -72,10 +72,10 @@ public class Food implements Calculate{
   }
   
 // public method for the Calculate interface
-  @Override //changed to return nutrition object, UML is fine for that part
+  @Override 
   public Nutrition calculateContent(){ 
-	 // calculates the total for each category by taking the percentage, dividing by 100 to get the decimal value and then multiply 
-	  // by the total amount of calories for the food.
+ // calculates the total for each category by taking the percentage, dividing by 100 to get the decimal value and then multiply 
+ // by the total amount of calories for the food. this is then stored in a nutrition object within food.
     int grain = (int)((this.GRAIN/100.0) * this.CALORIES);
     int fv = (int)((this.FV/100.0) * this.CALORIES);
     int protein = (int)((this.PROTEIN/100.0) * this.CALORIES);
