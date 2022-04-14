@@ -11,8 +11,28 @@ public class HamperNutrition {
   {
 	this.nutrition = nutrition;
 	this.inventory = inventory;
-	this.food = this.inventory.getInventory();
+	this.food = updateInventory();
   } 
+  
+  private LinkedList<Food> updateInventory()
+  {
+		LinkedList<Food> remove = inventory.getRemoveInventory();
+		LinkedList<Food> inv = inventory.getInventory();
+		
+		if(remove.size() == 0)
+			return inv;
+		
+		else 
+		{
+			Iterator<Food> it = remove.iterator();
+			while(it.hasNext())
+			{
+				inv.remove(it.next());
+			}
+		}
+		
+		return inv;
+  }
 
   public int[] calculateContent()	//Of Hamper
   {
