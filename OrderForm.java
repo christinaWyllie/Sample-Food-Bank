@@ -38,12 +38,17 @@ public class OrderForm implements FormatOutput{
   * @param int n
   *
   */
-	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n)throws RemoveFromDataBaseFailedException{
+	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n){
 		this.family = f;
 		this.inventory = i;
 		this.hamper = h;
 		this.numHampers = n;
-		removeFromDataBase();
+		try{
+			removeFromDataBase();
+		}catch(RemoveFromDataBaseFailedException e){
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
   
   // public method to remove from the database which calls the Inventory's remove method
@@ -70,10 +75,10 @@ public class OrderForm implements FormatOutput{
 		FileWriter write = null;
 		try{
 			write = new FileWriter(file);
-			write.append("Name:" + "\n" + "Date:" + "\n" + "Original Request" + "\n");
+			write.append("Name:" + "\n" + "Date:" + "\n\n" + "Original Request" + "\n");
 			while(n>-1){
 				for(Family fam : family){
-					write.append("Hamper " + n + ":" + formatString(fam));
+					write.append("Hamper " + n + " items:" + formatString(fam) + "\n");
 					n--;
 				}
 			}
@@ -84,6 +89,7 @@ public class OrderForm implements FormatOutput{
 					write.append(food.get(j).getName() + "\n");
 				}
 			}
+			write.close();
 			
 		}catch(IOException e){
 			e.printStackTrace();
@@ -103,20 +109,4 @@ public class OrderForm implements FormatOutput{
 		}
 		return builder.substring(0, builder.length()-1).toString();
 	}
-  
-	/*public String toString(int index){
-		if(index == 0){
-			return "Adult Male";
-		}
-		else if(index ==1){
-			return "Adult Female";
-		}
-		else if(index ==2){
-			return "Child over 8";
-		}
-		else{
-			return "Child under 8";
-		}
-	} */
-	 
 }
