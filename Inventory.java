@@ -49,12 +49,31 @@ public class Inventory{
   
 //returns available inventory stored in the structure
   public LinkedList<Food> getInventory(){
-    return this.inventory;
+    //return this.inventory;
+	  
+	Iterator<Food> it = this.inventory.iterator();
+	LinkedList<Food> invCopy = new LinkedList<Food>();
+		
+	while(it.hasNext())
+	{
+		invCopy.add(it.next());
+	}
+		
+	return invCopy;
   }
   
 //returns items that should be removed from inventory, but have not yet been removed 
   public LinkedList<Food> getRemoveInventory(){
-    return this.removeInventory;
+    //return this.removeInventory;
+	Iterator<Food> it = this.removeInventory.iterator();
+	LinkedList<Food> rCopy = new LinkedList<Food>();
+		
+	while(it.hasNext())
+	{
+		rCopy.add(it.next());
+	}
+		
+	return rCopy;
   }
   
 //sets inventory to be removed to a linked list
