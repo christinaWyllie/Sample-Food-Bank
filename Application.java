@@ -140,8 +140,8 @@ public class Application{
  * @return 	inventory object in application
  */
   public Inventory getInventory() {return this.inventory;}
-  
+   public OrderForm getOrder() {return this.order;}
 }
  
- public OrderForm getOrder() {return this.order;}
+
 
