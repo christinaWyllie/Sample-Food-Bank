@@ -50,12 +50,6 @@ public class OrderForm implements FormatOutput{
 		this.inventory = i;
 		this.hamper = h;
 		this.numHampers = n;
-		try{
-			removeFromDataBase();
-		}catch(RemoveFromDataBaseFailedException e){
-			e.printStackTrace();
-			System.exit(1);
-		}
 	}
   
   /**
