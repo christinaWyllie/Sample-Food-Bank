@@ -36,34 +36,6 @@ public class TestOrderForm{
 	private Application app;
 	private int numHampers;
 	
-	//ORDERFORM TEST 
-	@Test
-	public void testOrderFormConstructor() {
-			
-		createFoodHamperFamilyObjects(); //initailize the objects to be passed into the constructor
-		
-		OrderForm form = new OrderForm(family, inventory, hamper, numHampers);
-		assertNotNull("Order form did not create a valid object", form); //assert the constructor successfully made the object
-	}
-	
-	
-	@Test
-	public void testIOException(){
-		createFoodHamperFamilyObjects();
-		boolean exceptionThrown = false;
-		// testing that print() method in OrderForm throws an exception when it cannot write to the txt file.
-		try{
-			OrderForm order = new OrderForm(family, inventory, hamper, numHampers);
-			
-			String file = "orderForm";
-		}
-        catch(Exception e) {
-            exceptionThrown = true;
-        }
-
-        assertFalse("Error thrown from print", exceptionThrown);
-    }
-	
 	
 	@Test
 	public void testPrint(){
@@ -111,6 +83,49 @@ public class TestOrderForm{
 		assertEquals("Error, the file does not match the expected output", expected, output);
 		
 	}
+	
+	//ORDERFORM TEST 
+	@Test
+	public void testOrderFormConstructor(){
+		int[] id = {1,0,0,0};
+		int[][] cals = {{1,25,25,25,25, 2500}};
+		Family fam = new Family(id, cals);
+		ArrayList<Family> f = new ArrayList<Family>();
+		f.add(fam);
+		Inventory i = new Inventory();
+		Nutrition t = new Nutrition(0,96,12,12,120);
+		HamperNutrition nut = new HamperNutrition(t, i);
+		ArrayList<HamperNutrition> h = new ArrayList<HamperNutrition>();
+		h.add(nut);
+		 //initailize the objects to be passed into the constructor
+		OrderForm form = null;
+		
+			form = new OrderForm(f, i, h, f.size());
+		
+			assertNotNull("Order form did not create a valid object", form); //assert the constructor successfully made the object
+		
+	}
+	
+	
+	@Test
+	public void testIOException(){
+		createFoodHamperFamilyObjects();
+		boolean exceptionThrown = false;
+		// testing that print() method in OrderForm throws an exception when it cannot write to the txt file.
+		try{
+			OrderForm order = new OrderForm(family, inventory, hamper, numHampers);
+			
+			String file = "orderForm";
+		}
+        catch(Exception e) {
+            exceptionThrown = true;
+        }
+
+        assertFalse("Error thrown from print", exceptionThrown);
+    }
+	
+	
+	
 
 
 	 /* ******************* HELPER METHODS ***************** */
