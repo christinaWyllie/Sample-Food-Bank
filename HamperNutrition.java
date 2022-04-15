@@ -153,7 +153,7 @@ public class HamperNutrition {
    * through the available inventory to select the best possible combination to 
    * put in the hamper.
    */
-  public void createBestHamper()
+  public void createBestHamper() throws NotEnoughInventoryException
   {
 	//LinkedList<Food> food = inventory.getInventory();
 	int[] content = calculateContent();
