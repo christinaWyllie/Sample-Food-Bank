@@ -1,4 +1,4 @@
-/* 
+/**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
@@ -19,24 +19,27 @@ Date Submitted: April 18th, 2022
  */
 package edu.ucalgary.ensf409;
 
-/*
-Family: Public class that organizes the nutritional requirements for family members that were specified
-	- Uses Nutrition class
-	- Utilizes the user input given by the GUI
-	- Requires the daily requirements for each person that is given in the DataBase
-	- Implements Calculate interface 
+/**
+ * Family is a public class that organizes the nutritional requirements for family
+ * members that were specified. This class uses the Nutrition class to contain 
+ * information and utilizes and stores the user input given by the GUI. The Family class
+ * requires the daily requirements for each person that is given in the DataBase and 
+ * implements the Calculate interface to turn percentage values into actual calorie
+ * amounts.
 */
-
-
 public class Family implements Calculate{
   private final Nutrition TOTAL; //Total nutritional needs of family 
   private int[] ID; //Holds given user input
   private int[][] calorieData; //Daily nutritional needs (originally taken from DataBase)
   
-  //family constructor 
-  /*
-  * @param int[] ID: User inputted family 
-  * @param int[][] caloricInfo: Daily nutritional needs of adult male/female and child over/under 8
+
+ /**
+  * SoleFamily constructor that takes an array of ID numbers inputted in 
+  * the GUI and the table containing percentages of daily caloric needs for all
+  * types of clients that has been read from the database.
+  * 
+  * @param ID 	integer array that is the user inputted family 
+  * @param caloricInfo	daily nutritional needs of adult male/female and child over/under 8
   */
   public Family(int[] ID, int[][] caloricInfo){
     this.ID = ID;
@@ -44,18 +47,25 @@ public class Family implements Calculate{
     this.TOTAL = calculateContent(); //Calculates total nutrition value for entire family 
   }
   
-// public method getID which returns the ID array
-//@return the original user inputted array 
+/**
+ * getID() is a public method which returns the ID array that was specified
+ * in the constructor. 
+ * 
+ * @return 	the original user inputted array 
+ */
   public int[] getID(){
 	  return this.ID;
   }
   
-  /*
-  * @param int index: Used to access index of ID array
-  * @return the type of member depending on index - 0 = Adult Male, 1 = Adult Female, 2 = Child over 8, 3 = Child Under 8
-  * Helps for formatString method in OrderForm class
+ /**
+  * This method is a public method that returns the string that corresponds
+  * for a given index relating to a type of client. This method
+  * helps for formatString method in OrderForm class.
+  * 
+  * @param index	 used to access index of ID array
+  * @return 	the type of member depending on index - 0 = Adult Male, 1 = Adult Female, 2 = Child over 8, 3 = Child Under 8
+  *
   */
-  // public method getID which returns the String for the given index of a person
   public String getIDAtIndex(int index){
 	StringBuilder build = new StringBuilder();
 	if(ID[index] != 0){
@@ -77,14 +87,27 @@ public class Family implements Calculate{
 	return build.toString();
   }
   
-  //getter for TOTAL, returns a nutrition object
-//@return total nutrition object
+ /**
+  * This method is a getter method for TOTAL, which is a nutriton object
+  * containing the weekly caloric needs of the entire family. This 
+  * method returns a nutrition object.
+  * 
+  * @return 	total nutrition object
+  */
   public Nutrition getTotal(){
     return this.TOTAL;
   }
   
+  /**
+   * This method overrides the calculateContent method in the Calculate interface
+   * and uses the caloric information specialized from the database for each type
+   * of client, and uses the information about the family to calculate the 
+   * number of calories needed by the entire family per category for an 
+   * entire week.
+   * 
+   * @return 	returns a nutrition object that contains weely caloric needs of the family.
+   */
   @Override
-
   public Nutrition calculateContent(){ //Overrides the calculateContent method in Calculate interface 
     //using conventions g, f, p, o, c 
     int totalGrain = 0; 
