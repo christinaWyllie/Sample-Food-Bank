@@ -38,6 +38,7 @@ public class Application{
   private ArrayList<Family> families; //Array that holds family objects where each family is a user input containing nutrition for amount of members specified
   private ArrayList<HamperNutrition> hamper; //Array that holds the "best hamper" for each family object specified (ArrayList for both families 
 	//and hamper correspond to eachother i.e index 0 holds best hamper for Family in families[0]
+  private OrderForm order;
 	
   //private int[][] calorieInfo = {{1,30,20,40,10,2500}, {2,20,40,10,30,2500}, {3,21,33,31,15,2200}, {4,21,33,21,15,1400}};
   
@@ -75,7 +76,7 @@ public class Application{
 		i++;
 		
 	}
-	OrderForm order = new OrderForm(families, inventory, hamper, numHamper); //Creates OrderForm object in order to print all families with their respective hampers
+	this.order = new OrderForm(families, inventory, hamper, numHamper); //Creates OrderForm object in order to print all families with their respective hampers
   }
   
   /**
@@ -141,3 +142,6 @@ public class Application{
   public Inventory getInventory() {return this.inventory;}
   
 }
+ 
+ public OrderForm getOrder() {this.order;}
+
