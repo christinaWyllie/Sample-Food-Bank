@@ -24,6 +24,7 @@ Family: Public class that organizes the nutritional requirements for family memb
 	- Uses Nutrition class
 	- Utilizes the user input given by the GUI
 	- Requires the daily requirements for each person that is given in the DataBase
+	- Implements Calculate interface 
 */
 
 
