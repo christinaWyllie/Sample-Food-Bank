@@ -14,7 +14,7 @@ Date Submitted: April 18th, 2022
 	christina.wyllie@ucalgary.ca</a>
 @author Maitry Rohit <a href="mailto:maitry.rohit@ucalgary.ca">
 	maitry.rohitAucalgary.ca</a>
-@version 1.3
+@version 1.6
 @since 1.0
  */
  // javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar edu/ucalgary/ensf409/TestFamily.java
@@ -124,11 +124,27 @@ public class TestOrderForm{
         assertFalse("Error thrown from print", exceptionThrown);
     }
 	
+	@Test
+	public void testOrderImplementsFormatOutput(){
+	//tests that the OrderForm class implements the FormatString interface
+		int[] id = {1,0,0,0};
+		int[][] cals = {{1,25,25,25,25, 2500}};
+		Family fam = new Family(id, cals);
+		ArrayList<Family> f = new ArrayList<Family>();
+		f.add(fam);
+		Inventory i = new Inventory();
+		Nutrition t = new Nutrition(0,96,12,12,120);
+		HamperNutrition nut = new HamperNutrition(t, i);
+		ArrayList<HamperNutrition> h = new ArrayList<HamperNutrition>();
+		h.add(nut);
+		 //initailize the objects to be passed into the constructor
+		OrderForm form = null;
+		
+		form = new OrderForm(f, i, h, f.size());
+		assertTrue("Order Form does not implement FormatOutput", (FormatOutput.class.isAssignableFrom(form.getClass())));
+	}
 	
-	
-
-
-	 /* ******************* HELPER METHODS ***************** */
+		 /* ******************* HELPER METHODS ***************** */
 
     /*
     * Create a test file to read in (in working directory)
@@ -149,6 +165,7 @@ public class TestOrderForm{
 	    this.inventory = this.app.getInventory();
 		this.family = this.app.getFamilies();
 		this.numHampers = family.size();
-    }		   
+    }		
+
 }
 
