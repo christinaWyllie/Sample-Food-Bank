@@ -20,6 +20,13 @@ Date Submitted: April 18th, 2022
  
 package edu.ucalgary.ensf409;
 
+/**
+ * This class serves as a container class that holds nutrition information
+ * in actual calorie amounts rather than percentages that is accessed by many
+ * classes in the program such as Family, Food and HamperNutrition to access
+ * the caloric needs of the food or family.
+ */
+ 
 public class Nutrition{
   private final int GRAIN;
   private final int PROTEIN;
@@ -28,13 +35,14 @@ public class Nutrition{
   private final int CALORIES;
   
 /**
-* @param int g
-* @param int f
-* @param int p 
-* @param int o
-* @param int c
+* Sole class constructor to set all final values.
+* 
+* @param g	grain content required
+* @param f	fruits and veggie content required
+* @param p	protein content required
+* @param o	other content required
+* @param c	total calorie content required
 */
-//class constructor to set all final values
   public Nutrition(int g, int f, int p, int o, int c)
   {
     this.GRAIN = g;
@@ -44,28 +52,47 @@ public class Nutrition{
     this.CALORIES = c;
   }
   
-//method returns grain content
+/**
+ * Method that returns grain content stored within object.
+ * 
+ * @return grain calorie amount required
+ */
   public int getGrain(){
     return this.GRAIN;
   }
-  //method returns protein content
+
+/**
+ * Method that returns protein content stored within object.
+ * 
+ * @return protein calorie amount required
+ */
   public int getProtein(){
     return this.PROTEIN;
   }
-  //method returns fruits and veggie content
+/**
+ * Method that returns fruit and veggie content stored within object.
+ * 
+ * @return fruit and veggie calorie amount required
+ */
   public int getFV(){
     return this.FV;
   }
 	
-  //method returns other content
+/**
+ * Method that returns other calorie content stored within object.
+ * 
+ * @return other calorie amount required
+ */
   public int getOther(){
     return this.OTHER;
   }
 	
-  //method returns total calorie content
+/**
+ * Method that returns total calorie content stored within object.
+ * 
+ * @return total calorie amount required
+ */
   public int getCalories(){
     return this.CALORIES;
   }
 }
-  
-  
