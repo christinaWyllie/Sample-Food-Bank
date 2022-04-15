@@ -72,13 +72,28 @@ Application Constructor:
 	}
 	OrderForm order = new OrderForm(families, inventory, hamper, numHamper); //Creates OrderForm object in order to print all families with their respective hampers
   }
-  
-  public int[] getUserInput(int index) {return this.families.get(index).getID();} //@param index: Gets the raw input from index specified which was inserted in families in 
+//@param index: Gets the raw input from index specified
+//@return integer array of the original input given by user that was inserted in that families index
+  public int[] getUserInput(int index) {return this.families.get(index).getID();}
+	
+//@return the number of hampers created in this application	
   public int getNumHamper() {return this.numHamper;}
+	
+//@return families object in application
   public ArrayList<Family> getFamilies() {return this.families;}
+
+//@return hamper object in application
   public ArrayList<HamperNutrition> getHampers() {return this.hamper;}
-  public Family getFamily(int index) {return this.families.get(index);} //@param index: Gets the family object specified at index 
-  public LinkedList<Food> getHamper(int index) {return this.hamper.get(index).getHamper();} //@param index: Gets the hamper created specified at index 
+	
+//@param index: Specifies which index to access in families 
+//@return Family object at specified index 
+  public Family getFamily(int index) {return this.families.get(index);}
+	
+//@param index: Specifies which index to access in hamper 
+//@return "best hamper" created for the index given 
+  public LinkedList<Food> getHamper(int index) {return this.hamper.get(index).getHamper();} 
+	
+//@return inventory object in application
   public Inventory getInventory() {return this.inventory;}
   
 }
