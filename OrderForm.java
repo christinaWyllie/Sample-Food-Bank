@@ -1,5 +1,4 @@
-
-/* 
+/**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
@@ -23,20 +22,28 @@ package edu.ucalgary.ensf409;
 import java.util.*;
 import java.io.*;
 
-//public class OrderForm, uses the interface FormatOutput
+
+/**
+ * OrderForm is a public class that uses the FormatOutput interface to 
+ * standardize output that is printed to a text file that serves as the 
+ * order form containing all of the information about the application
+ * and the subsequent hampers that were created.
+ */
 public class OrderForm implements FormatOutput{
 	private ArrayList<Family> family;
 	private Inventory inventory;
 	private ArrayList<HamperNutrition> hamper;
 	private int numHampers;
   
-  // constructor for OrderForm 
-  /*
-  * @param Family f
-  * @param Inventory i
-  * @param ArrayList<HamperNutrition> h
-  * @param int n
-  *
+ 
+ /**
+  * Sole constructor for OrderForm that takes all parameters at completion
+  * of hamper creation in application.
+  * 
+  * @param f	arraylist of family objects 
+  * @param i	inventory object that is passed to update the inventory in the database
+  * @param h	arraylist of all hampers so hamper information can be outputted
+  * @param n	number of hampers within the application
   */
 	public OrderForm(ArrayList<Family> f, Inventory i, ArrayList<HamperNutrition> h, int n){
 		this.family = f;
@@ -51,8 +58,12 @@ public class OrderForm implements FormatOutput{
 		}
 	}
   
-  // public method to remove from the database which calls the Inventory's remove method
-  // calls the print method if the removal was successful, else throws custom exception
+  /**
+   * This is a public method to remove from the database which calls the Inventory's remove method
+   * and calls the print method if the removal was successful, else throws custom exception.
+   * 
+   * @throws RemoveFromDataBaseFailedException	thrown if the hamper items are not removed from the database 
+   */
 	public void removeFromDataBase()throws RemoveFromDataBaseFailedException{
 		boolean value = inventory.removeDataBase();
 		try{
@@ -69,7 +80,13 @@ public class OrderForm implements FormatOutput{
 		}
 	} 
   
-  //public method to print to an output file, throws IOException
+ 
+  /**
+   * This is a public method that prints all nessesary information
+   * to an output file.
+   * 
+   * @throws IOException	thrown if the FileWriter object is unable to write to the text file
+   */
 	public void print(String file)throws IOException{
 		int n = this.numHampers;
 		FileWriter write = null;
@@ -106,7 +123,14 @@ public class OrderForm implements FormatOutput{
 		}
 	} 
 	
-  // interface method to format the string to print to the file 
+  
+  /**
+   * This method overrides the formatString method from the FormatOutput
+   * interface to format the string to print to the text file. 
+   * 
+   * @param fam 	Family object that contains information that should be printed to file
+   * @return 	returns a string that has been formatted
+   */
 	@Override
 	public String formatString(Family fam){
 		int[] f = fam.getID();
@@ -119,4 +143,3 @@ public class OrderForm implements FormatOutput{
 		return builder.substring(0, builder.length()-2).toString();
 	}
 }
-
