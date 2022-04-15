@@ -29,5 +29,9 @@ interface FormatOutput{
 	 * This method formats a string to the specified standards to be 
 	 * printed later in order form.
 	 */ 
-	formatString()
+	/*
+	* @param Family f
+	* @return String
+	*/
+	String formatString(Family f);
 }
