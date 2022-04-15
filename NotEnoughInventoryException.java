@@ -1,4 +1,4 @@
-/* 
+/**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
@@ -20,8 +20,20 @@ Date Submitted: April 18th, 2022
 
 package edu.ucalgary.ensf409;
 
+/**
+ * This class extends the default exception class to create a custom 
+ * exception that is thrown when the hamper that is created 
+ * throughout the program is unable to be fullfiled because there is 
+ * not enough inventory available in the database to meet the needs of 
+ * the family the hamper is being created for. 
+ */
 public class NotEnoughInventoryException extends Exception{
 	public NotEnoughInventoryException(){
+	/**
+	 * This method is the custom exception that extends the exception class
+	 * that prints the message "Not enough inventory found to fulfill hamper."
+	 * when it is thrown.
+	 */
 		super("Not enough inventory found to fulfill hamper.");
 	}
 }
