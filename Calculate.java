@@ -20,9 +20,16 @@ Date Submitted: April 18th, 2022
 
 package edu.ucalgary.ensf409;
 /**
-*this interface is implemented by family and food, and takes local class variables and calculates the contents 
-required to be passed to create a nutrition object. the nutrition object is then returned by the method.
-*/
+ * This interface is implemented by family and food, and takes local class variables and calculates the contents 
+ * required to be passed to create a nutrition object. The nutrition object is then returned by the method.
+ */
 interface Calculate{
+/**
+ * Calculates nutrition information using class variables. The method then returns
+ * a nutrition object containing this information.
+ * 
+ * @return Nutrition	a nutrition object containing caloric information
+ */
+
   Nutrition calculateContent(); 
 }
