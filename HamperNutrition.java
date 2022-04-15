@@ -117,6 +117,9 @@ public class HamperNutrition {
   public void addToHamper(Food food)
   {
     	hamper.add(food);
+	this.food.remove(food);
+	inventory.addRemoveInventory(hamper);
+	  
   }
   
   /**
@@ -352,4 +355,15 @@ public class HamperNutrition {
 	this.inventory = i;
   }
   
+/**
+ * This method retruns the food likned list stored within the HamperNutrition
+ * class.
+ * 
+ * @return 	retruns a linked list of food objects that represenst the inventory
+ */
+  public LinkedList<Food> getFood()
+  {
+	  return this.food;
+  }
+	
 }
