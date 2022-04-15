@@ -17,6 +17,9 @@ Date Submitted: April 18th, 2022
 @version 1.3
 @since 1.0
  */
+ // javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar edu/ucalgary/ensf409/TestFamily.java
+ // java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.TestFamily
+ 
 
 package edu.ucalgary.ensf409;
 
@@ -27,25 +30,34 @@ import java.io.*;
 import java.util.*;
 
 public class TestOrderForm{
+	private ArrayList<Family> family; //private variables used in each test, set in the method createFoodHamperFamilyObjects()
+	private Inventory inventory;
+	private ArrayList<HamperNutrition> hamper;
+	private Application app;
+	private int numHampers;
+	
 	//ORDERFORM TEST 
 	@Test
 	public void testOrderFormConstructor() {
+			
+		createFoodHamperFamilyObjects(); //initailize the objects to be passed into the constructor
 		
-	createFoodHamperFamilyObjects();
-	OrderForm form = new OrderForm(family, inventory, hamper);
-	assertNotNull("Order form did not create a valid object", form);
+		OrderForm form = new OrderForm(family, inventory, hamper, numHampers);
+		assertNotNull("Order form did not create a valid object", form); //assert the constructor successfully made the object
 	}
 	
 	
 	@Test
 	public void testIOException(){
-	// testing that print() method in OrderForm throws an exception when it cannot write to the txt file.
-	OrderForm order = new OrderForm(family, inventory, hamper);
-	boolean exceptionThrown = false;
-        try {
-            order.print();
-        }
-        catch (Exception e) {
+		createFoodHamperFamilyObjects();
+		boolean exceptionThrown = false;
+		// testing that print() method in OrderForm throws an exception when it cannot write to the txt file.
+		try{
+			OrderForm order = new OrderForm(family, inventory, hamper, numHampers);
+			
+			String file = "orderForm";
+		}
+        catch(Exception e) {
             exceptionThrown = true;
         }
 
@@ -55,42 +67,51 @@ public class TestOrderForm{
 	
 	@Test
 	public void testPrint(){
-	// test the printing of an order form to an output txt file.
-	createFoodHamperFamilyObjects();
-	OrderForm order = new OrderForm(family, inventory, hamper);
-		
-	String expectedOutput = "Name:" +
-				"Date:" +
-		
-				"Original Request" +
-				"Hamper 1: 1 Adult Female"+
-
-				"Hamper 1 Items: " +
-				"1		Wheat Bread, loaf" +
-				"5		Orange, dozen" +
-				"6		Eggs, dozen";
-		
-	try{
-		File file = new File("somefile.txt");	
-		FileWriter writer = new FileWriter(file)
-		writer.append(expectedOutput);
-	}
-	catch(IOException e){
-		System.out.println("Test failed, could not create file");
-	}
-		order.print();
-		
-	boolean equal = isEqual(file,"OrderForm.txt"); //the file will be created in order form with the name OrderForm
-	assertTrue("Error, unexpected output writen to the file", equal)
-	}
-	
-	public void testOrderFormImplementsFormatString(){
-	//tests that the OrderForm class implements the FormatString interface
+		StringBuilder build = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
 		createFoodHamperFamilyObjects();
-		OrderForm order = new OrderForm(family, inventory, hamper);
-		assertTrue("Order Form does not implement FormatOutput", (FormatOutput.class.isAssignableFrom(order.getClass()));
+		
+		try{
+			//append the expected information to a StringBuilder
+			
+			build.append("Example Food Bank\nHamper Order Form\n\n" + 
+					"Name:" + "\n" + "Date:" + "\n\n" + "Original Request" + "\n");
+					
+			build.append("Hamper 1: 1 Adult Male, 1 Adult Female\n");
+			build.append("\nHamper 1 Items:\n");
+			
+			//append the unique hamper created by the program
+			LinkedList<Food> food = this.hamper.get(0).getHamper();
+			for(int j =0; j< food.size(); j++){
+				build.append(food.get(j).getFoodID() + "\t");
+				build.append(food.get(j).getName() + "\n");
+			}
+			build.append("\n");
+			
+			
+			try{
+				//the file will be created in order form with the name orderForm.txt
+				BufferedReader reader = new BufferedReader(new FileReader(new File("orderForm.txt")));
+				String word;
+				while((word = reader.readLine()) != null){
+					builder.append(word + "\n"); //append the information from the file created in the OrderForm print() method
+				}
+			}catch(IOException e){
+				System.out.println("Error");
+				e.printStackTrace();
+			}
+		}
+		catch(Exception e){
+				System.out.println("Error running ");
+				e.printStackTrace();
+		}
+		String expected = build.toString();
+		String output = builder.toString();
+		// assert the strings match.
+		assertEquals("Error, the file does not match the expected output", expected, output);
+		
 	}
-}
+
 
 	 /* ******************* HELPER METHODS ***************** */
 
@@ -98,187 +119,21 @@ public class TestOrderForm{
     * Create a test file to read in (in working directory)
     */
     private void createFoodHamperFamilyObjects() {
-       //create food objects 
-	   	   
-	   String name1= "Wheat bread, loaf";
-	   int id1 = 1;
-	   int g1 = 96;
-	   int f1 = 0;
-	   int p1 = 4;
-	   int o1 = 0;
-	   int c1 = 2192;
-	   Food food1 = Food(id1, name1, g1, f1, p1, o1, c1);
-	   
-	   String name2 = "Wheat bread, loaf";
-	   int id2 = 2;
-	   int g2 = 96;
-	   int f2 = 0;
-	   int p2 = 4;
-	   int o2 = 0;
-	   int c2 = 2192;
-	   Food food1 = new Food(id2, name2, g2, f2, p2 o2, c2);
-	   
-	   String name3= "Wheat bread, loaf";
-	   int id3 = 3;
-	   int g3 = 96;
-	   int f3 = 0;
-	   int p3 = 4;
-	   int o3 = 0;
-	   int c3 = 2192;
-	   Food food2 = new Food(id3, name3, g3, f3, p3, o3, c3);
-
-	   String name4= "Orange, dozen";
-	   int id4 = 4;
-	   int g4 = 0;
-	   int f4 = 100;
-	   int p4 = 0;
-	   int o4 = 0;
-	   int c4 = 864;
-	   Food food4 = new Food(id4, name4, g4, f4, p4, o4, c4);
-	   
-	   String name5= "Orange, dozen";
-	   int id5 = 5;
-	   int g5 = 0;
-	   int f5 = 100;
-	   int p5 = 0;
-	   int o5 = 0;
-	   int c5 = 864;
-	   Food food5 = new Food(id5, name5, g5, f5, p5, o5, c5);
-	   
-	   String name6 = "Eggs, dozen";
-	   int id6 = 6;
-	   int g6 = 0;
-	   int f6 = 0;
-	   int p6 = 9;
-	   int o6 = 91;
-	   int c6 = 864;
-	   Food food6 = new Food(id6, name6, g6, f6, p6, o6, c6);
-	   
-	   LinkedList<Food> foodList = new LinkedList<Food>(); 
-	   foodList.add(food1);
-	   foodList.add(food2);
-	   foodList.add(food3);
-	   foodList.add(food4);
-	   foodList.add(food5);
-	   foodList.add(food6);
-	   
-	   int[][] array = new int[4][6];
-		
-	   array[1][0] = 2;
-	   array[1][1] = 16;
-	   array[1][2] = 28;
-	   array[1][3] = 26;
-	   array[1][4] = 30;
-	   array[1][5] = 2500;
-		
-	   Inventory inventory = new Inventory();
-	   inventory.setInventory(foodList);
-      	   inventory.setCalories(array);
-		
-	   int[] id = {0,1,0,0};
-		
-	   Family family = new Family(id, array);
-		
-	   ArrayList familyList = new ArrayList<Family>();
-	   familyList.add(family);
-		
-	   Nutrition nutrition = new Nutrition(g6, p6, f6, o6, c6);
-		
-	   HamperNutrition hamper = new HamperNutrition(nutrition);
+		//creat an appliation object with the family to run the program and create the hamper
+		ArrayList<int[]> var = new ArrayList<int[]>();
+		int[] fam = {1,1,0,0};
+		var.add(fam);
+		try{
+			this.app = new Application(var);
+		}catch(Exception e){
+				System.out.println("Error running ");
+				e.printStackTrace();
+		}
+		//retrieve the hamper information made after the call to application
+		this.hamper = this.app.getHampers();
+	    this.inventory = this.app.getInventory();
+		this.family = this.app.getFamilies();
+		this.numHampers = family.size();
     }		   
 }
-			   
-			   
-			   
-//Test for make best hamper 
-		//Nutrition pixie = new Nutrition(5, 2, 5, 0, 10);
-		Food food7 = new Food(7, "Unicorn Tears", 0, 100, 0, 0, 3);
-		Food food8 = new Food(8, "Fae Hearts", 0, 25, 75, 0, 4);
-		Food food9 = new Food(9, "Jack's Magic Beans", 67, 33, 0, 0, 6);
-		Food food10 = new Food(10, "Oatmeal", 100, 0, 0, 0, 1);
-		Food food11 = new Food(11, "Oatmeal", 100, 0, 0, 0, 1);
-		Food food12 = new Food(12, "Oatmeal", 100, 0, 0, 0, 1);
-		Food food13 = new Food(13, "Lentils", 49, 0, 46, 5, 1160);
-		
-		Nutrition pixie = new Nutrition(600, 200, 500, 100, 910);
-		
-		String name1= "Wheat bread, loaf";
-	   int id1 = 1;
-	   int g1 = 96;
-	   int f1 = 0;
-	   int p1 = 4;
-	   int o1 = 0;
-	   int c1 = 2192;
-	   Food food1 = new Food(id1, name1, g1, f1, p1, o1, c1);
-	   
-	   String name2 = "Wheat bread, loaf";
-	   int id2 = 2;
-	   int g2 = 96;
-	   int f2 = 0;
-	   int p2 = 4;
-	   int o2 = 0;
-	   int c2 = 2192;
-	   Food food2 = new Food(id2, name2, g2, f2, p2, o2, c2);
-	   
-	   String name3= "Wheat bread, loaf";
-	   int id3 = 3;
-	   int g3 = 96;
-	   int f3 = 0;
-	   int p3 = 4;
-	   int o3 = 0;
-	   int c3 = 2192;
-	   Food food3 = new Food(id3, name3, g3, f3, p3, o3, c3);
 
-	   String name4= "Orange, dozen";
-	   int id4 = 4;
-	   int g4 = 0;
-	   int f4 = 100;
-	   int p4 = 0;
-	   int o4 = 0;
-	   int c4 = 864;
-	   Food food4 = new Food(id4, name4, g4, f4, p4, o4, c4);
-	   
-	   String name5= "Orange, dozen";
-	   int id5 = 5;
-	   int g5 = 0;
-	   int f5 = 100;
-	   int p5 = 0;
-	   int o5 = 0;
-	   int c5 = 864;
-	   Food food5 = new Food(id5, name5, g5, f5, p5, o5, c5);
-	   
-		String name6 = "Eggs, dozen";
-		int id6 = 6;
-		int g6 = 0;
-		int f6 = 0;
-		int p6 = 9;
-		int o6 = 91;
-		int c6 = 864;
-		Food food6 = new Food(id6, name6, g6, f6, p6, o6, c6);
-	   
-		LinkedList<Food> foodList = new LinkedList<Food>(); 
-		foodList.add(food1);
-		foodList.add(food2);
-		foodList.add(food3);
-		foodList.add(food4);
-		foodList.add(food5);
-		foodList.add(food6);
-		foodList.add(food7);
-		foodList.add(food8);
-		foodList.add(food9);
-		foodList.add(food10);
-		foodList.add(food11);
-		foodList.add(food12);
-		foodList.add(food13);
-	   
-		HamperNutrition hamper = new HamperNutrition(pixie, foodList);
-		hamper.createBestHamper();
-		LinkedList<Food> h = hamper.getHamper();
-		Iterator<Food> it = h.iterator();
-
-		while(it.hasNext())
-		{
-			System.out.println(it.next().getName());
-		}
-		
-	}
