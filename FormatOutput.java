@@ -1,4 +1,4 @@
-/* 
+/**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
@@ -20,6 +20,14 @@ Date Submitted: April 18th, 2022
 
 package edu.ucalgary.ensf409;
 
+/**
+ * This interface is implemented by order form to format and standardize
+ * output before it is printed on an order form.
+ */
 interface FormatOutput{
-  formatString()
+	/**
+	 * This method formats a string to the specified standards to be 
+	 * printed later in order form.
+	 */ 
+	formatString()
 }
