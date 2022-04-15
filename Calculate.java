@@ -28,7 +28,7 @@ interface Calculate{
  * Calculates nutrition information using class variables. The method then returns
  * a nutrition object containing this information.
  * 
- * @return Nutrition	a nutrition object containing caloric information
+ * @return  returns a nutrition object containing caloric information
  */
 
   Nutrition calculateContent(); 
