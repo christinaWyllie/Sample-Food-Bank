@@ -26,6 +26,15 @@ import static org.junit.Assert.*;
 import java.io.*;
 import java.util.*;
 
+/*
+Disclaimer: These tests test removal from the database as well as inventory since the two classes are interconnected. 
+The values in the tests that pertain to the database are valid in the test database, and thus are able to be removed.
+If the database that the tests are connected to is changed, these test values would also need to be changed to reflect 
+that. Since the tests remove from the database, if the tests are successful the first time they are run, the database
+will be altered and these items will no longer exist, so the tests will fail the second time they are run in 
+succession. Thus, if the tests are run twice, please reset the database to its initial state in between runs.
+*/
+
 public class TestInventoryAndDataBase{
 	
 	//INVENTORY TEST 
@@ -40,8 +49,9 @@ public class TestInventoryAndDataBase{
 	//INVENTORY TEST
 	@Test
 	//tests the set methods for inventory, setCalories and setInventory and get methods as well to see how they are returned
+	//by the getters 
 	public void testInventoryGettersandSetters(){
-		Inventory i = new Inventory();
+		Inventory i = new Inventory(); //initializes inventory object
 		int[][] array = new int[4][6];
 		array[0][0] = 1;
 		array[0][1] = 16;
@@ -56,29 +66,29 @@ public class TestInventoryAndDataBase{
 		array[1][3] = 26;
 		array[1][4] = 30;
 		array[1][5] = 2500;
-		i.setCalorieTable(array);
+		i.setCalorieTable(array); //sets calorie table
 		
 		Food food10 = new Food(10, "Eggs, dozen", 0, 0, 50, 50, 1000);
 		Food food11 = new Food(11, "Oranges, dozen", 0, 0, 9, 91, 100);
 		Food food12 = new Food(12, "Granola Bars", 8, 0, 2, 90, 500);
 		Food food13 = new Food(13, "Carrots", 10, 30, 40, 20, 200);
 		
-		LinkedList<Food> list= new LinkedList<Food>();
+		LinkedList<Food> list= new LinkedList<Food>(); //create new linked list of food to act as inventory linked list
 		list.add(food10);
 		list.add(food11);
 		list.add(food12);
 		list.add(food13);
-		i.setInventory(list);
-		
-		LinkedList<Food> removallist= new LinkedList<Food>();
+		i.setInventory(list); //set inventory to our list
+		 
+		LinkedList<Food> removallist= new LinkedList<Food>(); //create small ll to act as sample hamper/remove list
 		removallist.add(food10);
 		removallist.add(food11);
-		i.setRemoveInventory(removallist);
+		i.setRemoveInventory(removallist);//set removeinventory to our list
         
-        LinkedList<Food> actualInventory = i.getInventory();
-        String expectedCalsTable = Arrays.deepToString(array);
-        String actualCalsTable =Arrays.deepToString(i.getCalorieTable());
-        LinkedList<Food> actualRemovedInventory = i.getRemoveInventory();
+        LinkedList<Food> actualInventory = i.getInventory(); //get the inventory from the object to see what is stored
+        String expectedCalsTable = Arrays.deepToString(array); 
+        String actualCalsTable =Arrays.deepToString(i.getCalorieTable());//get cals table
+        LinkedList<Food> actualRemovedInventory = i.getRemoveInventory(); //gets remove list
     
 		assertEquals("Inventory inventory list does not match expected.",  list, actualInventory); //tests getinv
 		assertEquals("Inventory calorie table does not match expected.", expectedCalsTable, actualCalsTable); //tests getcalstable
@@ -91,7 +101,7 @@ public class TestInventoryAndDataBase{
 	//INVENTORY TEST 
 	@Test
 	//tests that removeInventory correctly removes from the main inventory linked list 
-	public void testInventoryRemoval(){
+	public void testInventoryRemovalAndAddToRemoveInventoryMethod(){
 		Inventory i = new Inventory();
 		int[][] array = new int[4][6];
 		array[0][0] = 1;
@@ -114,20 +124,26 @@ public class TestInventoryAndDataBase{
 		Food food12 = new Food(12, "Granola Bars", 8, 0, 2, 90, 500);
 		Food food13 = new Food(13, "Carrots", 10, 30, 40, 20, 200);
 		
-		LinkedList<Food> list= new LinkedList<Food>();
+		LinkedList<Food> list= new LinkedList<Food>();//create our own inv list to test with
 		list.add(food10);
 		list.add(food11);
 		list.add(food12);
 		list.add(food13);
 		i.setInventory(list);
 		
-		LinkedList<Food> remove= new LinkedList<Food>();
+		LinkedList<Food> remove= new LinkedList<Food>(); //create list of food to set inventory as (acts like first hamper)
 		remove.add(food10);
-		remove.add(food11);
+		i.setRemoveInventory(remove); //sets remove inventory
+		
+		LinkedList<Food> testAddtoMethod= new LinkedList<Food>(); //create new linked list to add to the exisiting removeInventory ll (acts as second hamper)
+		testAddtoMethod.add(food11); 
+		
+		i.addRemoveInventory(testAddtoMethod);//tests adds to exisiting removeInventory list
+		
 		list.remove(0);
 		list.remove(1);
-		i.setRemoveInventory(remove);
-		i.removeInventory();
+		
+		i.removeInventory(); //calls this method to make sure inventory linked list in i is updated and all duplicates in removeInventory list are removed from it
 		
 		LinkedList<Food> actualRemoved = i.getRemoveInventory(); //actual removed inventory
 		LinkedList<Food> actualInv = i.getInventory(); //actual inventory
@@ -136,7 +152,7 @@ public class TestInventoryAndDataBase{
 		i.closeDataBase();
 	}
 			   
-	//INVENTORY TEST
+	//INVENTORY AND DATABASE TEST
 	@Test
 	//testing remove from datatbase method assuming valid database, and only 1 entry that is a valid entry in the database
 	public void testRemoveDataBase(){
@@ -152,7 +168,7 @@ public class TestInventoryAndDataBase{
 	i.closeDataBase();
 	}
 	
-	//INVENTORY TEST
+	//INVENTORY AND DATABASE TEST
 	@Test
 	//testing remove from datatbase method assuming valid database given an invalid id number for the entry
 	public void testRemoveDataBaseWithInvalidEntry(){
@@ -168,7 +184,7 @@ public class TestInventoryAndDataBase{
 	i.closeDataBase();
 	}
 	
-	//INVENTORY TEST
+	//INVENTORY AND DATABASE TEST
 	@Test
 	//testing remove from database method assuming valid database with multiple valid entries being removed
 	public void testRemoveDataBaseWithMultipleValidEntries(){
@@ -186,7 +202,7 @@ public class TestInventoryAndDataBase{
 	i.closeDataBase();
 	}
 	
-	//INVENTORY TEST
+	//INVENTORY AND DATABASE TEST
 	@Test
 	//testing remove from database method assuming valid database with multiple entries that are invalid
 	public void testRemoveDataBaseWithMultipleInvalidEntries(){
