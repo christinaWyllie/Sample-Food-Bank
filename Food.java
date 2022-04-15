@@ -43,7 +43,7 @@ public class Food implements Calculate{
 * turn percentage values into caloric amounts that are then sent and stored in a 
 * nutrition object.
 * 
-* @param itemID		the unique itemID, as stored in the database
+* @param itemID			the unique itemID, as stored in the database
 * @param n			the name of the food, as stored in the database
 * @param g			percentage of grain content, as stored in database
 * @param f			percentage of fruit and veggie content, as stored in database
@@ -68,7 +68,7 @@ public class Food implements Calculate{
  * Public getter method to return the nutrtion object containing caloric
  * information for the food.
  * 
- * @return NUTRITIONALVALUE 	nutritition object
+ * @return  returns the nutritition object pertaining to the food information
  */
   public Nutrition getNutritionalValue(){
     return this.NUTRITIONALVALUE;
@@ -77,7 +77,7 @@ public class Food implements Calculate{
 /**
  * Public getter method to return the name of the food.
  * 
- * @return NAME		name of the food as it is stored in the database
+ * @return  returns the name of the food as it is stored in the database
  */
   public String getName() 
   {
@@ -88,7 +88,7 @@ public class Food implements Calculate{
 /**
  * Public getter method to return the unique itemID of the food item.
  * 
- * @return FOODID		FoodID as it is stored in the database
+ * @return  returns the FoodID as it is stored in the database
  */
   public int getFoodID(){
     return this.FOODID;
@@ -101,7 +101,7 @@ public class Food implements Calculate{
  * 100 to get the decimal value and then multiply by the total amount of 
  * calories for the food. this is then stored in a nutrition object within food.
  * 
- * @return toBeSet		nutrition object that is returned to the constructor to be set as a final value
+ * @return 	returns a nutrition object that is returned to the constructor to be set as a final value
  */
   @Override 
   public Nutrition calculateContent(){ 
