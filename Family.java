@@ -19,7 +19,14 @@ Date Submitted: April 18th, 2022
  */
 package edu.ucalgary.ensf409;
 
-//public class family which uses the interface Calculate
+/*
+Family: Public class that organizes the nutritional requirements for family members that were specified
+	- Uses Nutrition class
+	- Utilizes the user input given by the GUI
+	- Requires the daily requirements for each person that is given in the DataBase
+*/
+
+
 public class Family implements Calculate{
   private final Nutrition TOTAL; //Total nutritional needs of family 
   private int[] ID; //Holds given user input
@@ -43,7 +50,9 @@ public class Family implements Calculate{
   }
   
   /*
-  * @param int index
+  * @param int index: Used to access index of ID array
+  * @return the type of member depending on index - 0 = Adult Male, 1 = Adult Female, 2 = Child over 8, 3 = Child Under 8
+  * Helps for formatString method in OrderForm class
   */
   // public method getID which returns the String for the given index of a person
   public String getIDAtIndex(int index){
