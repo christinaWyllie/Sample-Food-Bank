@@ -77,6 +77,11 @@ public class Application{
 		
 	}
 	this.order = new OrderForm(families, inventory, hamper, numHamper); //Creates OrderForm object in order to print all families with their respective hampers
+	try{
+		order.removeFromDataBase();
+	}catch(RemoveFromDataBaseFailedException e){
+		
+	}
   }
   
   /**
