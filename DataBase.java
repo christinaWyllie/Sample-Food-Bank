@@ -89,12 +89,12 @@ public class DataBase{
 			this.calorieTable[i][5] = c;
 			
 				i++;
-			
-			 }catch (SQLException ex) {
-					ex.printStackTrace();
-				}
+			}
+		}catch (SQLException ex) {
+			ex.printStackTrace();
 		}
-    }
+	}
+
 	
     /**
      * This method queries through the available food items that are present
