@@ -94,6 +94,9 @@ public class TestHamperNutrition
 	public void testCreateBestHamperChoosesBestExactItem()
 	{
 	//Test createBestHamper(), getHamper()
+		
+		boolean testPassed = false;
+		
 		try
 		{
 			helpCreateInventory();
@@ -114,15 +117,21 @@ public class TestHamperNutrition
 			{
 				assertEquals("Method getHamper did not return the expected hamper:", iter.next().getName(), it.next().getName());
 			}
+			
+			testPassed = true;
 		}
 		
 		catch(NotEnoughInventoryException e){}
+		assertTrue("NotEnoughInventoryException was thrown", testPassed);
 	}
 			   
 	@Test
 	public void testCreateBestHamperChoosesBestApproxItem()
 	{
 	//Test createBestHamper(), getHamper()
+		
+		boolean testPassed = false;
+		
 		try	
 		{
 			helpCreateInventory();
@@ -142,54 +151,104 @@ public class TestHamperNutrition
 			while(it.hasNext() && iter.hasNext())
 			{
 				assertEquals("Method getHamper did not return the expected hamper:", iter.next().getName(), it.next().getName());
-			}	
+			}
+
+			testPassed = true;
 		}
 		
 		catch(NotEnoughInventoryException e){}
+		assertTrue("NotEnoughInventoryException was thrown", testPassed);
 	}
-	/*
-	public void testCreateBestHamperCreatesManyHampersNotSameHampers()
+
+	@Test
+	public void testCreateBestHamperCreatesManyHampersWhenNutritionSame()
 	{
-		helpCreateLargeInventory();
-		LinkedList<Food> expectedBestHamperOne = new LinkedList<Food>();
-		LinkedList<Food> expectedBestHamperTwo = new LinkedList<Food>();
+		boolean testPassed = false;
 		
-		expectedBestHamperOne.add();
-		expectedBestHamperOne.add();
-		expectedBestHamperTwo.add();
-		expectedBestHamperTwo.add();
+		try
+		{		
+			helpCreateLargeInventory();
+			LinkedList<Food> expectedBestHamperOne = new LinkedList<Food>();
+			LinkedList<Food> expectedBestHamperTwo = new LinkedList<Food>();
+			
+			Food food1 = new Food(4, "Spaghetti", 20, 30, 40, 10, 90);
+			Food food2 = new Food(13, "Lentils", 49, 0, 46, 5, 1160);
+			Food food3 = new Food(12, "Oatmeal", 100, 0, 0, 0, 1000);
+			Food food4 = new Food(15, "Chicken", 0, 40, 50, 10, 7000);
+			
+			expectedBestHamperOne.add(food2);
+			expectedBestHamperOne.add(food1);
+			expectedBestHamperTwo.add(food3);
+			expectedBestHamperTwo.add(food4);
+			
+			Nutrition one = new Nutrition(580, 25, 565, 65, 1235); 
+			HamperNutrition hamperOne = new HamperNutrition(one, inventory);
+			hamperOne.createBestHamper();
+			LinkedList<Food> foundHamperOne = hamperOne.getHamper();
+			
+			Iterator<Food> it = foundHamperOne.iterator();
+			Iterator<Food> iter = expectedBestHamperOne.iterator();
+			
+			assertEquals("Method createBestHamper did not create the best hamper. Hamper one is not the expected size:", expectedBestHamperOne.size(), foundHamperOne.size());
+			while(it.hasNext() && iter.hasNext())
+			{
+				assertEquals("Method getHamper did not return the expected hamper one:", iter.next().getName(), it.next().getName());
+			}
+			
+			Nutrition two = new Nutrition(580, 25, 565, 65, 1235); 
+			HamperNutrition hamperTwo = new HamperNutrition(two, inventory);
+			hamperTwo.createBestHamper();
+			LinkedList<Food> foundHamperTwo = hamperTwo.getHamper();
+			
+			it = foundHamperTwo.iterator();
+			iter = expectedBestHamperTwo.iterator();
+				
+			assertEquals("Method createBestHamper did not create the best hamper. Hamper two is not the expected size:", expectedBestHamperTwo.size(), foundHamperTwo.size());
+			while(it.hasNext() && iter.hasNext())
+			{
+				assertEquals("Method getHamper did not return the expected hamper two:", iter.next().getName(), it.next().getName());
+			}
+
+			LinkedList<Food> expectedInventory = this.food;
+			LinkedList<Food> foundInventory = hamperTwo.getFood();
+			it = expectedInventory.iterator();
+			iter = foundInventory.iterator();
+			
+			assertEquals("Method getFood did not return the expected updated inventory:", 11, foundInventory.size());
+			
+			testPassed = true;
+		}
 		
-		Nutrition one = new Nutrition(); 
-		HamperNutrition hamperOne = new HamperNutrition(one, inventory);
-		LinkedList<Food> foundHamperOne = hamperOne.getHamper();
+		catch(NotEnoughInventoryException e){}
 		
-		Nutrition two = new Nutrition(); 
-		HamperNutrition hamperTwo = new HamperNutrition(two, inventory);
-		LinkedList<Food> foundHamperTwo = hamperTwo.getHamper();
-		
-	}*/
+		assertTrue("Best hamper was not created or NotEnoughInventoryException was thrown", testPassed);
+	}
 	
 	@Test
 	public void testInventoryRemoved()
 	{
 		//Test removeInventory() which removes all food objects 
 		//in hamper LinkedList from Food Linked List in Inventory class  
+		
+		boolean testPassed = false;
+		
 		try
 		{
 			helpCreateInventory();
 			Food food4 = new Food(4, "Spaghetti", 20, 30, 40, 10, 90);
-			food.remove(food4);
-			
-			Nutrition n = new Nutrition(15, 25, 45, 15, 60);	//Should create a hamper with broccoli and remove broccoli from inventory linked list
+		
+			Nutrition n = new Nutrition(15, 25, 35, 9, 84);	//Should create a hamper with spaghetti and remove spaghetti from inventory linked list
 			HamperNutrition hamp = new HamperNutrition(n, inventory);
 			hamp.createBestHamper();
 			hamp.removeFromInventory();
 			LinkedList<Food> foundInventory = hamp.getInventory().getInventory();
-			
-			assertEquals("Method getInventory did not return the expected Inventory:", food, foundInventory);
+		
+			assertEquals("Method getInventory did not return the expected Inventory size:", 3, foundInventory.size());
+			testPassed = true;
 		}
 		
 		catch(NotEnoughInventoryException e){}
+		assertTrue("NotEnoughInventoryException was thrown", testPassed);
 	}
 	
 	@Test
@@ -245,6 +304,7 @@ public class TestHamperNutrition
 		Food food12 = new Food(12, "Oatmeal", 100, 0, 0, 0, 1000);
 		Food food13 = new Food(13, "Lentils", 49, 0, 46, 5, 1160);
 		Food food14 = new Food(14, "Eggs, dozen", 0, 0, 9, 91, 864);
+		Food food15 = new Food(15, "Chicken", 0, 40, 50, 10, 7000);
 		
 		LinkedList<Food> foodList = new LinkedList<Food>(); 
 		foodList.add(food1);
@@ -261,6 +321,8 @@ public class TestHamperNutrition
 		foodList.add(food12);
 		foodList.add(food13);
 		foodList.add(food14);
+		foodList.add(food15);
+		
 		
 		this.food = foodList;
 		this.inventory = new Inventory();
