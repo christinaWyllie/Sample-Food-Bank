@@ -273,18 +273,10 @@ public class HamperNutrition {
 		food.remove(bestOther);
 	}
 	
-	try 
-	{
-		checkInventory();
-		removeExtraFromHamper();
-		inventory.addRemoveInventory(hamper);
-	}
+	checkInventory();
+	removeExtraFromHamper();
+	inventory.addRemoveInventory(hamper);
 	
-	catch (NotEnoughInventoryException e) 
-	{
-		e.printStackTrace();
-		System.exit(1);
-	}
   }
   
   /**
