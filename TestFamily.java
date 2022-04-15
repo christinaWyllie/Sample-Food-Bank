@@ -14,7 +14,7 @@ Date Submitted: April 18th, 2022
 	christina.wyllie@ucalgary.ca</a>
 @author Maitry Rohit <a href="mailto:maitry.rohit@ucalgary.ca">
 	maitry.rohitAucalgary.ca</a>
-@version 1.3
+@version 1.5
 @since 1.0
  */
  
@@ -46,17 +46,19 @@ public class TestFamily{
 		array[1][3] = 26;
 		array[1][4] = 30;
 		array[1][5] = 2500;
-		
+		// set the id array to one adult male and one adult female
 		int[] idQuantityArray = {1,1,0,0};
 		boolean exceptionThrown = false;
 		try{
 			Family family1 = new Family(idQuantityArray, array);
 		}
 		catch(IllegalArgumentException e){
-			exceptionThrown = true;
+			exceptionThrown = true; 
 		}
 		assertFalse("Family constructor threw an exception when provided a valid input.", exceptionThrown);
+		//assert that no exception was thrown when provided valid input
 	}
+	
 	
 
 	
@@ -79,12 +81,14 @@ public class TestFamily{
 		array[1][4] = 30;
 		array[1][5] = 2500;
 		
-		int expectedGrain = (int)((0.3*2500) + (0.2*2500))*7;
-		int expectedProtein = (int)((0.4*2500) + (0.1*2500))*7;
-		int expectedFV = (int)((0.2*2500) + (0.4*2500))*7;
-		int expectedOther = (int)((0.1*2500) + (0.3*2500))*7;
-		int expectedTotalCals = 5000*7;
-		
+		//calculate the total for each category by dividing the percentage by 100 then multiply by the calories needed
+		// add each individual category for each person up and multiply by 7 for the total for a week
+		int expectedGrain = (int)(((array[0][1]/100.0)* array[0][5]) + ((array[1][1]/100.0)*array[1][5]))*7;
+		int expectedProtein = (int)(((array[0][3]/100.0)*array[0][5]) + ((array[1][3]/100.0)*array[1][5]))*7;
+		int expectedFV = (int)(((array[0][2]/100.0)*array[0][5]) + ((array[1][2]/100.0)*array[1][5]))*7;
+		int expectedOther = (int)(((array[0][4]/100.0)*array[0][5]) + ((array[1][4]/100.0)*array[1][5]))*7;
+		int expectedTotalCals = ( array[0][5] + array[1][5] ) * 7;
+	
 		int[] idQuantityArray = {1,1,0,0};
 		Family family1 = new Family(idQuantityArray, array);
 		
@@ -116,16 +120,18 @@ public class TestFamily{
 		array[0][4] = 10;
 		array[0][5] = 2500;
 		
-		
-		int expectedGrain = (int)(0.3*2500)*7;
-		int expectedProtein = (int)(0.4*2500)*7;
-		int expectedFV = (int)(0.2*2500)*7;
-		int expectedOther = (int)(0.1*2500)*7;
-		int expectedTotalCals = 2500*7;
+		//calculating the expceted values based on the array 
+		int expectedGrain = (int)(((array[0][1]/100.0)* array[0][5]))*7;
+		int expectedProtein = (int)(((array[0][3]/100.0)*array[0][5]) )*7;
+		int expectedFV = (int)(((array[0][2]/100.0)*array[0][5]))*7;
+		int expectedOther = (int)(((array[0][4]/100.0)*array[0][5]) )*7;
+		int expectedTotalCals = ( array[0][5]  ) * 7;
+	
 		
 		int[] idQuantityArray = {1,0,0,0};
 		Family family1 = new Family(idQuantityArray, array);
 		
+		//retrieve the actual values the code produces
 		Nutrition expected = new Nutrition(expectedGrain, expectedFV, expectedProtein, expectedOther, expectedTotalCals);
 		int actualG = family1.getTotal().getGrain();
 		int actualF = family1.getTotal().getFV();
@@ -134,6 +140,7 @@ public class TestFamily{
 		int actualC = family1.getTotal().getCalories();
 		
 		Nutrition actual = family1.getTotal();
+		//assert each individual value matches the manually calculated values.
 		assertNotNull("Total nutrition object was null.", actual);
 		assertEquals("Nutrition grain object total did not match the expected object.", expectedGrain, actualG);
 		assertEquals("Nutrition FV object total did not match the expected object.", expectedFV, actualF);
@@ -141,6 +148,7 @@ public class TestFamily{
 		assertEquals("Nutrition other object total did not match the expected object.", expectedOther, actualO);
 		assertEquals("Nutrition calories object total did not match the expected object.", expectedTotalCals, actualC);
 	}
+	
 	
 	@Test
 	public void testGetID(){
@@ -177,21 +185,18 @@ public class TestFamily{
 		array[2][3] = 31;
 		array[2][4] = 15;
 		array[2][5] = 1400;
-		
-		int expectedGrain = (int)(0.3*2500);
-		int expectedProtein = (int)(0.4*2500);
-		int expectedFV = (int)(0.2*2500);
-		int expectedOther = (int)(0.1*2500);
-		int expectedTotalCals = 2500;
+	
 		
 		int[] idQuantityArray = {1,2,1,1};
 		Family family1 = new Family(idQuantityArray, array);
 		
+		//using the getIDAtIndex() method, get the string equivalent for each index
 		String male = family1.getIDAtIndex(0);
 		String female = family1.getIDAtIndex(1);
 		String childO8 = family1.getIDAtIndex(2);
 		String childU8 = family1.getIDAtIndex(3);
 		
+		// the expected strings
 		String expectedMale = "1 Adult Male";
 		String expectedFemale = "2 Adult Female";
 		String expectedChildU8 = "1 Child under 8";
@@ -239,14 +244,21 @@ public class TestFamily{
 		array[3][4] = 15;
 		array[3][5] = 1400;
 		
-		int[] idQuantityArray = {1,1,1,2};
+		int[] idQuantityArray = {1,1,0,1};
 		Family family1 = new Family(idQuantityArray, array);
 		
-		int totalG = (750+500+462+588) *7;
-		int totalF = (500+1000+726+924) *7;
-		int totalP = (1000+250+682+868) * 7;
-		int totalO = (250+750+330+420) * 7;
-		int totalC = (2500+2500+2200+1400+1400) * 7;
+		// add together the percentage divded by 100 multiplied by the amount of calories that person needs and the amount of people in that category
+		// then multiply the total by 7 to get the total of each group for one week
+		int totalG = (int)(((array[0][1]/100.0)* array[0][5]* idQuantityArray[0]) + ((array[1][1]/100.0)*array[1][5]* idQuantityArray[1])
+				+ ((array[2][1]/100.0)*array[2][5]* idQuantityArray[2]) + ((array[3][1]/100.0)*array[3][5]* idQuantityArray[3]))*7;
+		int totalP = (int)(((array[0][3]/100.0)*array[0][5]* idQuantityArray[0]) + ((array[1][3]/100.0)*array[1][5]* idQuantityArray[1])
+				+ ((array[2][3]/100.0)*array[2][5]* idQuantityArray[2]) + ((array[3][3]/100.0)*array[3][5]* idQuantityArray[3]))*7;
+		int totalF = (int)(((array[0][2]/100.0)*array[0][5]* idQuantityArray[0]) + ((array[1][2]/100.0)*array[1][5]* idQuantityArray[1]) 
+				+ ((array[2][2]/100.0)*array[2][5]* idQuantityArray[2]) + ((array[3][2]/100.0)*array[3][5]* idQuantityArray[3]))*7;
+		int totalO = (int)(((array[0][4]/100.0)*array[0][5]* idQuantityArray[0]) + ((array[1][4]/100.0)*array[1][5]* idQuantityArray[1]) 
+				+ ((array[2][4]/100.0)*array[2][5]* idQuantityArray[2]) + ((array[3][4]/100.0)*array[3][5]* idQuantityArray[3]))*7;
+		int totalC = ( array[0][5]* idQuantityArray[0] + array[1][5]* idQuantityArray[1]
+				+ array[2][5]* idQuantityArray[2] + array[3][5]* idQuantityArray[3]) * 7;
 		
 		int actualG = family1.getTotal().getGrain();
 		int actualF = family1.getTotal().getFV();
@@ -254,14 +266,12 @@ public class TestFamily{
 		int actualO = family1.getTotal().getOther();
 		int actualC = family1.getTotal().getCalories();
 		
-		assertEquals("Unexpected value for total calories", totalC, actualC);
+		// check that each object mathces the expected based on the manual calculations
 		assertEquals("Unexpected value for total grain", totalG, actualG);
 		assertEquals("Unexpected value for total other", totalO, actualO);
 		assertEquals("Unexpected value for total fruits and veggies", totalF, actualF);
 		assertEquals("Unexpected value for total protein", totalP, actualP);
-		
-	
-	
+		assertEquals("Unexpected value for total calories", totalC, actualC);
 		
 	}
 }
