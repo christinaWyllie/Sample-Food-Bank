@@ -55,16 +55,16 @@ public class TestHamperNutrition
 		assertTrue("NotEnoughInventory excpetion was not thrown when there is not enough inventory to create a hamper.", correctException);
 	}
 	
-	@Test //FIX 
+	@Test 
 	public void testHamperNutritionConstructor() 
 	{      
 		helpCreateInventory();
 		Nutrition n = new Nutrition(120, 140, 70, 130, 460);
 		HamperNutrition hamp = new HamperNutrition(n, inventory);
 		
-		assertNotNull("HamperNutrition constructor did not create an object when given a nutrition object", hamp);
-		//Initialize hamper linked list in constructor and should be null;
-		assertNull("Hamper LinkedList was not null: ", hamp.getHamper());
+		assertNotNull("HamperNutrition constructor did not create an object when given a nutrition object:", hamp);
+		//Initialize hamper linked list in constructor and should be not null;
+		assertNotNull("Hamper LinkedList was null:", hamp.getHamper());
 	}
 			   
 	@Test
@@ -80,7 +80,15 @@ public class TestHamperNutrition
 		HamperNutrition hamp = new HamperNutrition(n, inventory);
 		hamp.addToHamper(food1);
 		LinkedList<Food> hamper = hamp.getHamper();
-		assertEquals("Method getHamper did not return the expected hamper: ", expectedHamper, hamp);
+		Iterator<Food> it = hamper.iterator();
+		Iterator<Food> iter = expectedHamper.iterator();
+		
+		assertEquals("Method getHamper did not return the expected hamper. Hamper is not the expected size:", expectedHamper.size(), hamper.size());
+		while(it.hasNext() && iter.hasNext())
+		{
+			assertEquals("Method getHamper did not return the expected hamper:", iter.next().getName(), it.next().getName());
+		}
+		
 	}
 
 	@Test
@@ -92,12 +100,19 @@ public class TestHamperNutrition
 		LinkedList<Food> expectedBestHamper = new LinkedList<Food>();
 		expectedBestHamper.add(food4);
 		
-		Nutrition n = new Nutrition(20, 30, 40, 10, 90);	//Matches spaghetti exactly, should choose spaghetti
+		Nutrition n = new Nutrition(18, 27, 36, 9, 90);	//Matches spaghetti exactly, should choose spaghetti
 		HamperNutrition hamp = new HamperNutrition(n, inventory);
 		hamp.createBestHamper();
 		
 		LinkedList<Food> hamper = hamp.getHamper();
-		assertEquals("Method getHamper did not return the expected hamper: ", expectedBestHamper, hamper);
+		
+		Iterator<Food> it = hamper.iterator();
+		Iterator<Food> iter = expectedBestHamper.iterator();
+		assertEquals("Method createBestHamper did not create the best hamper. Hamper is not the expected size:", expectedBestHamper.size(), hamper.size());
+		while(it.hasNext() && iter.hasNext())
+		{
+			assertEquals("Method getHamper did not return the expected hamper:", iter.next().getName(), it.next().getName());
+		}
 	}
 			   
 	@Test
@@ -109,12 +124,19 @@ public class TestHamperNutrition
 		LinkedList<Food> expectedBestHamper = new LinkedList<Food>();
 		expectedBestHamper.add(food4);
 		
-		Nutrition n = new Nutrition(15, 25, 45, 15, 60);	//Best match for caloric intake is spaghetti, should choose spaghetti
+		Nutrition n = new Nutrition(15, 25, 35, 9, 84);	//Best match for caloric intake is spaghetti, should choose spaghetti
 		HamperNutrition hamp = new HamperNutrition(n, inventory);
 		hamp.createBestHamper();
 		
 		LinkedList<Food> hamper = hamp.getHamper();
-		assertEquals("Method getHamper did not return the expected hamper: ", expectedBestHamper, hamper);
+		Iterator<Food> it = hamper.iterator();
+		Iterator<Food> iter = expectedBestHamper.iterator();
+		
+		assertEquals("Method createBestHamper did not create the best hamper. Hamper is not the expected size:", expectedBestHamper.size(), hamper.size());
+		while(it.hasNext() && iter.hasNext())
+		{
+			assertEquals("Method getHamper did not return the expected hamper:", iter.next().getName(), it.next().getName());
+		}
 	}
 	
 	@Test
@@ -133,7 +155,7 @@ public class TestHamperNutrition
 		hamp.removeFromInventory();
 		LinkedList<Food> foundInventory = hamp.getInventory().getInventory();
 		
-		assertEquals("Method getInventory did not return the expected Inventory: ", food, foundInventory);
+		assertEquals("Method getInventory did not return the expected Inventory:", food, foundInventory);
 	
 	}
 	
@@ -148,10 +170,10 @@ public class TestHamperNutrition
 		hamp.addToHamper(food1);
 		hamp.addToHamper(food2);
 		
-		int[] expectedContent = {120, 53, 70, -570, -327};
+		int[] expectedContent = {120, 70, 53, -570, -327};
 		int[] foundContent = hamp.calculateContent();
 		
-		assertEquals("Method calculateContent() did not return the expected content: ", expectedContent, foundContent);
+		assertEquals("Method calculateContent() did not return the expected content:", Arrays.toString(expectedContent), Arrays.toString(foundContent));
 	}
 	
 	/**********************************HELPER ********************************************/
