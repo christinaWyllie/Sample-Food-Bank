@@ -42,7 +42,17 @@ public class TestApplication{
 		ArrayList<int[]> array = new ArrayList<int[]>();
 		array.add(arrD[0]);
 		int expectedNumHamper = 1;
-		Application application1 = new Application(array);
+		boolean exception = false;
+		Application application1 = null;
+		try{ 
+			application1 = new Application(array);
+		}
+		catch(NotEnoughInventoryException e) {
+			exception = true;	
+		}
+		catch(RemoveFromDataBaseFailedException e) {
+			exception = true; 
+		}
 		
 		int actualContentHamper = application1.getNumHamper();
 		   
@@ -50,6 +60,7 @@ public class TestApplication{
 		ArrayList<HamperNutrition> actualContentArrayHamper = application1.getHampers();
 		Inventory actualContentInventory = application1.getInventory();
 		
+		assertFalse("NotEnoughInventoryException or RemoveFromDataBaseFailedException was thrown when it shouldn't have been.", exception);
 		assertEquals("Value of numHamper did not match what was expected: ", expectedNumHamper, actualContentHamper);
 		assertNotNull("Application constructor did not create Family object when given a valid array people. ", actualContentArray);
 		assertNotNull("Application constructor did not create HamperNutrition object when given a valid array people. ", actualContentArrayHamper);
@@ -67,10 +78,23 @@ public class TestApplication{
 		array.add(arrD[1]);
 		array.add(arrD[2]);
 		int expectedNumHamper = 3;
-		Application application2 = new Application(array);
+		boolean exception = false;
+		Application application2 = null;
+		
+		try{ 
+			application2 = new Application(array);
+		}
+		catch(NotEnoughInventoryException e) {
+			exception = true;	
+		}
+		catch(RemoveFromDataBaseFailedException e) {
+			exception = true; 
+		}
+	
 		int actualContentHampersSize = application2.getHampers().size();
 		LinkedList<Food> actualContentHamper = application2.getHamper(2); //Returns second hamper stored in arraylist
 		
+		assertFalse("NotEnoughInventoryException or RemoveFromDataBaseFailedException was thrown when it shouldn't have been.", exception);
 		assertEquals("Value of contents did not match what was expected: ", expectedNumHamper, actualContentHampersSize);
 		assertNotNull("Index 2 of HamperNutrition object in constructor not initialized properly. ", actualContentHamper);
     }
@@ -87,11 +111,23 @@ public class TestApplication{
 		array.add(arrD[2]);
 		
 		int expected = 3;
-		   
-		Application application2 = new Application(array);
+		boolean exception = false;
+		Application application2 = null;
+		
+		try{ 
+			application2 = new Application(array);
+		}
+		catch(NotEnoughInventoryException e) {
+			exception = true;	
+		}
+		catch(RemoveFromDataBaseFailedException e) {
+			exception = true; 
+		}		 
+		
 		int actualFamilyListSize = application2.getFamilies().size();
 		Family actualContentFamily = application2.getFamily(2); //Returns second hamper stored in arraylist to make sure all three were added
 				
+		assertFalse("NotEnoughInventoryException or RemoveFromDataBaseFailedException was thrown when it shouldn't have been.", exception);
 		assertEquals("Value of contents did not match what was expected: ", expected, actualFamilyListSize);
 		assertNotNull("Index 3 of Families object in constructor not initialized properly. ", actualContentFamily);
     }
@@ -105,9 +141,23 @@ public class TestApplication{
 		array.add(arrD[0]);
 		array.add(arrD[1]);
 		int expectedNumHamper = 2;
-		Application application2 = new Application(array);
+			
+		boolean exception = false;
+		Application application2 = null;
+		
+		try{ 
+			application2 = new Application(array);
+		}
+		catch(NotEnoughInventoryException e) {
+			exception = true;	
+		}
+		catch(RemoveFromDataBaseFailedException e) {
+			exception = true; 
+		}		 
+		
 		int actualContentNumHamper = application2.getNumHamper();
-
+		
+		assertFalse("NotEnoughInventoryException or RemoveFromDataBaseFailedException was thrown when it shouldn't have been.", exception);
 		assertEquals("Value of NumHamper did not match what was expected: ", expectedNumHamper, actualContentNumHamper);
     }
 	
@@ -118,8 +168,22 @@ public class TestApplication{
 		int[] givenExpectedData = {2,1,0,1}; 
 		ArrayList<int[]> array = new ArrayList<int[]>();
 		array.add(givenExpectedData);
-		Application application3 = new Application(array);
-		int[] actualContents = application3.getUserInput(0);
+		Application application2 = null;
+		boolean exception = true;
+		
+		try{ 
+			application2 = new Application(array);
+		}
+		catch(NotEnoughInventoryException e) {
+			exception = true;	
+		}
+		catch(RemoveFromDataBaseFailedException e) {
+			exception = true; 
+		}		 
+	
+		int[] actualContents = application2.getUserInput(0);
+		
+		assertFalse("NotEnoughInventoryException or RemoveFromDataBaseFailedException was thrown when it shouldn't have been.", exception);
 		assertEquals("Array of user input did not match what was expected: ", givenExpectedData, actualContents);
     }
 }
