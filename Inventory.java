@@ -1,5 +1,3 @@
-//Inventory
-
 /**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
@@ -23,31 +21,45 @@ package edu.ucalgary.ensf409;
 
 import java.util.*;
 
-//class inventory that holds the inventory information obtained from the database and hold the list of items to 
-//be removed. this class then calls the database to actually removed the items once it is determined that the order can 
-//be fullfilled.
+/**
+ * This class holds the inventory information obtained from the database and holds the list of
+ * items to be removed from the database. This class, after all hampers in an application are
+ * confirmed to be able to be fullfilled is then able to remove the items from the database.
+ */
 public class Inventory{
   private DataBase dataAccess;
   private static LinkedList<Food> inventory;
   private static LinkedList<Food> removeInventory = new LinkedList<Food>();
   private static int[][] calorieTable; 
   
-//class constructor
+
+/**
+ * Sole class constructor that initializes a DataBase object and sets the information read
+ * from the database to private static variables that are tehn accessed by other classes 
+ * throughout the program.
+ */
   public Inventory(){
     this.dataAccess = new DataBase(); //creates new database object, which intitializes the connection to the database
     setInventory(this.dataAccess.getInventoryInfo()); //set inventory as the inventory read from db
     setCalorieTable(this.dataAccess.getCalorieInfo()); //set caloric information as table read from db
   }
   
-//sets available inventory to a linked list
+
 /**
-* @param LinkedList<Food> i
+ * Public method that sets the inventory linkedlist in the class to available food items.
+ * 
+* @param i	linked list of food objects that serves as a representation of what is available in the database
 */
   public void setInventory(LinkedList<Food> i){
     this.inventory = i;
   }
   
-//returns available inventory stored in the structure
+
+/**
+ * Public method that returns the inventory linkedlist in the class of available food items.
+ * 
+* @return 	returns a linked list of food objects that serves as a representation of what is available in the database
+*/
   public LinkedList<Food> getInventory(){
 	Iterator<Food> it = this.inventory.iterator(); //creates deep copy to return to other classes
 	LinkedList<Food> invCopy = new LinkedList<Food>();
@@ -60,7 +72,13 @@ public class Inventory{
 	return invCopy;
   }
   
-//returns items that should be removed from inventory, but have not yet been removed 
+
+/**
+ * Public method that returns the linkedlist in the class of food items that are not available (ie. used 
+ * in a hamper) but have not yet been removed from the database.
+ * 
+* @return	returns a linked list of food objects that to be removed from the database
+*/
   public LinkedList<Food> getRemoveInventory(){
 	Iterator<Food> it = this.removeInventory.iterator(); //creates deep copy to return to other classes
 	LinkedList<Food> rCopy = new LinkedList<Food>();
@@ -73,18 +91,24 @@ public class Inventory{
 	return rCopy;
   }
   
-//sets inventory to be removed to a linked list
+
 /**
-* @param LinkedList<Food> r
+ * Public method that sets the inventory that should be removed from the database, 
+ * overwriting what was previously there. 
+ * 
+* @param r	linked list of food objects that to be removed from the database
 */
   public void setRemoveInventory(LinkedList<Food> r)
   { 
 	  this.removeInventory = r;
   }
-  
-//adds to the list of inventory to be removed without overwriting the previous entries
+
+
 /**
-* @param LinkedList<Food> r
+ * Public method that adds to the already existing list of inventory to be removed without
+ * overwriting the previous list. This method is primarlity used in the creation of multiple hampers.
+ * 
+* @param r  linked list of food objects that to be removed from the database
 */
   public void addRemoveInventory(LinkedList<Food> r)
   { 
@@ -94,7 +118,12 @@ public class Inventory{
     }
   }
   
-//removes items from the inventory linked list that also appear in the removeInventory list
+
+/**
+ * Public method that removes the items that appear in the removeInventory linked list
+ * from the main inventory linked list, so that the inventory linked list only contains
+ * items that are available for use in a hamper.
+ */
   public void removeInventory(){
     for (int k = 0; k < this.removeInventory.size(); k++)
     {
@@ -110,7 +139,14 @@ public class Inventory{
 	  }
   }
   
-//removes objects that are in removeInventory from database using dataaccess object
+
+/**
+ * This method removes objects that are in the removeInventory linked list
+ * from the database, using the connection established in the DataBase class.
+ * If the removal is successful, the removeInventory list is cleared.
+ * 
+ * @return 	returns true if database removal was successful
+ */
   public boolean removeDataBase(){ 
     boolean success = this.dataAccess.updateDataBase(this.removeInventory); //calls database update method and passes removeInventory
     if (success == true) //if the removal was successful
@@ -120,18 +156,35 @@ public class Inventory{
     return success;
   }
   
-//returns the caloric needs of all possible family members
+
+/**
+ * This method returns the caloric information read from the database and passes
+ * the information to other classes that require it, in order to avoid passing the
+ * DataBase object around. 
+ * 
+ * @return 	returns the caloric needs of all possible family members
+ */
   public int[][] getCalorieTable(){
     return this.calorieTable;
   }
   
-//sets the caloric needs
+
+/**
+ * This method sets the caloric information of all possible family 
+ * members that is read from the database.
+ * 
+ * @param s  integer array of the caloric needs of all possible family members
+ */
   public void setCalorieTable(int[][] s)
   {
     this.calorieTable = s;
   }
   
-//closes the database connection, called after application is completed
+
+/**
+ * This method closes the connection to the database through the DataBase object,
+ * called after the application is completed.
+ */
   public void closeDataBase()
   {
 	  this.dataAccess.close();
