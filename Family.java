@@ -19,24 +19,25 @@ Date Submitted: April 18th, 2022
  */
 package edu.ucalgary.ensf409;
 
-//public class famile which uses the interface Calculate
+//public class family which uses the interface Calculate
 public class Family implements Calculate{
-  private final Nutrition TOTAL;
-  private int[] ID;
-  private int[][] calorieData; 
+  private final Nutrition TOTAL; //Total nutritional needs of family 
+  private int[] ID; //Holds given user input
+  private int[][] calorieData; //Daily nutritional needs (originally taken from DataBase)
   
   //family constructor 
   /*
-  * @param int[] ID
-  * @param int[][] caloricInfo
+  * @param int[] ID: User inputted family 
+  * @param int[][] caloricInfo: Daily nutritional needs of adult male/female and child over/under 8
   */
   public Family(int[] ID, int[][] caloricInfo){
     this.ID = ID;
     this.calorieData = caloricInfo; 
-    this.TOTAL = calculateContent(); //same inconsistnecy as below, sorry Tina
+    this.TOTAL = calculateContent(); //Calculates total nutrition value for entire family 
   }
   
-   // public method getID which returns the ID array
+// public method getID which returns the ID array
+//@return the original user inputted array 
   public int[] getID(){
 	  return this.ID;
   }
@@ -67,12 +68,14 @@ public class Family implements Calculate{
   }
   
   //getter for TOTAL, returns a nutrition object
+//@return total nutrition object
   public Nutrition getTotal(){
     return this.TOTAL;
   }
   
   @Override
-  public Nutrition calculateContent(){ //interface method 
+
+  public Nutrition calculateContent(){ //Overrides the calculateContent method in Calculate interface 
     //using conventions g, f, p, o, c 
     int totalGrain = 0; 
     int totalProtein = 0;
