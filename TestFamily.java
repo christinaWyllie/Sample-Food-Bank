@@ -187,10 +187,10 @@ public class TestFamily{
 		int[] idQuantityArray = {1,2,1,1};
 		Family family1 = new Family(idQuantityArray, array);
 		
-		String male = family1.getID(0);
-		String female = family1.getID(1);
-		String childO8 = family1.getID(2);
-		String childU8 = family1.getID(3);
+		String male = family1.getIDAtIndex(0);
+		String female = family1.getIDAtIndex(1);
+		String childO8 = family1.getIDAtIndex(2);
+		String childU8 = family1.getIDAtIndex(3);
 		
 		String expectedMale = "1 Adult Male";
 		String expectedFemale = "2 Adult Female";
