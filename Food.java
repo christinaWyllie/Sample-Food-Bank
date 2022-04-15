@@ -30,7 +30,7 @@ package edu.ucalgary.ensf409;
 public class Food implements Calculate{
   private final String NAME;
   private final int FOODID;
-  private final Nutrition NUTRITIONALVALUEP;
+  private final Nutrition NUTRITIONALVALUE;
   private final int GRAINP;
   private final int FVP;
   private final int PROTEINP;
