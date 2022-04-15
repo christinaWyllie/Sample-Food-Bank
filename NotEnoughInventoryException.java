@@ -28,12 +28,12 @@ package edu.ucalgary.ensf409;
  * the family the hamper is being created for. 
  */
 public class NotEnoughInventoryException extends Exception{
-	public NotEnoughInventoryException(){
 	/**
 	 * This method is the custom exception that extends the exception class
 	 * that prints the message "Not enough inventory found to fulfill hamper."
 	 * when it is thrown.
 	 */
+	public NotEnoughInventoryException(){
 		super("Not enough inventory found to fulfill hamper.");
 	}
 }
