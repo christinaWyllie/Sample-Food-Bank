@@ -27,65 +27,86 @@ import java.io.*;
 import java.util.*;
 
 public class TestNutritionAndFood{
-	
-	//NUTRITION TEST
+	//NUTRITION TESTS
 	@Test
-	 //tests that nutrition and constructor return expected set values 
-    	public void testGetNutritionConstructorSinglePersonDetails() {
-   	int givenDataGrain = 400; //NO addition required for totals that are passed through
-   	int givenDataFV = 700;
+    public void testGetNutritionSinglePerson() {
+    //tests getters when only one person is given to the application 
+	//NO addition required for totals 
+    int givenDataGrain = 400;
+    int givenDataFV = 700;
 	int givenDataProtein = 650;
 	int givenDataOther = 750;
 	int givenDataCalories = 2500;
-	
-	Nutrition nutrition = new Nutrition(givenDataGrain, givenDataFV, givenDataProtein, givenDataOther, givenDataCalories); //create new nutrition object
 		
-	int actualContentGrain = nutrition.getGrain(); //uses nutriton getters
-    	int actualContentProtein = nutrition.getProtein(); //uses nutriton getters
-	int actualContentFV = nutrition.getFV(); //uses nutriton getters
-	int actualContentOther = nutrition.getOther(); //uses nutriton getters
-	int actualContentCalories = nutrition.getCalories(); //uses nutriton getters
+	int[] array = {1,0,0,0};
+	Nutrition nutrition = new Nutrition(givenDataGrain, givenDataFV, givenDataProtein, givenDataOther, givenDataCalories);
+		
+	int actualContentGrain = nutrition.getGrain();
+    int actualContentProtein = nutrition.getProtein();
+	int actualContentFV = nutrition.getFV();
+	int actualContentOther = nutrition.getOther();
+	int actualContentCalories = nutrition.getCalories();
+        
 
-   	assertEquals("Value of grains did not match what was expected: ", givenDataGrain, actualContentGrain);
+    assertEquals("Value of grains did not match what was expected: ", givenDataGrain, actualContentGrain);
 	assertEquals("Value of protein did not match what was expected: ", givenDataFV, actualContentFV);
 	assertEquals("Value of FV content did not match what was expected: ", givenDataProtein, actualContentProtein);
 	assertEquals("Value of other nutrition did not match what was expected: ", givenDataOther, actualContentOther);
 	assertEquals("Value of calories did not match what was expected: ", givenDataCalories, actualContentCalories);
-    	}
+    }
 	
 	//FOOD TEST
 	@Test
-	//tests that the food constructor creates a valid object that is not null
-	public void testFoodConstructor(){
-	   Food food1 = new Food(1, "Wheat bread, loaf", 96, 0, 4, 0, 2192);
+	public void testFoodConstructorandGetter(){
+	//tests that the food constructor creates a valid object
+	   String name1= "Wheat bread, loaf";
+	   int id = 1;
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   Food food1 = new Food(id, name1, g1, f1, p1, o1, c1);
 	   assertNotNull("Food did not create a valid object.", food1);
    	}
 			   
-	//FOOD AND NUTRITION TEST 
+	//FOOD TEST 
   	 @Test
-	//tests that the getters in food returns the expected nutrition object, and that that nutrition objects getters return the correct values
-   	public void testFoodAndNutritionGetters(){
+   	public void testFoodGetters(){
+	//tests that the getters in food returns the expected nutrition object
+	   String name1= "Granola Bar, 1 box";
 	   int expectedid = 2;
-	   Food food1 = new Food(expectedid, "Granola Bar, 1 box", 12, 12, 56, 20, 1000);
+	   int g1 = 12;
+	   int f1 = 12;
+	   int p1 = 56;
+	   int o1 = 20;
+	   int c1 = 1000;
+	   Food food1 = new Food(expectedid, name1, g1, f1, p1, o1, c1);
 	   int gval = (int)((g1/100.0) * c1);
 	   int fval = (int)((f1/100.0) * c1);
 	   int pval = (int)((p1/100.0) * c1);
 	   int oval = (int)((o1/100.0) * c1);
 	   Nutrition expected = new Nutrition(gval, fval, pval, oval, c1);
-	   Nutrition actual = food1.getNutritionalValue(); //tests nutrition getter
-	   int actualID = food1.getFoodID(); //tests foodid getter
-	   assertEquals("Value of grains did not match what was expected: ", gval, actual.getGrain()); //tests getter within nutrition
-	   assertEquals("Value of protein did not match what was expected: ", pval, actual.getProtein());//tests getter within nutrition
-	   assertEquals("Value of FV content did not match what was expected: ", fval, actual.getFV());//tests getter within nutrition
-	   assertEquals("Value of other nutrition did not match what was expected: ", oval, actual.getOther());//tests getter within nutrition
-	   assertEquals("Value of calories did not match what was expected: ", c1, actual.getCalories());//tests getter within nutrition
-	   assertEquals("Food ID does not match expected.", expectedid, actualID); //tests that id number is valid
-   	}
-	
-   	@Test
-	//tests that the Food class implements the Calculate interface
-  	 public void testFoodImplementsCalculate(){
-	   Food food1 = new Food(1, "Wheat bread, loaf", 96, 0, 4, 0, 2192);
-	   assertTrue("Food does not implement Calculate", (Calculate.class.isAssignableFrom(food1.getClass())));
+	   Nutrition actual = food1.getNutritionalValue();
+	   int actualID = food1.getFoodID();
+	    assertEquals("Value of grains did not match what was expected: ", gval, actual.getGrain());
+		assertEquals("Value of protein did not match what was expected: ", pval, actual.getProtein());
+		assertEquals("Value of FV content did not match what was expected: ", fval, actual.getFV());
+		assertEquals("Value of other nutrition did not match what was expected: ", oval, actual.getOther());
+		assertEquals("Value of calories did not match what was expected: ", c1, actual.getCalories());
+		assertEquals("Food ID does not match expected.", expectedid, actualID);
+   }
+   @Test
+   public void testFoodImplementsCalculate(){
+	//tests that the OrderForm class implements the FormatString interface
+		String name1= "Wheat bread, loaf";
+	   int id = 1;
+	   int g1 = 96;
+	   int f1 = 0;
+	   int p1 = 4;
+	   int o1 = 0;
+	   int c1 = 2192;
+	   Food food1 = new Food(id, name1, g1, f1, p1, o1, c1);
+		assertTrue("Order Form does not implement FormatOutput", (Calculate.class.isAssignableFrom(food1.getClass())));
 	}
 }
