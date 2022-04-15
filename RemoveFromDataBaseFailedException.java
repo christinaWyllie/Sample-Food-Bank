@@ -1,4 +1,4 @@
-/* 
+/**
 Group Number: 01
 Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
@@ -20,7 +20,19 @@ Date Submitted: April 18th, 2022
 
 package edu.ucalgary.ensf409;
 
+/**
+ * This class extends the default exception class to create a custom 
+ * exception that is thrown when the hamper information obtained 
+ * throughout the program is not able to be removed from the database
+ * successfully.
+ */
+ 
 public class RemoveFromDataBaseFailedException extends Exception{
+	/**
+	 * This method is the custom exception that extends the exception class
+	 * that prints the message "Unsuccessful removal from the DataBase" 
+	 * when it is thrown.
+	 */
 	public RemoveFromDataBaseFailedException(){
 		super("Unsuccessful removal from the DataBase");
 	}
