@@ -30,7 +30,7 @@ package edu.ucalgary.ensf409;
 public class Family implements Calculate{
   private final Nutrition TOTAL; //Total nutritional needs of family 
   private int[] ID; //Holds given user input
-  private int[][] calorieData; //Daily nutritional needs (originally taken from DataBase)
+  private static final int[][] CALORIEDATA; //Daily nutritional needs (originally taken from DataBase, then Inventory)
   
 
  /**
@@ -43,7 +43,7 @@ public class Family implements Calculate{
   */
   public Family(int[] ID, int[][] caloricInfo){
     this.ID = ID;
-    this.calorieData = caloricInfo; 
+    this.CALORIEDATA = caloricInfo; 
     this.TOTAL = calculateContent(); //Calculates total nutrition value for entire family 
   }
   
@@ -120,11 +120,11 @@ public class Family implements Calculate{
     while (i < 4){
       if (this.ID[index] != 0){
         
-        int c = this.calorieData[i][5];
-        int g = this.calorieData[i][1];
-        int f = this.calorieData[i][2];
-        int p = this.calorieData[i][3];
-        int o = this.calorieData[i][4];
+        int c = this.CALORIEDATA[i][5];
+        int g = this.CALORIEDATA[i][1];
+        int f = this.CALORIEDATA[i][2];
+        int p = this.CALORIEDATA[i][3];
+        int o = this.CALORIEDATA[i][4];
       
       // to calculate the total contents. 
 	  // the code adds to the existing total contents for each category
