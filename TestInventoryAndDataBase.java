@@ -27,7 +27,8 @@ import java.io.*;
 import java.util.*;
 
 /*
-Disclaimer: These tests test removal from the database as well as inventory since the two classes are interconnected. 
+*****************************************************READ ME**************************************************************
+These tests test removal from the database as well as inventory since the two classes are interconnected. 
 The values in the tests that pertain to the database are valid in the test database, and thus are able to be removed.
 If the database that the tests are connected to is changed, these test values would also need to be changed to reflect 
 that. Since the tests remove from the database, if the tests are successful the first time they are run, the database
