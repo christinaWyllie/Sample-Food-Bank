@@ -80,7 +80,6 @@ public class Application{
 	order.removeFromDataBase();
 		
 	}
-  }
   
   /**
    * This method returns an integer array of user given input that was specified
