@@ -67,6 +67,15 @@ Compilation Instructions (Windows System):
 					javac -cp .lib;junit-4.13.2.jar;hamcrest-core-1.3.jar;.;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/Insert_Specified_Test_File.java
 					java -cp .lib;junit-4.13.2.jar:hamcrest-core-1.3.jar;.;lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Insert_Specified_Test_File
 			
+Compilation Instructions (Mac System):
+			Program Complilation:
+					javac -cp .:lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/*.java
+					java -cp .:lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/GUIFinalProject  
+			Junit Compilation:
+					javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar:.:lib/mysql-connector-java-8.0.23.jar 		edu/ucalgary/ensf409/Insert_Specified_Test_File.java
+					java -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar:.:lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Insert_Specified_Test_File
+
+
 
 
 
