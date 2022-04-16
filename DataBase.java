@@ -189,10 +189,7 @@ public class DataBase{
             return false;
           } 
       }
-      if (success == true)
-      {
-        removeInventory(); //clears the inventory structure stored within database
-      }
+     
 		  
       return success;
     }
