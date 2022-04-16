@@ -159,7 +159,14 @@ public class HamperNutrition {
    * This method creates the best possible hamper for the given caloric needs
    * that hits the minimum needs per category, while reducing overage by iterating
    * through the available inventory to select the best possible combination to 
-   * put in the hamper.
+   * put in the hamper. It selects the largest food item that is under the nutritional 
+   * requirements of the nutrition variable and then calls calculateContent to update 
+   * nutrtional needs and repeats until it can no longer select food items that are below
+   * the nutrtional need remaining. It then chooses the smallest item that goes above the
+   * remaining nutrtional needs to make sure nutritional needs are met. It calls removeExtraFromHamper
+   * to remove any extra food if possible. It then calls checkInventory() to make sure
+   * nutrtional needs are met and if not throws NotEnoughInventoryException. It then adds
+   * the food in the hamper to a method that will remove it from the data base. 
    */
   public void createBestHamper() throws NotEnoughInventoryException
   {
