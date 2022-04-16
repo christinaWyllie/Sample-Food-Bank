@@ -56,10 +56,11 @@ public class TestHamperNutrition
 	}
 	
 	@Test 
+	// test the HamperNutrition constructor to assert that the object created is no null
 	public void testHamperNutritionConstructor() 
 	{      
-		helpCreateInventory();
-		Nutrition n = new Nutrition(120, 140, 70, 130, 460);
+		helpCreateInventory(); //call to helper method
+		Nutrition n = new Nutrition(120, 140, 70, 130, 460); //create a nutrition object
 		HamperNutrition hamp = new HamperNutrition(n, inventory);
 		
 		assertNotNull("HamperNutrition constructor did not create an object when given a nutrition object:", hamp);
@@ -68,6 +69,7 @@ public class TestHamperNutrition
 	}
 			   
 	@Test
+	// test setters and getters for HamperNutrition
 	public void testHamperGetterAndSetters()
 	{
 		//Tests getHamper, addToHamper with one food item
