@@ -280,9 +280,9 @@ public class HamperNutrition {
 		hamper.add(bestOther);
 		food.remove(bestOther);
 	}
-	
-	checkInventory();
 	removeExtraFromHamper();
+	checkInventory();
+	
 	inventory.addRemoveInventory(hamper);
 	
   }
