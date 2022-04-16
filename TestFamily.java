@@ -14,7 +14,7 @@ Date Submitted: April 18th, 2022
 	christina.wyllie@ucalgary.ca</a>
 @author Maitry Rohit <a href="mailto:maitry.rohit@ucalgary.ca">
 	maitry.rohitAucalgary.ca</a>
-@version 1.3
+@version 1.7
 @since 1.0
  */
  
@@ -48,14 +48,15 @@ public class TestFamily{
 		array[1][5] = 2500;
 		// set the id array to one adult male and one adult female
 		int[] idQuantityArray = {1,1,0,0};
-		boolean exceptionThrown = false;
+		Family family1 = null;
 		try{
-			Family family1 = new Family(idQuantityArray, array);
+			family1 = new Family(idQuantityArray, array);
 		}
 		catch(IllegalArgumentException e){
-			exceptionThrown = true; 
+			System.out.println("Unexpected error thrown while running testFamilyConstructorValidInput");
+			System.exit(1);
 		}
-		assertFalse("Family constructor threw an exception when provided a valid input.", exceptionThrown);
+		assertNotNull("Family constructor does not create a valid object", family1);
 		//assert that no exception was thrown when provided valid input
 	}
 	
@@ -273,5 +274,15 @@ public class TestFamily{
 		assertEquals("Unexpected value for total protein", totalP, actualP);
 		assertEquals("Unexpected value for total calories", totalC, actualC);
 		
+	}
+	
+	@Test
+	public void testFamilyImplementsCalculate(){
+	//tests that the Family class implements the calculateContent method in interface Calculate
+		int[] id = {1,0,0,0};
+		int[][] cals = {{1,25,25,25,25, 2500}};
+		Family fam = new Family(id, cals);
+		
+		assertTrue("Family does not implement Calculate", (Calculate.class.isAssignableFrom(fam.getClass())));
 	}
 }
