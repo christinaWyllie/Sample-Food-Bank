@@ -137,3 +137,4 @@ public class OrderForm implements FormatOutput{
 		return builder.substring(0, builder.length()-2).toString();
 	}
 }
+
