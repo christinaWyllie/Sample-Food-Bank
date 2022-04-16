@@ -31,7 +31,12 @@ public class TestHamperNutrition
 	
 	Inventory inventory;
 	LinkedList<Food> food;
-
+	
+	/*
+	* Test that not enough inventory exception is thrown when there is not enough inventory to create a hamper
+	* with the proper nutritional content. Uses setInventory(), createBestHamper(), checkInventory().
+	*/
+	
 	@Test
 	public void testCheckInventoryNotEnoughInventory() 	
 	{
@@ -52,24 +57,30 @@ public class TestHamperNutrition
 		{
 			correctException = true;
 		}
-		assertTrue("NotEnoughInventory excpetion was not thrown when there is not enough inventory to create a hamper.", correctException);
+		assertTrue("NotEnoughInventory exception was not thrown when there is not enough inventory to create a hamper.", correctException);
 	}
 	
+	/*
+	* Test that HamperNutrition constructor is created and is not null. Test that LinkedList is initialized and is not null.
+	*/
+	
 	@Test 
-	// test the HamperNutrition constructor to assert that the object created is no null
 	public void testHamperNutritionConstructor() 
 	{      
-		helpCreateInventory(); //call to helper method
-		Nutrition n = new Nutrition(120, 140, 70, 130, 460); //create a nutrition object
+		helpCreateInventory();
+		Nutrition n = new Nutrition(120, 140, 70, 130, 460);
 		HamperNutrition hamp = new HamperNutrition(n, inventory);
 		
 		assertNotNull("HamperNutrition constructor did not create an object when given a nutrition object:", hamp);
 		//Initialize hamper linked list in constructor and should be not null;
 		assertNotNull("Hamper LinkedList was null:", hamp.getHamper());
 	}
-			   
+	
+	/*
+	* Test that getters and setters of HamperNutrtion. 
+	*/
+	
 	@Test
-	// test setters and getters for HamperNutrition
 	public void testHamperGetterAndSetters()
 	{
 		//Tests getHamper, addToHamper with one food item
@@ -91,7 +102,10 @@ public class TestHamperNutrition
 			assertEquals("Method getHamper did not return the expected hamper:", iter.next().getName(), it.next().getName());
 		}
 	}
-
+	
+	/*
+	* Test that when possible, createBestHamper() choose an item that matches the exact nutritional needs.
+	*/
 	@Test
 	public void testCreateBestHamperChoosesBestExactItem()
 	{
@@ -126,7 +140,10 @@ public class TestHamperNutrition
 		catch(NotEnoughInventoryException e){}
 		assertTrue("NotEnoughInventoryException was thrown", testPassed);
 	}
-			   
+	
+	/*
+	* Test that createBestHamper() chooses best nutritional object that meets the client needs.
+	*/
 	@Test
 	public void testCreateBestHamperChoosesBestApproxItem()
 	{
@@ -162,6 +179,12 @@ public class TestHamperNutrition
 		assertTrue("NotEnoughInventoryException was thrown", testPassed);
 	}
 
+	/*
+	* Test that when more than one hamper is created and both have the same nutritional needs, two different hampers that both meet the nutritional needs 
+	* of the client are created. Check that the objects that are in the first client hamper are deleted from the inventory and that those exact same objects
+	* do not appear in the second hamper. Check that the objects in the second hamper are also removed from the total inventory. 
+	*/
+	
 	@Test
 	public void testCreateBestHamperCreatesManyHampersWhenNutritionSame()
 	{
@@ -226,6 +249,9 @@ public class TestHamperNutrition
 		assertTrue("Best hamper was not created or NotEnoughInventoryException was thrown", testPassed);
 	}
 	
+	/*
+	* Test that food that is in the hamper is removed from the inventory.
+	*/
 	@Test
 	public void testInventoryRemoved()
 	{
@@ -252,6 +278,11 @@ public class TestHamperNutrition
 		catch(NotEnoughInventoryException e){}
 		assertTrue("NotEnoughInventoryException was thrown", testPassed);
 	}
+	
+	/*
+	* Test calculateContent() calculates the nutritional value of the hamper and returns an int[] containing the nutritional content still needed to fulfill 
+	* the hamper.
+	*/
 	
 	@Test
 	public void testCalcualteContent()
