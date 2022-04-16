@@ -196,19 +196,6 @@ public class DataBase{
 		  
       return success;
     }
-	
-	
-
-    /**
-     * This method clears the linked list stored in the structure and rereads from 
-     * the database after the deletion to ensure that the most updated version of the
-     * database is used.
-     */
-    private void removeInventory() 
-    {
-      this.inventory.clear();
-      getInventoryData(); //inv stored in this structure now should match whats in inventory class structure
-    }
     
  
   /**
