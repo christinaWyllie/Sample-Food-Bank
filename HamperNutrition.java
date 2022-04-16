@@ -4,7 +4,7 @@ Student Name: Sanika Shendye, Sobia Khan, Christina Wyllie, Maitry Rohit
 Student ID: 30114344, 30115574, 30113679, 30117194
 Email: sanika.shendye@ucalgary.ca, sobia.khan1@ucalgary.ca, christina.wyllie@ucalgary.ca, maitry.rohit@ucalgary.ca
 Course: ENSF409
-Final Project: FormatOutput.java
+Final Project: HamperNutrition.java
 Date Submitted: April 18th, 2022
 @author Sanika Shendye <a href="mailto:sanika.shendye@ucalgary.ca">
 	sanika.shendye@ucalgary.ca</a>
