@@ -82,7 +82,7 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
 	
 	public void setupGUI(){
         
-        instructions = new JLabel("Please enter your family information to generate a hamper. If you wish to add another family to your application click the button below or exit by pressing X in the top right corner.");
+        instructions = new JLabel("Please enter your family information. To add another family click the \"Add Another Family Unit\" button below or submit the application by clicking \"Submit Application\".");
         aMLabel = new JLabel("How many Adult Males? ");
         aFLabel = new JLabel("How many Adult Females? ");
         cO8Label = new JLabel("How many Children Over 8?");
