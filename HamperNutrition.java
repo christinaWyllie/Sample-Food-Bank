@@ -142,12 +142,17 @@ public class HamperNutrition {
    */
   public void checkInventory() throws NotEnoughInventoryException
   {
-    	int[] content = calculateContent();
+		int[] content = calculateContent();
 	
-	if(content[0] > 0 || content[1] > 0 || content[2] > 0 || content[3] > 0 || content[4] > 0)
-		throw new NotEnoughInventoryException();
-	
-	return;
+		if(content[0] > 0)
+			throw new NotEnoughInventoryException("grains");
+		else if(content[1] > 0)
+			throw new NotEnoughInventoryException("proteins");
+		else if(content[2] > 0)
+			throw new NotEnoughInventoryException("fruits and vegetables");
+		else if(content[3] > 0)
+			throw new NotEnoughInventoryException("others");
+		return;
   } 
   
   /**
