@@ -70,7 +70,6 @@ public class OrderForm implements FormatOutput{
 			}
 		}catch(IOException e){
 			e.printStackTrace();
-			System.exit(1);
 		}
 	} 
   
@@ -82,6 +81,9 @@ public class OrderForm implements FormatOutput{
    * @throws IOException	thrown if the FileWriter object is unable to write to the text file
    */
 	public void print(String file)throws IOException{
+		if(!file.contains(".txt")){
+			throw new IOException();
+		}
 		int n = this.numHampers;
 		FileWriter write = null;
 		try{
@@ -113,7 +115,6 @@ public class OrderForm implements FormatOutput{
 			
 		}catch(IOException e){
 			e.printStackTrace();
-			System.exit(1);
 		}
 	} 
 	
@@ -137,4 +138,3 @@ public class OrderForm implements FormatOutput{
 		return builder.substring(0, builder.length()-2).toString();
 	}
 }
-
