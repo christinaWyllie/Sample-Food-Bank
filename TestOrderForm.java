@@ -36,7 +36,9 @@ public class TestOrderForm{
 	private Application app = null;
 	private int numHampers;
 	
-	
+	/*
+	* test print method in OrderForm to make sure the expected output and the output written to the text file match
+	*/
 	@Test
 	public void testPrint(){
 		StringBuilder build = new StringBuilder();
@@ -85,6 +87,9 @@ public class TestOrderForm{
 	}
 	
 	//ORDERFORM TEST 
+	/*
+	* test the OrderForm constructor to see if it successfully creates an object and that it is not null
+	*/
 	@Test
 	public void testOrderFormConstructor(){
 		int[] id = {1,0,0,0};
@@ -106,7 +111,9 @@ public class TestOrderForm{
 		
 	}
 	
-	
+	/*
+	* test print to make sure it throws an IOException when provided invalid input to the method
+	*/
 	@Test
 	public void testIOException(){
 		createFoodHamperFamilyObjects();
@@ -124,7 +131,9 @@ public class TestOrderForm{
 
         assertTrue("IOException successfully thrown from print", exceptionThrown);
     }
-	
+	/*
+	* test removeFromDataBase to make sure it throws an when it cannot remove from database ( when the food is already taken out)
+	*/
 	@Test
 	public void testRemoveFromDataBaseFailedException(){
 		createFoodHamperFamilyObjects();
@@ -138,9 +147,13 @@ public class TestOrderForm{
 		assertTrue("Error thrown, successfully threw RemoveFromDataBaseFailedException when unable to remove an item", exception);
 	}
 	
+	/*
+	* test to make sure that OrderForm implements FormatOutput
+	*/
 	@Test
 	public void testOrderImplementsFormatOutput(){
 	//tests that the OrderForm class implements the FormatString interface
+		//create objects to be sent to OrderForm constructor
 		int[] id = {1,0,0,0};
 		int[][] cals = {{1,25,25,25,25, 2500}};
 		Family fam = new Family(id, cals);
