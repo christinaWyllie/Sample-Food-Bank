@@ -115,7 +115,9 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
         this.add(clientPanel, BorderLayout.CENTER);
         this.add(submitPanel, BorderLayout.PAGE_END);
     }
-	
+	/*
+	* @param ActionEvent event
+	*/
 	 public void actionPerformed(ActionEvent event){
 		boolean valid = validateInput();
 		if(valid){
@@ -216,7 +218,7 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
         
     }
 
-    
+    // private method which checks the input for each box
     private boolean validateInput(){
         
         boolean allInputValid = true;
@@ -244,7 +246,10 @@ public class GUIFinalProject extends JFrame implements ActionListener, MouseList
         return allInputValid;
         
     }
-	
+	/*
+	* @param String intput
+	*/
+	// isNumeric method to assert that the input for each box is a valid number
 	public boolean isNumeric(String input) {
 		boolean result = true;
 		try {
