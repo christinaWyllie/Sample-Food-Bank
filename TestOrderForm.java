@@ -116,13 +116,27 @@ public class TestOrderForm{
 			OrderForm order = new OrderForm(family, inventory, hamper, numHampers);
 			
 			String file = "orderForm";
+			order.print(file);
 		}
-        catch(Exception e) {
+        catch(IOException e) {
             exceptionThrown = true;
         }
 
-        assertFalse("Error thrown from print", exceptionThrown);
+        assertTrue("Error thrown from print", exceptionThrown);
     }
+	
+	@Test
+	public void testRemoveFromDataBaseFailedException(){
+		createFoodHamperFamilyObjects();
+		boolean exception = false;
+		OrderForm order = new OrderForm(family, inventory, hamper, numHampers);
+		try{
+			order.removeFromDataBase();
+		}catch(RemoveFromDataBaseFailedException e){
+			exception = true;
+		}
+		assertTrue("Error thrown from print", exception);
+	}
 	
 	@Test
 	public void testOrderImplementsFormatOutput(){
