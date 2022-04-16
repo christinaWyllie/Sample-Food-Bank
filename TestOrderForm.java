@@ -107,7 +107,7 @@ public class TestOrderForm{
 		
 			form = new OrderForm(f, i, h, f.size());
 		
-			assertNotNull("Order form did not create a valid object", form); //assert the constructor successfully made the object
+			assertNotNull("Order form does not create a valid object", form); //assert the constructor successfully made the object
 		
 	}
 	
