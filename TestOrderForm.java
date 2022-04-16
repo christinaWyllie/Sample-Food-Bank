@@ -33,7 +33,7 @@ public class TestOrderForm{
 	private ArrayList<Family> family; //private variables used in each test, set in the method createFoodHamperFamilyObjects()
 	private Inventory inventory;
 	private ArrayList<HamperNutrition> hamper;
-	private Application app;
+	private Application app = null;
 	private int numHampers;
 	
 	
@@ -74,7 +74,7 @@ public class TestOrderForm{
 			}
 		}
 		catch(Exception e){
-				System.out.println("Error running ");
+				System.out.println("Error encountered while running tests");
 				e.printStackTrace();
 		}
 		String expected = build.toString();
@@ -122,7 +122,7 @@ public class TestOrderForm{
             exceptionThrown = true;
         }
 
-        assertTrue("Error thrown from print", exceptionThrown);
+        assertTrue("IOException successfully thrown from print", exceptionThrown);
     }
 	
 	@Test
@@ -135,7 +135,7 @@ public class TestOrderForm{
 		}catch(RemoveFromDataBaseFailedException e){
 			exception = true;
 		}
-		assertTrue("Error thrown from print", exception);
+		assertTrue("Error thrown, successfully threw RemoveFromDataBaseFailedException when unable to remove an item", exception);
 	}
 	
 	@Test
@@ -169,9 +169,11 @@ public class TestOrderForm{
 		int[] fam = {1,1,0,0};
 		var.add(fam);
 		try{
-			this.app = new Application(var);
+			if(this.app == null){
+				this.app = new Application(var);
+			}
 		}catch(Exception e){
-				System.out.println("Error running ");
+				System.out.println("Unexpecred error while running tests");
 				e.printStackTrace();
 		}
 		//retrieve the hamper information made after the call to application
