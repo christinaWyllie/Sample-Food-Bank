@@ -42,11 +42,7 @@ public class Application{
 	
   //private int[][] calorieInfo = {{1,30,20,40,10,2500}, {2,20,40,10,30,2500}, {3,21,33,31,15,2200}, {4,21,33,21,15,1400}};
   
-	/**
-	 * Empty constructor that can be called to initialize values, without passing in
-	 * an arraylist of families.
-	 */
-  public Application() {} //Empty constructor 
+	
 	
 /**
  * This method is the primary Application Constructor that is used to create the hampers and order
@@ -76,7 +72,7 @@ public class Application{
 		i++;
 		
 	}
-	this.order = new OrderForm(families, inventory, hamper, numHamper); //Creates OrderForm object in order to print all families with their respective hampers
+	OrderForm order = new OrderForm(families, inventory, hamper, numHamper); //Creates OrderForm object in order to print all families with their respective hampers
 	try{
 		order.removeFromDataBase();
 	}catch(RemoveFromDataBaseFailedException e){
@@ -147,5 +143,6 @@ public class Application{
  */
   public Inventory getInventory() {return this.inventory;}
 }
+ 
  
 
