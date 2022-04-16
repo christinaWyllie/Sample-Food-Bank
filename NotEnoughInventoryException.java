@@ -33,7 +33,7 @@ public class NotEnoughInventoryException extends Exception{
 	 * that prints the message "Not enough inventory found to fulfill hamper."
 	 * when it is thrown.
 	 */
-	public NotEnoughInventoryException(){
-		super("Not enough inventory found to fulfill hamper.");
+	public NotEnoughInventoryException(String word){
+		super("Not enough inventory found to fulfill hamper. Please purcahse more " + word + ".");
 	}
 }
