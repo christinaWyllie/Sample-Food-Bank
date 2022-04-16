@@ -32,6 +32,8 @@ public class NotEnoughInventoryException extends Exception{
 	 * This method is the custom exception that extends the exception class
 	 * that prints the message "Not enough inventory found to fulfill hamper."
 	 * when it is thrown.
+	 *
+	 *@param word 	word describes the category that the inventory is missing, to provide the user with a useful error message
 	 */
 	public NotEnoughInventoryException(String word){
 		super("Not enough inventory found to fulfill hamper. Please purchase more " + word + ".");
