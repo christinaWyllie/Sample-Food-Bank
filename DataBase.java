@@ -102,7 +102,7 @@ public class DataBase{
      * by iterating through each entry and calling the Food class 
      * constructor per entry.
      */
-    public void getInventoryData(){
+    private void getInventoryData(){
       try{
       Statement myStmt = this.dbConnect.createStatement();
       String query = "SELECT * FROM AVAILABLE_FOOD";
