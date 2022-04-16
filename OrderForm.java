@@ -81,7 +81,7 @@ public class OrderForm implements FormatOutput{
    * @throws IOException	thrown if the FileWriter object is unable to write to the text file
    */
 	public void print(String file)throws IOException{
-		if(!file.contains(".txt")){
+		if(!file.contains(".txt")){ //check if the input is valid, i.e. contains .txt at the end
 			throw new IOException();
 		}
 		int n = this.numHampers;
