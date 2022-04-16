@@ -19,7 +19,11 @@ Date Submitted: April 18th, 2022
  */
  // javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar edu/ucalgary/ensf409/TestFamily.java
  // java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.TestFamily
- 
+ /*
+	**************************************** READ ME ************************************************
+	OrderForm utilizes the entire program meaning it requires all classes to work along with the DataBase
+		- Because of this, DataBase .sql file must be reset after every run of the TestOrderForm
+ */
 
 package edu.ucalgary.ensf409;
 
