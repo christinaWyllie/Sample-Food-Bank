@@ -33,8 +33,8 @@ they gave and their respective hamper.
 
 Contained Java Files: 
 	Class Files:
- 			GUIFinalProject.java
-			Application.java
+ 		GUIFinalProject.java
+		Application.java
   		HamperNutrition.java
   		Family.java
   		Nutrition.java
@@ -44,10 +44,10 @@ Contained Java Files:
   		DataBase.java
 	Interface Files:
   		Calculate.java 
-			FormatString.java
+		FormatString.java
 	Junit Test Files:
-			TestApplication.java
-			TestHamperNutrition.java
+		TestApplication.java
+		TestHamperNutrition.java
   		TestFamily.java
   		TestNutrition.java
   		TestOrderForm.java
@@ -55,25 +55,25 @@ Contained Java Files:
   		TestFood.java
   		TestDataBase.java
 	User Created Exception Files:
-			NotEnoughInventoryException.java
-			RemoveFromDataBaseFailedException.java
+		NotEnoughInventoryException.java
+		RemoveFromDataBaseFailedException.java
 			
 			
 Compilation Instructions (Windows System):
-			Program Compilation:
-					javac -cp .;lib/mysql-connector-java-8.0.23.jar edu\ucalgary\ensf409\*.java 
-					java -cp .;lib/mysql-connector-java-8.0.23.jar edu.ucalgary.ensf409.GUIFinalProject   
-			Junit Compilation:
-					javac -cp .lib;junit-4.13.2.jar;hamcrest-core-1.3.jar;.;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/Insert_Specified_Test_File.java
-					java -cp .lib;junit-4.13.2.jar:hamcrest-core-1.3.jar;.;lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Insert_Specified_Test_File
+	Program Compilation:
+		javac -cp .;lib/mysql-connector-java-8.0.23.jar edu\ucalgary\ensf409\*.java 
+		java -cp .;lib/mysql-connector-java-8.0.23.jar edu.ucalgary.ensf409.GUIFinalProject   
+	Junit Compilation:
+		javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;.;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/*.java
+		java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;.;lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Insert_Specified_Test_File
 			
 Compilation Instructions (Mac System):
-			Program Complilation:
-					javac -cp .:lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/*.java
-					java -cp .:lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/GUIFinalProject  
-			Junit Compilation:
-					javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar:.:lib/mysql-connector-java-8.0.23.jar 		edu/ucalgary/ensf409/Insert_Specified_Test_File.java
-					java -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar:.:lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Insert_Specified_Test_File
+	Program Complilation:
+		javac -cp .:lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/*.java
+		java -cp .:lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/GUIFinalProject  
+	Junit Compilation:
+		javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar:.:lib/mysql-connector-java-8.0.23.jar 		edu/ucalgary/ensf409/Insert_Specified_Test_File.java
+		java -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar:.:lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Insert_Specified_Test_File
 
 
 
