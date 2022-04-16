@@ -110,7 +110,7 @@ public class TestApplication{
 	
 	//APPLICATION TEST 
 	@Test
-    public void testHamperNutritionAndFamilyNutritionMultiple() {
+    public void testHamperNutritionAndFamilyNutritionWithMultipleHampers() {
 		//Multiple hampers are added from GUI input through application constructor which adds to ArrayList<HamperNutrition> in application class
 		//testing size of ArrayList<HamperNutrition>
 		//Multiple families are added from GUI input through application constructor which adds to ArrayList<Family> in application class
@@ -173,25 +173,10 @@ public class TestApplication{
 		assertTrue("NotEnoughInventoryException was not thrown from application when it should have been.", exception);
 	}
 	
-	@Test
-	public void testRemoveFromDataBaseFailedException() {
-		int[] givenData = {0,0,2,1}; //Will make a hamper but will not have be able to remove from database
-		ArrayList<int[]> array = new ArrayList<int[]>();
-		array.add(givenData); 
-		boolean exception = false;
-		
-		try{
-			Application fails = new Application(array);
-		}
-		
-		catch(NotEnoughInventoryException e) {
-			exception = false;	
-		}
-		catch(RemoveFromDataBaseFailedException e) {
-			exception = true; 
-		}		 
-
-		assertTrue("RemoveFromDataBaseFailedException was not thrown from application when it should have been.", exception);
-	}
+	/*RemoveFromDataBaseFailedException not tested as it is thrown in OrderForm and is an exception that has to do more with DataBase than user input causing it to be thrown
+		- Because Application also does not have an OrderForm object there is no way to access it
+		- Application as stated before does a full run through of the program there is no way to cause an interruption during orderForm
+		- It is likely that NotEnoughInventoryException will be thrown before DataBase can even be accesssed, this is because of user input containing too many indivuals 
+	*/
 }
 	
